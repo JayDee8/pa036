@@ -64,8 +64,7 @@ namespace bcpp.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.user = db.uzivatel;
-            return View();
+            return View(new MyRegistrationModel());
         }
 
         //
@@ -74,33 +73,23 @@ namespace bcpp.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(Tuple<RegisterModel,uzivatel,adresa> model)
+        public ActionResult Register(MyRegistrationModel model)
         {
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.Item1.UserName, model.Item1.Password);
-                    Roles.AddUserToRole(model.Item1.UserName, "user");
-                    WebSecurity.Login(model.Item1.UserName, model.Item1.Password);
-
-                    adresa ad = new adresa();
-                    ad.email = model.Item3.email;
-                    ad.mesto = model.Item3.mesto;
-                    ad.PSC = model.Item3.PSC;
-                    ad.telefon = model.Item3.telefon;
-                    ad.ulice = model.Item3.ulice;
-
-                    db.AddToadresa(ad);
-
-                    uzivatel u = new uzivatel();
-                    u.jmeno = model.Item2.jmeno;
-                    u.prijmeni = model.Item2.prijmeni;
-
-                    db.AddTouzivatel(u);
-
-
+                    WebSecurity.CreateUserAndAccount(model.regModel.UserName, model.regModel.Password);
+                    Roles.AddUserToRole(model.regModel.UserName, "user");
+                    WebSecurity.Login(model.regModel.UserName, model.regModel.Password);
+                    
+                    db.AddToadresa(model.adModel);
+                    db.SaveChanges();
+                    model.uzModel.uzivatel_id = WebSecurity.GetUserId(model.regModel.UserName);
+                    model.uzModel.adresa_id = model.adModel.adresa_id;
+                    db.AddTouzivatel(model.uzModel);
+                    db.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)

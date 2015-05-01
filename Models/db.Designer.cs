@@ -15,6 +15,8 @@ using System.Data.Objects.DataClasses;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -371,6 +373,7 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        [Required]
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String mesto
@@ -395,6 +398,7 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        [Required]
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String ulice
@@ -419,6 +423,7 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        [Required]
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String PSC
@@ -443,6 +448,7 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        [Required]
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String telefon
@@ -467,6 +473,7 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        [Required]
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String email
@@ -1875,6 +1882,7 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        [Required]
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String jmeno
@@ -1899,6 +1907,7 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        [Required]
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String prijmeni

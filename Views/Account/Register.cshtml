@@ -1,7 +1,9 @@
-﻿@model Tuple<bcpp.Models.RegisterModel,bcpp.Models.uzivatel,bcpp.Models.adresa>
+﻿@model bcpp.Models.MyRegistrationModel
 @{
     ViewBag.Title = "Register";
 }
+@using TwitterBootstrap2
+@using TwitterBootstrapMVC
 
 <hgroup class="title">
     <h1>@ViewBag.Title.</h1>
@@ -12,39 +14,26 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
 
+     
+    
     <fieldset>
         <legend>Registration Form</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.Item1.UserName)
-                @Html.TextBoxFor(m => m.Item1.UserName)
-            </li>
-            <li>s
-                @Html.LabelFor(m => m.Item1.Password)
-                @Html.PasswordFor(m => m.Item1.Password)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Item1.ConfirmPassword)
-                @Html.PasswordFor(m => m.Item1.ConfirmPassword)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Item2.jmeno)
-                @Html.TextBoxFor(m => m.Item2.jmeno)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Item2.prijmeni)
-                @Html.TextBoxFor(m => m.Item2.prijmeni)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Item3.mesto)
-                @Html.TextBoxFor(m => m.Item3.mesto)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Item3.ulice)
-                @Html.TextBoxFor(m => m.Item3.ulice)
-            </li>
-        </ol>
-        <input type="submit" value="Register" />
+        @using (var f = Html.Bootstrap().Begin(new Form().Type(FormType.Horizontal)))
+        {
+            @f.ControlGroup().TextBoxFor(m => m.regModel.UserName)
+            @f.ControlGroup().PasswordFor(m => m.regModel.Password)
+            @f.ControlGroup().PasswordFor(m => m.regModel.ConfirmPassword)
+            @f.ControlGroup().TextBoxFor(m => m.uzModel.jmeno)
+            @f.ControlGroup().TextBoxFor(m => m.uzModel.prijmeni)
+            @f.ControlGroup().TextBoxFor(m => m.adModel.ulice)
+            @f.ControlGroup().TextBoxFor(m => m.adModel.mesto)
+            @f.ControlGroup().TextBoxFor(m => m.adModel.PSC)
+            @f.ControlGroup().TextBoxFor(m => m.adModel.telefon)
+            @f.ControlGroup().TextBoxFor(m => m.adModel.email)
+            
+            @f.ControlGroup().CustomControls(Html.Bootstrap().SubmitButton())
+        }
+
     </fieldset>
 }
 

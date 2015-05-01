@@ -88,4 +88,11 @@ namespace bcpp.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+
+    public class MyRegistrationModel
+    {
+        public RegisterModel regModel { get; set; }
+        public uzivatel uzModel { get; set; }
+        public adresa adModel { get; set; }
+    }
 }
