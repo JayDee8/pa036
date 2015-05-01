@@ -19,14 +19,14 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("bcpp_dbModel", "FK_firma_adresa", "adresa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.adresa), "firma", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.firma), true)]
-[assembly: EdmRelationshipAttribute("bcpp_dbModel", "FK_uzivatel_adresa", "adresa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.adresa), "uzivatel", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.uzivatel), true)]
-[assembly: EdmRelationshipAttribute("bcpp_dbModel", "FK_historie_akcie_akcie", "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.akcie), "historie_akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.historie_akcie), true)]
-[assembly: EdmRelationshipAttribute("bcpp_dbModel", "FK_portfolio_akcie", "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.akcie), "portfolio", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.portfolio), true)]
-[assembly: EdmRelationshipAttribute("bcpp_dbModel", "FK_historie_poukazek_pokl_poukazky", "pokl_poukazky", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.pokl_poukazky), "historie_poukazek", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bcpp.Models.historie_poukazek), true)]
-[assembly: EdmRelationshipAttribute("bcpp_dbModel", "FK_portfolio_uzivatel", "uzivatel", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.uzivatel), "portfolio", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.portfolio), true)]
-[assembly: EdmRelationshipAttribute("bcpp_dbModel", "FK_uzivatel_users", "UserProfile", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.UserProfile), "uzivatel", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bcpp.Models.uzivatel), true)]
-[assembly: EdmRelationshipAttribute("bcpp_dbModel", "sledovane", "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.akcie), "uzivatel", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.uzivatel))]
+[assembly: EdmRelationshipAttribute("dbModel", "FK_firma_adresa", "adresa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.adresa), "firma", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.firma), true)]
+[assembly: EdmRelationshipAttribute("dbModel", "FK_uzivatel_adresa", "adresa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.adresa), "uzivatel", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.uzivatel), true)]
+[assembly: EdmRelationshipAttribute("dbModel", "FK_akcie_firma", "firma", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.firma), "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.akcie), true)]
+[assembly: EdmRelationshipAttribute("dbModel", "FK_historie_akcie_akcie", "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.akcie), "historie_akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.historie_akcie), true)]
+[assembly: EdmRelationshipAttribute("dbModel", "FK_portfolio_akcie", "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.akcie), "portfolio", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.portfolio), true)]
+[assembly: EdmRelationshipAttribute("dbModel", "FK_historie_poukazek_pokl_poukazky", "pokl_poukazky", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.pokl_poukazky), "historie_poukazek", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bcpp.Models.historie_poukazek), true)]
+[assembly: EdmRelationshipAttribute("dbModel", "FK_portfolio_uzivatel", "uzivatel", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.uzivatel), "portfolio", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.portfolio), true)]
+[assembly: EdmRelationshipAttribute("dbModel", "sledovane", "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.akcie), "uzivatel", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.uzivatel))]
 
 #endregion
 
@@ -37,32 +37,32 @@ namespace bcpp.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    public partial class Entities : ObjectContext
+    public partial class dbEntities : ObjectContext
     {
         #region Constructors
     
         /// <summary>
-        /// Initializes a new Entities object using the connection string found in the 'Entities' section of the application configuration file.
+        /// Initializes a new dbEntities object using the connection string found in the 'dbEntities' section of the application configuration file.
         /// </summary>
-        public Entities() : base("name=Entities", "Entities")
+        public dbEntities() : base("name=dbEntities", "dbEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new Entities object.
+        /// Initialize a new dbEntities object.
         /// </summary>
-        public Entities(string connectionString) : base(connectionString, "Entities")
+        public dbEntities(string connectionString) : base(connectionString, "dbEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new Entities object.
+        /// Initialize a new dbEntities object.
         /// </summary>
-        public Entities(EntityConnection connection) : base(connection, "Entities")
+        public dbEntities(EntityConnection connection) : base(connection, "dbEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
@@ -209,22 +209,6 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<UserProfile> UserProfile
-        {
-            get
-            {
-                if ((_UserProfile == null))
-                {
-                    _UserProfile = base.CreateObjectSet<UserProfile>("UserProfile");
-                }
-                return _UserProfile;
-            }
-        }
-        private ObjectSet<UserProfile> _UserProfile;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<uzivatel> uzivatel
         {
             get
@@ -307,14 +291,6 @@ namespace bcpp.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the UserProfile EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToUserProfile(UserProfile userProfile)
-        {
-            base.AddObject("UserProfile", userProfile);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the uzivatel EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddTouzivatel(uzivatel uzivatel)
@@ -333,7 +309,7 @@ namespace bcpp.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="bcpp_dbModel", Name="adresa")]
+    [EdmEntityTypeAttribute(NamespaceName="dbModel", Name="adresa")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class adresa : EntityObject
@@ -523,18 +499,18 @@ namespace bcpp.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("bcpp_dbModel", "FK_firma_adresa", "firma")]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_firma_adresa", "firma")]
         public EntityCollection<firma> firma
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<firma>("bcpp_dbModel.FK_firma_adresa", "firma");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<firma>("dbModel.FK_firma_adresa", "firma");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<firma>("bcpp_dbModel.FK_firma_adresa", "firma", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<firma>("dbModel.FK_firma_adresa", "firma", value);
                 }
             }
         }
@@ -545,18 +521,18 @@ namespace bcpp.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("bcpp_dbModel", "FK_uzivatel_adresa", "uzivatel")]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_uzivatel_adresa", "uzivatel")]
         public EntityCollection<uzivatel> uzivatel
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<uzivatel>("bcpp_dbModel.FK_uzivatel_adresa", "uzivatel");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<uzivatel>("dbModel.FK_uzivatel_adresa", "uzivatel");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<uzivatel>("bcpp_dbModel.FK_uzivatel_adresa", "uzivatel", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<uzivatel>("dbModel.FK_uzivatel_adresa", "uzivatel", value);
                 }
             }
         }
@@ -568,7 +544,7 @@ namespace bcpp.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="bcpp_dbModel", Name="akcie")]
+    [EdmEntityTypeAttribute(NamespaceName="dbModel", Name="akcie")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class akcie : EntityObject
@@ -706,18 +682,56 @@ namespace bcpp.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("bcpp_dbModel", "FK_historie_akcie_akcie", "historie_akcie")]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_akcie_firma", "firma")]
+        public firma firma
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<firma>("dbModel.FK_akcie_firma", "firma").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<firma>("dbModel.FK_akcie_firma", "firma").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<firma> firmaReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<firma>("dbModel.FK_akcie_firma", "firma");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<firma>("dbModel.FK_akcie_firma", "firma", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_historie_akcie_akcie", "historie_akcie")]
         public EntityCollection<historie_akcie> historie_akcie
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<historie_akcie>("bcpp_dbModel.FK_historie_akcie_akcie", "historie_akcie");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<historie_akcie>("dbModel.FK_historie_akcie_akcie", "historie_akcie");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<historie_akcie>("bcpp_dbModel.FK_historie_akcie_akcie", "historie_akcie", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<historie_akcie>("dbModel.FK_historie_akcie_akcie", "historie_akcie", value);
                 }
             }
         }
@@ -728,18 +742,18 @@ namespace bcpp.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("bcpp_dbModel", "FK_portfolio_akcie", "portfolio")]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_portfolio_akcie", "portfolio")]
         public EntityCollection<portfolio> portfolio
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<portfolio>("bcpp_dbModel.FK_portfolio_akcie", "portfolio");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<portfolio>("dbModel.FK_portfolio_akcie", "portfolio");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<portfolio>("bcpp_dbModel.FK_portfolio_akcie", "portfolio", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<portfolio>("dbModel.FK_portfolio_akcie", "portfolio", value);
                 }
             }
         }
@@ -750,18 +764,18 @@ namespace bcpp.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("bcpp_dbModel", "sledovane", "uzivatel")]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "sledovane", "uzivatel")]
         public EntityCollection<uzivatel> uzivatel
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<uzivatel>("bcpp_dbModel.sledovane", "uzivatel");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<uzivatel>("dbModel.sledovane", "uzivatel");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<uzivatel>("bcpp_dbModel.sledovane", "uzivatel", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<uzivatel>("dbModel.sledovane", "uzivatel", value);
                 }
             }
         }
@@ -773,7 +787,7 @@ namespace bcpp.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="bcpp_dbModel", Name="firma")]
+    [EdmEntityTypeAttribute(NamespaceName="dbModel", Name="firma")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class firma : EntityObject
@@ -937,16 +951,16 @@ namespace bcpp.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("bcpp_dbModel", "FK_firma_adresa", "adresa")]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_firma_adresa", "adresa")]
         public adresa adresa
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<adresa>("bcpp_dbModel.FK_firma_adresa", "adresa").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<adresa>("dbModel.FK_firma_adresa", "adresa").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<adresa>("bcpp_dbModel.FK_firma_adresa", "adresa").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<adresa>("dbModel.FK_firma_adresa", "adresa").Value = value;
             }
         }
         /// <summary>
@@ -958,13 +972,35 @@ namespace bcpp.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<adresa>("bcpp_dbModel.FK_firma_adresa", "adresa");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<adresa>("dbModel.FK_firma_adresa", "adresa");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<adresa>("bcpp_dbModel.FK_firma_adresa", "adresa", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<adresa>("dbModel.FK_firma_adresa", "adresa", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_akcie_firma", "akcie")]
+        public EntityCollection<akcie> akcie
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<akcie>("dbModel.FK_akcie_firma", "akcie");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<akcie>("dbModel.FK_akcie_firma", "akcie", value);
                 }
             }
         }
@@ -976,7 +1012,7 @@ namespace bcpp.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="bcpp_dbModel", Name="historie_akcie")]
+    [EdmEntityTypeAttribute(NamespaceName="dbModel", Name="historie_akcie")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class historie_akcie : EntityObject
@@ -1117,16 +1153,16 @@ namespace bcpp.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("bcpp_dbModel", "FK_historie_akcie_akcie", "akcie")]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_historie_akcie_akcie", "akcie")]
         public akcie akcie
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("bcpp_dbModel.FK_historie_akcie_akcie", "akcie").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("dbModel.FK_historie_akcie_akcie", "akcie").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("bcpp_dbModel.FK_historie_akcie_akcie", "akcie").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("dbModel.FK_historie_akcie_akcie", "akcie").Value = value;
             }
         }
         /// <summary>
@@ -1138,13 +1174,13 @@ namespace bcpp.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("bcpp_dbModel.FK_historie_akcie_akcie", "akcie");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("dbModel.FK_historie_akcie_akcie", "akcie");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<akcie>("bcpp_dbModel.FK_historie_akcie_akcie", "akcie", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<akcie>("dbModel.FK_historie_akcie_akcie", "akcie", value);
                 }
             }
         }
@@ -1156,7 +1192,7 @@ namespace bcpp.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="bcpp_dbModel", Name="historie_poukazek")]
+    [EdmEntityTypeAttribute(NamespaceName="dbModel", Name="historie_poukazek")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class historie_poukazek : EntityObject
@@ -1268,16 +1304,16 @@ namespace bcpp.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("bcpp_dbModel", "FK_historie_poukazek_pokl_poukazky", "pokl_poukazky")]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_historie_poukazek_pokl_poukazky", "pokl_poukazky")]
         public pokl_poukazky pokl_poukazky
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<pokl_poukazky>("bcpp_dbModel.FK_historie_poukazek_pokl_poukazky", "pokl_poukazky").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<pokl_poukazky>("dbModel.FK_historie_poukazek_pokl_poukazky", "pokl_poukazky").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<pokl_poukazky>("bcpp_dbModel.FK_historie_poukazek_pokl_poukazky", "pokl_poukazky").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<pokl_poukazky>("dbModel.FK_historie_poukazek_pokl_poukazky", "pokl_poukazky").Value = value;
             }
         }
         /// <summary>
@@ -1289,13 +1325,13 @@ namespace bcpp.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<pokl_poukazky>("bcpp_dbModel.FK_historie_poukazek_pokl_poukazky", "pokl_poukazky");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<pokl_poukazky>("dbModel.FK_historie_poukazek_pokl_poukazky", "pokl_poukazky");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<pokl_poukazky>("bcpp_dbModel.FK_historie_poukazek_pokl_poukazky", "pokl_poukazky", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<pokl_poukazky>("dbModel.FK_historie_poukazek_pokl_poukazky", "pokl_poukazky", value);
                 }
             }
         }
@@ -1307,7 +1343,7 @@ namespace bcpp.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="bcpp_dbModel", Name="index_PX")]
+    [EdmEntityTypeAttribute(NamespaceName="dbModel", Name="index_PX")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class index_PX : EntityObject
@@ -1390,7 +1426,7 @@ namespace bcpp.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="bcpp_dbModel", Name="pokl_poukazky")]
+    [EdmEntityTypeAttribute(NamespaceName="dbModel", Name="pokl_poukazky")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class pokl_poukazky : EntityObject
@@ -1502,16 +1538,16 @@ namespace bcpp.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("bcpp_dbModel", "FK_historie_poukazek_pokl_poukazky", "historie_poukazek")]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_historie_poukazek_pokl_poukazky", "historie_poukazek")]
         public historie_poukazek historie_poukazek
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<historie_poukazek>("bcpp_dbModel.FK_historie_poukazek_pokl_poukazky", "historie_poukazek").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<historie_poukazek>("dbModel.FK_historie_poukazek_pokl_poukazky", "historie_poukazek").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<historie_poukazek>("bcpp_dbModel.FK_historie_poukazek_pokl_poukazky", "historie_poukazek").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<historie_poukazek>("dbModel.FK_historie_poukazek_pokl_poukazky", "historie_poukazek").Value = value;
             }
         }
         /// <summary>
@@ -1523,13 +1559,13 @@ namespace bcpp.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<historie_poukazek>("bcpp_dbModel.FK_historie_poukazek_pokl_poukazky", "historie_poukazek");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<historie_poukazek>("dbModel.FK_historie_poukazek_pokl_poukazky", "historie_poukazek");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<historie_poukazek>("bcpp_dbModel.FK_historie_poukazek_pokl_poukazky", "historie_poukazek", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<historie_poukazek>("dbModel.FK_historie_poukazek_pokl_poukazky", "historie_poukazek", value);
                 }
             }
         }
@@ -1541,7 +1577,7 @@ namespace bcpp.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="bcpp_dbModel", Name="portfolio")]
+    [EdmEntityTypeAttribute(NamespaceName="dbModel", Name="portfolio")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class portfolio : EntityObject
@@ -1704,16 +1740,16 @@ namespace bcpp.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("bcpp_dbModel", "FK_portfolio_akcie", "akcie")]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_portfolio_akcie", "akcie")]
         public akcie akcie
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("bcpp_dbModel.FK_portfolio_akcie", "akcie").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("dbModel.FK_portfolio_akcie", "akcie").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("bcpp_dbModel.FK_portfolio_akcie", "akcie").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("dbModel.FK_portfolio_akcie", "akcie").Value = value;
             }
         }
         /// <summary>
@@ -1725,13 +1761,13 @@ namespace bcpp.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("bcpp_dbModel.FK_portfolio_akcie", "akcie");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("dbModel.FK_portfolio_akcie", "akcie");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<akcie>("bcpp_dbModel.FK_portfolio_akcie", "akcie", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<akcie>("dbModel.FK_portfolio_akcie", "akcie", value);
                 }
             }
         }
@@ -1742,16 +1778,16 @@ namespace bcpp.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("bcpp_dbModel", "FK_portfolio_uzivatel", "uzivatel")]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_portfolio_uzivatel", "uzivatel")]
         public uzivatel uzivatel
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<uzivatel>("bcpp_dbModel.FK_portfolio_uzivatel", "uzivatel").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<uzivatel>("dbModel.FK_portfolio_uzivatel", "uzivatel").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<uzivatel>("bcpp_dbModel.FK_portfolio_uzivatel", "uzivatel").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<uzivatel>("dbModel.FK_portfolio_uzivatel", "uzivatel").Value = value;
             }
         }
         /// <summary>
@@ -1763,13 +1799,13 @@ namespace bcpp.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<uzivatel>("bcpp_dbModel.FK_portfolio_uzivatel", "uzivatel");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<uzivatel>("dbModel.FK_portfolio_uzivatel", "uzivatel");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<uzivatel>("bcpp_dbModel.FK_portfolio_uzivatel", "uzivatel", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<uzivatel>("dbModel.FK_portfolio_uzivatel", "uzivatel", value);
                 }
             }
         }
@@ -1781,132 +1817,7 @@ namespace bcpp.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="bcpp_dbModel", Name="UserProfile")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class UserProfile : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new UserProfile object.
-        /// </summary>
-        /// <param name="userId">Initial value of the UserId property.</param>
-        /// <param name="userName">Initial value of the UserName property.</param>
-        public static UserProfile CreateUserProfile(global::System.Int32 userId, global::System.String userName)
-        {
-            UserProfile userProfile = new UserProfile();
-            userProfile.UserId = userId;
-            userProfile.UserName = userName;
-            return userProfile;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 UserId
-        {
-            get
-            {
-                return _UserId;
-            }
-            set
-            {
-                if (_UserId != value)
-                {
-                    OnUserIdChanging(value);
-                    ReportPropertyChanging("UserId");
-                    _UserId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("UserId");
-                    OnUserIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _UserId;
-        partial void OnUserIdChanging(global::System.Int32 value);
-        partial void OnUserIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String UserName
-        {
-            get
-            {
-                return _UserName;
-            }
-            set
-            {
-                OnUserNameChanging(value);
-                ReportPropertyChanging("UserName");
-                _UserName = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("UserName");
-                OnUserNameChanged();
-            }
-        }
-        private global::System.String _UserName;
-        partial void OnUserNameChanging(global::System.String value);
-        partial void OnUserNameChanged();
-
-        #endregion
-
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("bcpp_dbModel", "FK_uzivatel_users", "uzivatel")]
-        public uzivatel uzivatel
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<uzivatel>("bcpp_dbModel.FK_uzivatel_users", "uzivatel").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<uzivatel>("bcpp_dbModel.FK_uzivatel_users", "uzivatel").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<uzivatel> uzivatelReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<uzivatel>("bcpp_dbModel.FK_uzivatel_users", "uzivatel");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<uzivatel>("bcpp_dbModel.FK_uzivatel_users", "uzivatel", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="bcpp_dbModel", Name="uzivatel")]
+    [EdmEntityTypeAttribute(NamespaceName="dbModel", Name="uzivatel")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class uzivatel : EntityObject
@@ -2092,16 +2003,16 @@ namespace bcpp.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("bcpp_dbModel", "FK_uzivatel_adresa", "adresa")]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_uzivatel_adresa", "adresa")]
         public adresa adresa
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<adresa>("bcpp_dbModel.FK_uzivatel_adresa", "adresa").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<adresa>("dbModel.FK_uzivatel_adresa", "adresa").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<adresa>("bcpp_dbModel.FK_uzivatel_adresa", "adresa").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<adresa>("dbModel.FK_uzivatel_adresa", "adresa").Value = value;
             }
         }
         /// <summary>
@@ -2113,13 +2024,13 @@ namespace bcpp.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<adresa>("bcpp_dbModel.FK_uzivatel_adresa", "adresa");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<adresa>("dbModel.FK_uzivatel_adresa", "adresa");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<adresa>("bcpp_dbModel.FK_uzivatel_adresa", "adresa", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<adresa>("dbModel.FK_uzivatel_adresa", "adresa", value);
                 }
             }
         }
@@ -2130,18 +2041,18 @@ namespace bcpp.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("bcpp_dbModel", "FK_portfolio_uzivatel", "portfolio")]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_portfolio_uzivatel", "portfolio")]
         public EntityCollection<portfolio> portfolio
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<portfolio>("bcpp_dbModel.FK_portfolio_uzivatel", "portfolio");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<portfolio>("dbModel.FK_portfolio_uzivatel", "portfolio");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<portfolio>("bcpp_dbModel.FK_portfolio_uzivatel", "portfolio", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<portfolio>("dbModel.FK_portfolio_uzivatel", "portfolio", value);
                 }
             }
         }
@@ -2152,56 +2063,18 @@ namespace bcpp.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("bcpp_dbModel", "FK_uzivatel_users", "UserProfile")]
-        public UserProfile UserProfile
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserProfile>("bcpp_dbModel.FK_uzivatel_users", "UserProfile").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserProfile>("bcpp_dbModel.FK_uzivatel_users", "UserProfile").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<UserProfile> UserProfileReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserProfile>("bcpp_dbModel.FK_uzivatel_users", "UserProfile");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<UserProfile>("bcpp_dbModel.FK_uzivatel_users", "UserProfile", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("bcpp_dbModel", "sledovane", "akcie")]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "sledovane", "akcie")]
         public EntityCollection<akcie> akcie
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<akcie>("bcpp_dbModel.sledovane", "akcie");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<akcie>("dbModel.sledovane", "akcie");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<akcie>("bcpp_dbModel.sledovane", "akcie", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<akcie>("dbModel.sledovane", "akcie", value);
                 }
             }
         }

@@ -4,53 +4,52 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="bcpp_dbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="bcpp_dbModelStoreContainer">
-          <EntitySet Name="adresa" EntityType="bcpp_dbModel.Store.adresa" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="akcie" EntityType="bcpp_dbModel.Store.akcie" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="firma" EntityType="bcpp_dbModel.Store.firma" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="historie_akcie" EntityType="bcpp_dbModel.Store.historie_akcie" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="historie_poukazek" EntityType="bcpp_dbModel.Store.historie_poukazek" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="index_PX" EntityType="bcpp_dbModel.Store.index_PX" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="pokl_poukazky" EntityType="bcpp_dbModel.Store.pokl_poukazky" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="portfolio" EntityType="bcpp_dbModel.Store.portfolio" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="sledovane" EntityType="bcpp_dbModel.Store.sledovane" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="UserProfile" EntityType="bcpp_dbModel.Store.UserProfile" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="uzivatel" EntityType="bcpp_dbModel.Store.uzivatel" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_firma_adresa" Association="bcpp_dbModel.Store.FK_firma_adresa">
+      <Schema Namespace="dbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="dbModelStoreContainer">
+          <EntitySet Name="adresa" EntityType="dbModel.Store.adresa" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="akcie" EntityType="dbModel.Store.akcie" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="firma" EntityType="dbModel.Store.firma" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="historie_akcie" EntityType="dbModel.Store.historie_akcie" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="historie_poukazek" EntityType="dbModel.Store.historie_poukazek" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="index_PX" EntityType="dbModel.Store.index_PX" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="pokl_poukazky" EntityType="dbModel.Store.pokl_poukazky" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="portfolio" EntityType="dbModel.Store.portfolio" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sledovane" EntityType="dbModel.Store.sledovane" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="uzivatel" EntityType="dbModel.Store.uzivatel" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_akcie_firma" Association="dbModel.Store.FK_akcie_firma">
+            <End Role="firma" EntitySet="firma" />
+            <End Role="akcie" EntitySet="akcie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_firma_adresa" Association="dbModel.Store.FK_firma_adresa">
             <End Role="adresa" EntitySet="adresa" />
             <End Role="firma" EntitySet="firma" />
           </AssociationSet>
-          <AssociationSet Name="FK_historie_akcie_akcie" Association="bcpp_dbModel.Store.FK_historie_akcie_akcie">
+          <AssociationSet Name="FK_historie_akcie_akcie" Association="dbModel.Store.FK_historie_akcie_akcie">
             <End Role="akcie" EntitySet="akcie" />
             <End Role="historie_akcie" EntitySet="historie_akcie" />
           </AssociationSet>
-          <AssociationSet Name="FK_historie_poukazek_pokl_poukazky" Association="bcpp_dbModel.Store.FK_historie_poukazek_pokl_poukazky">
+          <AssociationSet Name="FK_historie_poukazek_pokl_poukazky" Association="dbModel.Store.FK_historie_poukazek_pokl_poukazky">
             <End Role="pokl_poukazky" EntitySet="pokl_poukazky" />
             <End Role="historie_poukazek" EntitySet="historie_poukazek" />
           </AssociationSet>
-          <AssociationSet Name="FK_portfolio_akcie" Association="bcpp_dbModel.Store.FK_portfolio_akcie">
+          <AssociationSet Name="FK_portfolio_akcie" Association="dbModel.Store.FK_portfolio_akcie">
             <End Role="akcie" EntitySet="akcie" />
             <End Role="portfolio" EntitySet="portfolio" />
           </AssociationSet>
-          <AssociationSet Name="FK_portfolio_uzivatel" Association="bcpp_dbModel.Store.FK_portfolio_uzivatel">
+          <AssociationSet Name="FK_portfolio_uzivatel" Association="dbModel.Store.FK_portfolio_uzivatel">
             <End Role="uzivatel" EntitySet="uzivatel" />
             <End Role="portfolio" EntitySet="portfolio" />
           </AssociationSet>
-          <AssociationSet Name="FK_sledovane_akcie" Association="bcpp_dbModel.Store.FK_sledovane_akcie">
+          <AssociationSet Name="FK_sledovane_akcie" Association="dbModel.Store.FK_sledovane_akcie">
             <End Role="akcie" EntitySet="akcie" />
             <End Role="sledovane" EntitySet="sledovane" />
           </AssociationSet>
-          <AssociationSet Name="FK_sledovane_uzivatel" Association="bcpp_dbModel.Store.FK_sledovane_uzivatel">
+          <AssociationSet Name="FK_sledovane_uzivatel" Association="dbModel.Store.FK_sledovane_uzivatel">
             <End Role="uzivatel" EntitySet="uzivatel" />
             <End Role="sledovane" EntitySet="sledovane" />
           </AssociationSet>
-          <AssociationSet Name="FK_uzivatel_adresa" Association="bcpp_dbModel.Store.FK_uzivatel_adresa">
+          <AssociationSet Name="FK_uzivatel_adresa" Association="dbModel.Store.FK_uzivatel_adresa">
             <End Role="adresa" EntitySet="adresa" />
-            <End Role="uzivatel" EntitySet="uzivatel" />
-          </AssociationSet>
-          <AssociationSet Name="FK_uzivatel_users" Association="bcpp_dbModel.Store.FK_uzivatel_users">
-            <End Role="UserProfile" EntitySet="UserProfile" />
             <End Role="uzivatel" EntitySet="uzivatel" />
           </AssociationSet>
         </EntityContainer>
@@ -136,13 +135,6 @@
           <Property Name="uzivatel_id" Type="int" Nullable="false" />
           <Property Name="akcie_id" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="UserProfile">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="56" />
-        </EntityType>
         <EntityType Name="uzivatel">
           <Key>
             <PropertyRef Name="uzivatel_id" />
@@ -154,11 +146,23 @@
           <Property Name="poznamka" Type="varchar" MaxLength="500" />
           <Property Name="penezenka" Type="int" />
         </EntityType>
+        <Association Name="FK_akcie_firma">
+          <End Role="firma" Type="dbModel.Store.firma" Multiplicity="1" />
+          <End Role="akcie" Type="dbModel.Store.akcie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="firma">
+              <PropertyRef Name="firma_id" />
+            </Principal>
+            <Dependent Role="akcie">
+              <PropertyRef Name="firma_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_firma_adresa">
-          <End Role="adresa" Type="bcpp_dbModel.Store.adresa" Multiplicity="1">
+          <End Role="adresa" Type="dbModel.Store.adresa" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="firma" Type="bcpp_dbModel.Store.firma" Multiplicity="*" />
+          <End Role="firma" Type="dbModel.Store.firma" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="adresa">
               <PropertyRef Name="adresa_id" />
@@ -169,10 +173,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_historie_akcie_akcie">
-          <End Role="akcie" Type="bcpp_dbModel.Store.akcie" Multiplicity="1">
+          <End Role="akcie" Type="dbModel.Store.akcie" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="historie_akcie" Type="bcpp_dbModel.Store.historie_akcie" Multiplicity="*" />
+          <End Role="historie_akcie" Type="dbModel.Store.historie_akcie" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="akcie">
               <PropertyRef Name="akcie_id" />
@@ -183,10 +187,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_historie_poukazek_pokl_poukazky">
-          <End Role="pokl_poukazky" Type="bcpp_dbModel.Store.pokl_poukazky" Multiplicity="1">
+          <End Role="pokl_poukazky" Type="dbModel.Store.pokl_poukazky" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="historie_poukazek" Type="bcpp_dbModel.Store.historie_poukazek" Multiplicity="0..1" />
+          <End Role="historie_poukazek" Type="dbModel.Store.historie_poukazek" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="pokl_poukazky">
               <PropertyRef Name="poukazka_id" />
@@ -197,10 +201,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_portfolio_akcie">
-          <End Role="akcie" Type="bcpp_dbModel.Store.akcie" Multiplicity="1">
+          <End Role="akcie" Type="dbModel.Store.akcie" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="portfolio" Type="bcpp_dbModel.Store.portfolio" Multiplicity="*" />
+          <End Role="portfolio" Type="dbModel.Store.portfolio" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="akcie">
               <PropertyRef Name="akcie_id" />
@@ -211,10 +215,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_portfolio_uzivatel">
-          <End Role="uzivatel" Type="bcpp_dbModel.Store.uzivatel" Multiplicity="1">
+          <End Role="uzivatel" Type="dbModel.Store.uzivatel" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="portfolio" Type="bcpp_dbModel.Store.portfolio" Multiplicity="*" />
+          <End Role="portfolio" Type="dbModel.Store.portfolio" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="uzivatel">
               <PropertyRef Name="uzivatel_id" />
@@ -225,10 +229,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_sledovane_akcie">
-          <End Role="akcie" Type="bcpp_dbModel.Store.akcie" Multiplicity="1">
+          <End Role="akcie" Type="dbModel.Store.akcie" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="sledovane" Type="bcpp_dbModel.Store.sledovane" Multiplicity="*" />
+          <End Role="sledovane" Type="dbModel.Store.sledovane" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="akcie">
               <PropertyRef Name="akcie_id" />
@@ -239,10 +243,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_sledovane_uzivatel">
-          <End Role="uzivatel" Type="bcpp_dbModel.Store.uzivatel" Multiplicity="1">
+          <End Role="uzivatel" Type="dbModel.Store.uzivatel" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="sledovane" Type="bcpp_dbModel.Store.sledovane" Multiplicity="*" />
+          <End Role="sledovane" Type="dbModel.Store.sledovane" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="uzivatel">
               <PropertyRef Name="uzivatel_id" />
@@ -253,10 +257,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_uzivatel_adresa">
-          <End Role="adresa" Type="bcpp_dbModel.Store.adresa" Multiplicity="1">
+          <End Role="adresa" Type="dbModel.Store.adresa" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="uzivatel" Type="bcpp_dbModel.Store.uzivatel" Multiplicity="*" />
+          <End Role="uzivatel" Type="dbModel.Store.uzivatel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="adresa">
               <PropertyRef Name="adresa_id" />
@@ -266,65 +270,50 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_uzivatel_users">
-          <End Role="UserProfile" Type="bcpp_dbModel.Store.UserProfile" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="uzivatel" Type="bcpp_dbModel.Store.uzivatel" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="uzivatel">
-              <PropertyRef Name="uzivatel_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="bcpp_dbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="adresa" EntityType="bcpp_dbModel.adresa" />
-          <EntitySet Name="akcie" EntityType="bcpp_dbModel.akcie" />
-          <EntitySet Name="firma" EntityType="bcpp_dbModel.firma" />
-          <EntitySet Name="historie_akcie" EntityType="bcpp_dbModel.historie_akcie" />
-          <EntitySet Name="historie_poukazek" EntityType="bcpp_dbModel.historie_poukazek" />
-          <EntitySet Name="index_PX" EntityType="bcpp_dbModel.index_PX" />
-          <EntitySet Name="pokl_poukazky" EntityType="bcpp_dbModel.pokl_poukazky" />
-          <EntitySet Name="portfolio" EntityType="bcpp_dbModel.portfolio" />
-          <EntitySet Name="UserProfile" EntityType="bcpp_dbModel.UserProfile" />
-          <EntitySet Name="uzivatel" EntityType="bcpp_dbModel.uzivatel" />
-          <AssociationSet Name="FK_firma_adresa" Association="bcpp_dbModel.FK_firma_adresa">
+      <Schema Namespace="dbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="adresa" EntityType="dbModel.adresa" />
+          <EntitySet Name="akcie" EntityType="dbModel.akcie" />
+          <EntitySet Name="firma" EntityType="dbModel.firma" />
+          <EntitySet Name="historie_akcie" EntityType="dbModel.historie_akcie" />
+          <EntitySet Name="historie_poukazek" EntityType="dbModel.historie_poukazek" />
+          <EntitySet Name="index_PX" EntityType="dbModel.index_PX" />
+          <EntitySet Name="pokl_poukazky" EntityType="dbModel.pokl_poukazky" />
+          <EntitySet Name="portfolio" EntityType="dbModel.portfolio" />
+          <EntitySet Name="uzivatel" EntityType="dbModel.uzivatel" />
+          <AssociationSet Name="FK_firma_adresa" Association="dbModel.FK_firma_adresa">
             <End Role="adresa" EntitySet="adresa" />
             <End Role="firma" EntitySet="firma" />
           </AssociationSet>
-          <AssociationSet Name="FK_uzivatel_adresa" Association="bcpp_dbModel.FK_uzivatel_adresa">
+          <AssociationSet Name="FK_uzivatel_adresa" Association="dbModel.FK_uzivatel_adresa">
             <End Role="adresa" EntitySet="adresa" />
             <End Role="uzivatel" EntitySet="uzivatel" />
           </AssociationSet>
-          <AssociationSet Name="FK_historie_akcie_akcie" Association="bcpp_dbModel.FK_historie_akcie_akcie">
+          <AssociationSet Name="FK_akcie_firma" Association="dbModel.FK_akcie_firma">
+            <End Role="firma" EntitySet="firma" />
+            <End Role="akcie" EntitySet="akcie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_historie_akcie_akcie" Association="dbModel.FK_historie_akcie_akcie">
             <End Role="akcie" EntitySet="akcie" />
             <End Role="historie_akcie" EntitySet="historie_akcie" />
           </AssociationSet>
-          <AssociationSet Name="FK_portfolio_akcie" Association="bcpp_dbModel.FK_portfolio_akcie">
+          <AssociationSet Name="FK_portfolio_akcie" Association="dbModel.FK_portfolio_akcie">
             <End Role="akcie" EntitySet="akcie" />
             <End Role="portfolio" EntitySet="portfolio" />
           </AssociationSet>
-          <AssociationSet Name="FK_historie_poukazek_pokl_poukazky" Association="bcpp_dbModel.FK_historie_poukazek_pokl_poukazky">
+          <AssociationSet Name="FK_historie_poukazek_pokl_poukazky" Association="dbModel.FK_historie_poukazek_pokl_poukazky">
             <End Role="pokl_poukazky" EntitySet="pokl_poukazky" />
             <End Role="historie_poukazek" EntitySet="historie_poukazek" />
           </AssociationSet>
-          <AssociationSet Name="FK_portfolio_uzivatel" Association="bcpp_dbModel.FK_portfolio_uzivatel">
+          <AssociationSet Name="FK_portfolio_uzivatel" Association="dbModel.FK_portfolio_uzivatel">
             <End Role="uzivatel" EntitySet="uzivatel" />
             <End Role="portfolio" EntitySet="portfolio" />
           </AssociationSet>
-          <AssociationSet Name="FK_uzivatel_users" Association="bcpp_dbModel.FK_uzivatel_users">
-            <End Role="UserProfile" EntitySet="UserProfile" />
-            <End Role="uzivatel" EntitySet="uzivatel" />
-          </AssociationSet>
-          <AssociationSet Name="sledovane" Association="bcpp_dbModel.sledovane">
+          <AssociationSet Name="sledovane" Association="dbModel.sledovane">
             <End Role="akcie" EntitySet="akcie" />
             <End Role="uzivatel" EntitySet="uzivatel" />
           </AssociationSet>
@@ -339,8 +328,8 @@
           <Property Name="PSC" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="false" />
           <Property Name="telefon" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="email" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="firma" Relationship="bcpp_dbModel.FK_firma_adresa" FromRole="adresa" ToRole="firma" />
-          <NavigationProperty Name="uzivatel" Relationship="bcpp_dbModel.FK_uzivatel_adresa" FromRole="adresa" ToRole="uzivatel" />
+          <NavigationProperty Name="firma" Relationship="dbModel.FK_firma_adresa" FromRole="adresa" ToRole="firma" />
+          <NavigationProperty Name="uzivatel" Relationship="dbModel.FK_uzivatel_adresa" FromRole="adresa" ToRole="uzivatel" />
         </EntityType>
         <EntityType Name="akcie">
           <Key>
@@ -350,9 +339,10 @@
           <Property Name="firma_id" Type="Int32" Nullable="false" />
           <Property Name="nazev" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="zkratka" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="historie_akcie" Relationship="bcpp_dbModel.FK_historie_akcie_akcie" FromRole="akcie" ToRole="historie_akcie" />
-          <NavigationProperty Name="portfolio" Relationship="bcpp_dbModel.FK_portfolio_akcie" FromRole="akcie" ToRole="portfolio" />
-          <NavigationProperty Name="uzivatel" Relationship="bcpp_dbModel.sledovane" FromRole="akcie" ToRole="uzivatel" />
+          <NavigationProperty Name="firma" Relationship="dbModel.FK_akcie_firma" FromRole="akcie" ToRole="firma" />
+          <NavigationProperty Name="historie_akcie" Relationship="dbModel.FK_historie_akcie_akcie" FromRole="akcie" ToRole="historie_akcie" />
+          <NavigationProperty Name="portfolio" Relationship="dbModel.FK_portfolio_akcie" FromRole="akcie" ToRole="portfolio" />
+          <NavigationProperty Name="uzivatel" Relationship="dbModel.sledovane" FromRole="akcie" ToRole="uzivatel" />
         </EntityType>
         <EntityType Name="firma">
           <Key>
@@ -363,7 +353,8 @@
           <Property Name="nazev" Type="Single" Nullable="false" />
           <Property Name="ICO" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
           <Property Name="DIC" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="adresa" Relationship="bcpp_dbModel.FK_firma_adresa" FromRole="firma" ToRole="adresa" />
+          <NavigationProperty Name="adresa" Relationship="dbModel.FK_firma_adresa" FromRole="firma" ToRole="adresa" />
+          <NavigationProperty Name="akcie" Relationship="dbModel.FK_akcie_firma" FromRole="firma" ToRole="akcie" />
         </EntityType>
         <EntityType Name="historie_akcie">
           <Key>
@@ -374,7 +365,7 @@
           <Property Name="datum" Type="DateTime" Nullable="false" />
           <Property Name="cena_prodej" Type="Single" Nullable="false" />
           <Property Name="cena_nakup" Type="Single" Nullable="false" />
-          <NavigationProperty Name="akcie" Relationship="bcpp_dbModel.FK_historie_akcie_akcie" FromRole="historie_akcie" ToRole="akcie" />
+          <NavigationProperty Name="akcie" Relationship="dbModel.FK_historie_akcie_akcie" FromRole="historie_akcie" ToRole="akcie" />
         </EntityType>
         <EntityType Name="historie_poukazek">
           <Key>
@@ -383,7 +374,7 @@
           <Property Name="poukazka_id" Type="Int32" Nullable="false" />
           <Property Name="datum" Type="DateTime" Nullable="false" />
           <Property Name="urok" Type="Single" Nullable="false" />
-          <NavigationProperty Name="pokl_poukazky" Relationship="bcpp_dbModel.FK_historie_poukazek_pokl_poukazky" FromRole="historie_poukazek" ToRole="pokl_poukazky" />
+          <NavigationProperty Name="pokl_poukazky" Relationship="dbModel.FK_historie_poukazek_pokl_poukazky" FromRole="historie_poukazek" ToRole="pokl_poukazky" />
         </EntityType>
         <EntityType Name="index_PX">
           <Key>
@@ -399,7 +390,7 @@
           <Property Name="poukazka_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nazev" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="zkratka" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="historie_poukazek" Relationship="bcpp_dbModel.FK_historie_poukazek_pokl_poukazky" FromRole="pokl_poukazky" ToRole="historie_poukazek" />
+          <NavigationProperty Name="historie_poukazek" Relationship="dbModel.FK_historie_poukazek_pokl_poukazky" FromRole="pokl_poukazky" ToRole="historie_poukazek" />
         </EntityType>
         <EntityType Name="portfolio">
           <Key>
@@ -411,16 +402,8 @@
           <Property Name="pocet" Type="Int32" />
           <Property Name="datum_pridani" Type="DateTime" Nullable="false" />
           <Property Name="datum_odebrani" Type="DateTime" />
-          <NavigationProperty Name="akcie" Relationship="bcpp_dbModel.FK_portfolio_akcie" FromRole="portfolio" ToRole="akcie" />
-          <NavigationProperty Name="uzivatel" Relationship="bcpp_dbModel.FK_portfolio_uzivatel" FromRole="portfolio" ToRole="uzivatel" />
-        </EntityType>
-        <EntityType Name="UserProfile">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="56" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="uzivatel" Relationship="bcpp_dbModel.FK_uzivatel_users" FromRole="UserProfile" ToRole="uzivatel" />
+          <NavigationProperty Name="akcie" Relationship="dbModel.FK_portfolio_akcie" FromRole="portfolio" ToRole="akcie" />
+          <NavigationProperty Name="uzivatel" Relationship="dbModel.FK_portfolio_uzivatel" FromRole="portfolio" ToRole="uzivatel" />
         </EntityType>
         <EntityType Name="uzivatel">
           <Key>
@@ -432,16 +415,15 @@
           <Property Name="adresa_id" Type="Int32" Nullable="false" />
           <Property Name="poznamka" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
           <Property Name="penezenka" Type="Int32" />
-          <NavigationProperty Name="adresa" Relationship="bcpp_dbModel.FK_uzivatel_adresa" FromRole="uzivatel" ToRole="adresa" />
-          <NavigationProperty Name="portfolio" Relationship="bcpp_dbModel.FK_portfolio_uzivatel" FromRole="uzivatel" ToRole="portfolio" />
-          <NavigationProperty Name="UserProfile" Relationship="bcpp_dbModel.FK_uzivatel_users" FromRole="uzivatel" ToRole="UserProfile" />
-          <NavigationProperty Name="akcie" Relationship="bcpp_dbModel.sledovane" FromRole="uzivatel" ToRole="akcie" />
+          <NavigationProperty Name="adresa" Relationship="dbModel.FK_uzivatel_adresa" FromRole="uzivatel" ToRole="adresa" />
+          <NavigationProperty Name="portfolio" Relationship="dbModel.FK_portfolio_uzivatel" FromRole="uzivatel" ToRole="portfolio" />
+          <NavigationProperty Name="akcie" Relationship="dbModel.sledovane" FromRole="uzivatel" ToRole="akcie" />
         </EntityType>
         <Association Name="FK_firma_adresa">
-          <End Role="adresa" Type="bcpp_dbModel.adresa" Multiplicity="1">
+          <End Role="adresa" Type="dbModel.adresa" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="firma" Type="bcpp_dbModel.firma" Multiplicity="*" />
+          <End Role="firma" Type="dbModel.firma" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="adresa">
               <PropertyRef Name="adresa_id" />
@@ -452,10 +434,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_uzivatel_adresa">
-          <End Role="adresa" Type="bcpp_dbModel.adresa" Multiplicity="1">
+          <End Role="adresa" Type="dbModel.adresa" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="uzivatel" Type="bcpp_dbModel.uzivatel" Multiplicity="*" />
+          <End Role="uzivatel" Type="dbModel.uzivatel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="adresa">
               <PropertyRef Name="adresa_id" />
@@ -465,11 +447,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_akcie_firma">
+          <End Role="firma" Type="dbModel.firma" Multiplicity="1" />
+          <End Role="akcie" Type="dbModel.akcie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="firma">
+              <PropertyRef Name="firma_id" />
+            </Principal>
+            <Dependent Role="akcie">
+              <PropertyRef Name="firma_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_historie_akcie_akcie">
-          <End Role="akcie" Type="bcpp_dbModel.akcie" Multiplicity="1">
+          <End Role="akcie" Type="dbModel.akcie" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="historie_akcie" Type="bcpp_dbModel.historie_akcie" Multiplicity="*" />
+          <End Role="historie_akcie" Type="dbModel.historie_akcie" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="akcie">
               <PropertyRef Name="akcie_id" />
@@ -480,10 +474,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_portfolio_akcie">
-          <End Role="akcie" Type="bcpp_dbModel.akcie" Multiplicity="1">
+          <End Role="akcie" Type="dbModel.akcie" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="portfolio" Type="bcpp_dbModel.portfolio" Multiplicity="*" />
+          <End Role="portfolio" Type="dbModel.portfolio" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="akcie">
               <PropertyRef Name="akcie_id" />
@@ -494,10 +488,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_historie_poukazek_pokl_poukazky">
-          <End Role="pokl_poukazky" Type="bcpp_dbModel.pokl_poukazky" Multiplicity="1">
+          <End Role="pokl_poukazky" Type="dbModel.pokl_poukazky" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="historie_poukazek" Type="bcpp_dbModel.historie_poukazek" Multiplicity="0..1" />
+          <End Role="historie_poukazek" Type="dbModel.historie_poukazek" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="pokl_poukazky">
               <PropertyRef Name="poukazka_id" />
@@ -508,10 +502,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_portfolio_uzivatel">
-          <End Role="uzivatel" Type="bcpp_dbModel.uzivatel" Multiplicity="1">
+          <End Role="uzivatel" Type="dbModel.uzivatel" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="portfolio" Type="bcpp_dbModel.portfolio" Multiplicity="*" />
+          <End Role="portfolio" Type="dbModel.portfolio" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="uzivatel">
               <PropertyRef Name="uzivatel_id" />
@@ -521,32 +515,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_uzivatel_users">
-          <End Role="UserProfile" Type="bcpp_dbModel.UserProfile" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="uzivatel" Type="bcpp_dbModel.uzivatel" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="uzivatel">
-              <PropertyRef Name="uzivatel_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="sledovane">
-          <End Role="akcie" Type="bcpp_dbModel.akcie" Multiplicity="*" />
-          <End Role="uzivatel" Type="bcpp_dbModel.uzivatel" Multiplicity="*" />
+          <End Role="akcie" Type="dbModel.akcie" Multiplicity="*" />
+          <End Role="uzivatel" Type="dbModel.uzivatel" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bcpp_dbModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="dbModelStoreContainer" CdmEntityContainer="dbEntities">
           <EntitySetMapping Name="adresa">
-            <EntityTypeMapping TypeName="bcpp_dbModel.adresa">
+            <EntityTypeMapping TypeName="dbModel.adresa">
               <MappingFragment StoreEntitySet="adresa">
                 <ScalarProperty Name="adresa_id" ColumnName="adresa_id" />
                 <ScalarProperty Name="mesto" ColumnName="mesto" />
@@ -558,7 +538,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="akcie">
-            <EntityTypeMapping TypeName="bcpp_dbModel.akcie">
+            <EntityTypeMapping TypeName="dbModel.akcie">
               <MappingFragment StoreEntitySet="akcie">
                 <ScalarProperty Name="akcie_id" ColumnName="akcie_id" />
                 <ScalarProperty Name="firma_id" ColumnName="firma_id" />
@@ -568,7 +548,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="firma">
-            <EntityTypeMapping TypeName="bcpp_dbModel.firma">
+            <EntityTypeMapping TypeName="dbModel.firma">
               <MappingFragment StoreEntitySet="firma">
                 <ScalarProperty Name="firma_id" ColumnName="firma_id" />
                 <ScalarProperty Name="adresa_id" ColumnName="adresa_id" />
@@ -579,7 +559,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="historie_akcie">
-            <EntityTypeMapping TypeName="bcpp_dbModel.historie_akcie">
+            <EntityTypeMapping TypeName="dbModel.historie_akcie">
               <MappingFragment StoreEntitySet="historie_akcie">
                 <ScalarProperty Name="akcie_id" ColumnName="akcie_id" />
                 <ScalarProperty Name="datum" ColumnName="datum" />
@@ -589,7 +569,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="historie_poukazek">
-            <EntityTypeMapping TypeName="bcpp_dbModel.historie_poukazek">
+            <EntityTypeMapping TypeName="dbModel.historie_poukazek">
               <MappingFragment StoreEntitySet="historie_poukazek">
                 <ScalarProperty Name="poukazka_id" ColumnName="poukazka_id" />
                 <ScalarProperty Name="datum" ColumnName="datum" />
@@ -598,7 +578,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="index_PX">
-            <EntityTypeMapping TypeName="bcpp_dbModel.index_PX">
+            <EntityTypeMapping TypeName="dbModel.index_PX">
               <MappingFragment StoreEntitySet="index_PX">
                 <ScalarProperty Name="datum" ColumnName="datum" />
                 <ScalarProperty Name="hodnota" ColumnName="hodnota" />
@@ -606,7 +586,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="pokl_poukazky">
-            <EntityTypeMapping TypeName="bcpp_dbModel.pokl_poukazky">
+            <EntityTypeMapping TypeName="dbModel.pokl_poukazky">
               <MappingFragment StoreEntitySet="pokl_poukazky">
                 <ScalarProperty Name="poukazka_id" ColumnName="poukazka_id" />
                 <ScalarProperty Name="nazev" ColumnName="nazev" />
@@ -615,7 +595,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="portfolio">
-            <EntityTypeMapping TypeName="bcpp_dbModel.portfolio">
+            <EntityTypeMapping TypeName="dbModel.portfolio">
               <MappingFragment StoreEntitySet="portfolio">
                 <ScalarProperty Name="uzivatel_id" ColumnName="uzivatel_id" />
                 <ScalarProperty Name="akcie_id" ColumnName="akcie_id" />
@@ -625,16 +605,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserProfile">
-            <EntityTypeMapping TypeName="bcpp_dbModel.UserProfile">
-              <MappingFragment StoreEntitySet="UserProfile">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="uzivatel">
-            <EntityTypeMapping TypeName="bcpp_dbModel.uzivatel">
+            <EntityTypeMapping TypeName="dbModel.uzivatel">
               <MappingFragment StoreEntitySet="uzivatel">
                 <ScalarProperty Name="uzivatel_id" ColumnName="uzivatel_id" />
                 <ScalarProperty Name="jmeno" ColumnName="jmeno" />
@@ -645,7 +617,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="sledovane" TypeName="bcpp_dbModel.sledovane" StoreEntitySet="sledovane">
+          <AssociationSetMapping Name="sledovane" TypeName="dbModel.sledovane" StoreEntitySet="sledovane">
             <EndProperty Name="akcie">
               <ScalarProperty Name="akcie_id" ColumnName="akcie_id" />
             </EndProperty>
@@ -674,58 +646,51 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="db">
-        <EntityTypeShape EntityType="bcpp_dbModel.adresa" Width="1.5" PointX="3.75" PointY="9.25" Height="2.5571907552083317" IsExpanded="true" />
-        <EntityTypeShape EntityType="bcpp_dbModel.akcie" Width="1.5" PointX="0.75" PointY="4.5" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="bcpp_dbModel.firma" Width="1.5" PointX="6" PointY="9.375" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="bcpp_dbModel.historie_akcie" Width="1.5" PointX="3" PointY="4.625" Height="1.9802864583333335" IsExpanded="true" />
-        <EntityTypeShape EntityType="bcpp_dbModel.historie_poukazek" Width="1.5" PointX="8" PointY="0.875" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="bcpp_dbModel.index_PX" Width="1.5" PointX="0.75" PointY="7.75" Height="1.4033821614583317" IsExpanded="true" />
-        <EntityTypeShape EntityType="bcpp_dbModel.pokl_poukazky" Width="1.5" PointX="5.75" PointY="0.875" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="bcpp_dbModel.portfolio" Width="1.5" PointX="3" PointY="1.5" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="bcpp_dbModel.UserProfile" Width="1.5" PointX="3.75" PointY="12.5" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="bcpp_dbModel.uzivatel" Width="1.5" PointX="6" PointY="4.125" Height="2.9417936197916674" IsExpanded="true" />
-        <AssociationConnector Association="bcpp_dbModel.FK_firma_adresa" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="10.4612939453125" />
-          <ConnectorPoint PointX="5.541666666666667" PointY="10.4612939453125" />
-          <ConnectorPoint PointX="5.708333333333333" PointY="10.4612939453125" />
-          <ConnectorPoint PointX="6" PointY="10.4612939453125" />
+        <EntityTypeShape EntityType="dbModel.adresa" Width="1.5" PointX="0.75" PointY="4.375" Height="2.5571907552083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.akcie" Width="1.5" PointX="5.25" PointY="4.375" Height="2.5571907552083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.firma" Width="1.5" PointX="3" PointY="4.5" Height="2.3648893229166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.historie_akcie" Width="1.5" PointX="7.5" PointY="4.625" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.historie_poukazek" Width="1.5" PointX="3" PointY="0.875" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.index_PX" Width="1.5" PointX="0.75" PointY="7.75" Height="1.4033821614583317" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.pokl_poukazky" Width="1.5" PointX="0.75" PointY="0.875" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.portfolio" Width="1.5" PointX="7.5" PointY="1.5" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.uzivatel" Width="1.5" PointX="10.5" PointY="4.125" Height="2.9417936197916674" IsExpanded="true" />
+        <AssociationConnector Association="dbModel.FK_firma_adresa" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.6824446614583328" />
+          <ConnectorPoint PointX="3" PointY="5.6824446614583328" />
         </AssociationConnector>
-        <AssociationConnector Association="bcpp_dbModel.FK_uzivatel_adresa" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.90625" PointY="9.25" />
-          <ConnectorPoint PointX="4.90625" PointY="4.34375" />
-          <ConnectorPoint PointX="6" PointY="4.34375" />
+        <AssociationConnector Association="dbModel.FK_uzivatel_adresa" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="6.9321907552083335" />
+          <ConnectorPoint PointX="2.625" PointY="7.3071907552083335" />
+          <ConnectorPoint PointX="2.625" PointY="7.2494921875" />
+          <ConnectorPoint PointX="10.125" PointY="7.2494921875" />
+          <ConnectorPoint PointX="10.5" PointY="6.8744921875" />
         </AssociationConnector>
-        <AssociationConnector Association="bcpp_dbModel.FK_historie_akcie_akcie" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="5.6151432291666667" />
-          <ConnectorPoint PointX="3" PointY="5.6151432291666667" />
+        <AssociationConnector Association="dbModel.FK_akcie_firma" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="5.6824446614583328" />
+          <ConnectorPoint PointX="5.25" PointY="5.6824446614583328" />
         </AssociationConnector>
-        <AssociationConnector Association="bcpp_dbModel.FK_portfolio_akcie" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.5" PointY="4.5" />
-          <ConnectorPoint PointX="1.5" PointY="2.6824446614583337" />
-          <ConnectorPoint PointX="3" PointY="2.6824446614583337" />
+        <AssociationConnector Association="dbModel.FK_historie_akcie_akcie" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="5.6151432291666667" />
+          <ConnectorPoint PointX="7.5" PointY="5.6151432291666667" />
         </AssociationConnector>
-        <AssociationConnector Association="bcpp_dbModel.FK_historie_poukazek_pokl_poukazky" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.25" PointY="1.7689925130208337" />
-          <ConnectorPoint PointX="8" PointY="1.7689925130208337" />
+        <AssociationConnector Association="dbModel.FK_portfolio_akcie" ManuallyRouted="false">
+          <ConnectorPoint PointX="6" PointY="4.375" />
+          <ConnectorPoint PointX="6" PointY="2.6824446614583337" />
+          <ConnectorPoint PointX="7.5" PointY="2.6824446614583337" />
         </AssociationConnector>
-        <AssociationConnector Association="bcpp_dbModel.FK_portfolio_uzivatel" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.40625" PointY="4.125" />
-          <ConnectorPoint PointX="7.40625" PointY="3.2951871744791674" />
-          <ConnectorPoint PointX="4.5" PointY="3.2951871744791674" />
+        <AssociationConnector Association="dbModel.FK_historie_poukazek_pokl_poukazky" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.7689925130208337" />
+          <ConnectorPoint PointX="3" PointY="1.7689925130208337" />
         </AssociationConnector>
-        <AssociationConnector Association="bcpp_dbModel.FK_uzivatel_users" ManuallyRouted="false">
-          <ConnectorPoint PointX="5.25" PointY="12.501152846153847" />
-          <ConnectorPoint PointX="5.625" PointY="12.126152846153847" />
-          <ConnectorPoint PointX="5.625" PointY="5.736523809895834" />
-          <ConnectorPoint PointX="6" PointY="5.736523809895834" />
+        <AssociationConnector Association="dbModel.FK_portfolio_uzivatel" ManuallyRouted="false">
+          <ConnectorPoint PointX="11.25" PointY="4.125" />
+          <ConnectorPoint PointX="11.25" PointY="2.6824446614583337" />
+          <ConnectorPoint PointX="9" PointY="2.6824446614583337" />
         </AssociationConnector>
-        <AssociationConnector Association="bcpp_dbModel.sledovane" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="6.7663378906250005" />
-          <ConnectorPoint PointX="4.822916666666667" PointY="6.766337890625" />
-          <ConnectorPoint PointX="4.989583333333333" PointY="6.7663378906250005" />
-          <ConnectorPoint PointX="5.541666666666667" PointY="6.766337890625" />
-          <ConnectorPoint PointX="5.708333333333333" PointY="6.7663378906250005" />
-          <ConnectorPoint PointX="6" PointY="6.7663378906250005" />
+        <AssociationConnector Association="dbModel.sledovane" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.75" PointY="4.46875" />
+          <ConnectorPoint PointX="10.5" PointY="4.46875" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
