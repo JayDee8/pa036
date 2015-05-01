@@ -1,0 +1,91 @@
+﻿@model bcpp.Models.uzivatel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>uzivatel</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.jmeno)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.jmeno)
+            @Html.ValidationMessageFor(model => model.jmeno)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.prijmeni)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.prijmeni)
+            @Html.ValidationMessageFor(model => model.prijmeni)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.nick)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.nick)
+            @Html.ValidationMessageFor(model => model.nick)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.adresa_id)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.adresa_id)
+            @Html.ValidationMessageFor(model => model.adresa_id)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.heslo_hash)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.heslo_hash)
+            @Html.ValidationMessageFor(model => model.heslo_hash)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.poznamka)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.poznamka)
+            @Html.ValidationMessageFor(model => model.poznamka)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.penezenka)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.penezenka)
+            @Html.ValidationMessageFor(model => model.penezenka)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.uzivatel_typ)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.uzivatel_typ)
+            @Html.ValidationMessageFor(model => model.uzivatel_typ)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,74 @@
+﻿@model bcpp.Models.uzivatel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>uzivatel</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.jmeno)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.jmeno)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.prijmeni)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.prijmeni)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.nick)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.nick)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.adresa_id)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.adresa_id)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.heslo_hash)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.heslo_hash)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.poznamka)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.poznamka)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.penezenka)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.penezenka)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.uzivatel_typ)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.uzivatel_typ)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

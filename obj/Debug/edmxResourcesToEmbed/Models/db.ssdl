@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="dbModelStoreContainer">
+    <EntitySet Name="adresa" EntityType="dbModel.Store.adresa" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="akcie" EntityType="dbModel.Store.akcie" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="firma" EntityType="dbModel.Store.firma" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="historie_akcie" EntityType="dbModel.Store.historie_akcie" store:Type="Tables" store:Schema="dbo" store:Name="historie_akcie">
+      <DefiningQuery>SELECT 
+      [historie_akcie].[akcie_id] AS [akcie_id], 
+      [historie_akcie].[datum] AS [datum], 
+      [historie_akcie].[cena_prodej] AS [cena_prodej], 
+      [historie_akcie].[cena_nakup] AS [cena_nakup]
+      FROM [dbo].[historie_akcie] AS [historie_akcie]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="historie_poukazek" EntityType="dbModel.Store.historie_poukazek" store:Type="Tables" store:Schema="dbo" store:Name="historie_poukazek">
+      <DefiningQuery>SELECT 
+      [historie_poukazek].[poukazka_id] AS [poukazka_id], 
+      [historie_poukazek].[datum] AS [datum], 
+      [historie_poukazek].[urok] AS [urok]
+      FROM [dbo].[historie_poukazek] AS [historie_poukazek]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="index_PX" EntityType="dbModel.Store.index_PX" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="pokl_poukazky" EntityType="dbModel.Store.pokl_poukazky" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="portfolio" EntityType="dbModel.Store.portfolio" store:Type="Tables" store:Schema="dbo" store:Name="portfolio">
+      <DefiningQuery>SELECT 
+      [portfolio].[uzivatel_id] AS [uzivatel_id], 
+      [portfolio].[akcie_id] AS [akcie_id], 
+      [portfolio].[pocet] AS [pocet], 
+      [portfolio].[datum_pridani] AS [datum_pridani], 
+      [portfolio].[datum_odebrani] AS [datum_odebrani]
+      FROM [dbo].[portfolio] AS [portfolio]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="sledovane" EntityType="dbModel.Store.sledovane" store:Type="Tables" store:Schema="dbo" store:Name="sledovane">
+      <DefiningQuery>SELECT 
+      [sledovane].[uzivatel_id] AS [uzivatel_id], 
+      [sledovane].[akcie_id] AS [akcie_id]
+      FROM [dbo].[sledovane] AS [sledovane]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="uzivatel" EntityType="dbModel.Store.uzivatel" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_firma_adresa" Association="dbModel.Store.FK_firma_adresa">
+      <End Role="adresa" EntitySet="adresa" />
+      <End Role="firma" EntitySet="firma" />
+    </AssociationSet>
+    <AssociationSet Name="FK_historie_akcie_akcie" Association="dbModel.Store.FK_historie_akcie_akcie">
+      <End Role="akcie" EntitySet="akcie" />
+      <End Role="historie_akcie" EntitySet="historie_akcie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_historie_poukazek_pokl_poukazky" Association="dbModel.Store.FK_historie_poukazek_pokl_poukazky">
+      <End Role="pokl_poukazky" EntitySet="pokl_poukazky" />
+      <End Role="historie_poukazek" EntitySet="historie_poukazek" />
+    </AssociationSet>
+    <AssociationSet Name="FK_portfolio_akcie" Association="dbModel.Store.FK_portfolio_akcie">
+      <End Role="akcie" EntitySet="akcie" />
+      <End Role="portfolio" EntitySet="portfolio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_portfolio_uzivatel" Association="dbModel.Store.FK_portfolio_uzivatel">
+      <End Role="uzivatel" EntitySet="uzivatel" />
+      <End Role="portfolio" EntitySet="portfolio" />
+    </AssociationSet>
+    <AssociationSet Name="FK_sledovane_akcie" Association="dbModel.Store.FK_sledovane_akcie">
+      <End Role="akcie" EntitySet="akcie" />
+      <End Role="sledovane" EntitySet="sledovane" />
+    </AssociationSet>
+    <AssociationSet Name="FK_sledovane_uzivatel" Association="dbModel.Store.FK_sledovane_uzivatel">
+      <End Role="uzivatel" EntitySet="uzivatel" />
+      <End Role="sledovane" EntitySet="sledovane" />
+    </AssociationSet>
+    <AssociationSet Name="FK_uzivatel_adresa" Association="dbModel.Store.FK_uzivatel_adresa">
+      <End Role="adresa" EntitySet="adresa" />
+      <End Role="uzivatel" EntitySet="uzivatel" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="adresa">
+    <Key>
+      <PropertyRef Name="adresa_id" />
+    </Key>
+    <Property Name="adresa_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="mesto" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="ulice" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="PSC" Type="varchar" Nullable="false" MaxLength="5" />
+    <Property Name="telefon" Type="varchar" Nullable="false" MaxLength="15" />
+    <Property Name="email" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="akcie">
+    <Key>
+      <PropertyRef Name="akcie_id" />
+    </Key>
+    <Property Name="akcie_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="firma_id" Type="int" Nullable="false" />
+    <Property Name="nazev" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="zkratka" Type="varchar" Nullable="false" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="firma">
+    <Key>
+      <PropertyRef Name="firma_id" />
+    </Key>
+    <Property Name="firma_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="adresa_id" Type="int" Nullable="false" />
+    <Property Name="nazev" Type="real" Nullable="false" />
+    <Property Name="ICO" Type="varchar" Nullable="false" MaxLength="8" />
+    <Property Name="DIC" Type="varchar" Nullable="false" MaxLength="10" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'bcpp_db.dbo.historie_akcie' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="historie_akcie">
+    <Key>
+      <PropertyRef Name="akcie_id" />
+      <PropertyRef Name="datum" />
+      <PropertyRef Name="cena_prodej" />
+      <PropertyRef Name="cena_nakup" />
+    </Key>
+    <Property Name="akcie_id" Type="int" Nullable="false" />
+    <Property Name="datum" Type="datetime" Nullable="false" />
+    <Property Name="cena_prodej" Type="real" Nullable="false" />
+    <Property Name="cena_nakup" Type="real" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'bcpp_db.dbo.historie_poukazek' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="historie_poukazek">
+    <Key>
+      <PropertyRef Name="poukazka_id" />
+      <PropertyRef Name="datum" />
+      <PropertyRef Name="urok" />
+    </Key>
+    <Property Name="poukazka_id" Type="int" Nullable="false" />
+    <Property Name="datum" Type="datetime" Nullable="false" />
+    <Property Name="urok" Type="real" Nullable="false" />
+  </EntityType>
+  <EntityType Name="index_PX">
+    <Key>
+      <PropertyRef Name="datum" />
+    </Key>
+    <Property Name="datum" Type="datetime" Nullable="false" />
+    <Property Name="hodnota" Type="real" Nullable="false" />
+  </EntityType>
+  <EntityType Name="pokl_poukazky">
+    <Key>
+      <PropertyRef Name="poukazka_id" />
+    </Key>
+    <Property Name="poukazka_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="nazev" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="zkratka" Type="varchar" Nullable="false" MaxLength="10" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'bcpp_db.dbo.portfolio' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="portfolio">
+    <Key>
+      <PropertyRef Name="uzivatel_id" />
+      <PropertyRef Name="akcie_id" />
+      <PropertyRef Name="datum_pridani" />
+    </Key>
+    <Property Name="uzivatel_id" Type="int" Nullable="false" />
+    <Property Name="akcie_id" Type="int" Nullable="false" />
+    <Property Name="pocet" Type="int" />
+    <Property Name="datum_pridani" Type="datetime" Nullable="false" />
+    <Property Name="datum_odebrani" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'bcpp_db.dbo.sledovane' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="sledovane">
+    <Key>
+      <PropertyRef Name="uzivatel_id" />
+      <PropertyRef Name="akcie_id" />
+    </Key>
+    <Property Name="uzivatel_id" Type="int" Nullable="false" />
+    <Property Name="akcie_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="uzivatel">
+    <Key>
+      <PropertyRef Name="uzivatel_id" />
+    </Key>
+    <Property Name="uzivatel_id" Type="int" Nullable="false" />
+    <Property Name="jmeno" Type="varchar" Nullable="false" MaxLength="40" />
+    <Property Name="prijmeni" Type="varchar" Nullable="false" MaxLength="160" />
+    <Property Name="adresa_id" Type="int" Nullable="false" />
+    <Property Name="poznamka" Type="varchar" MaxLength="500" />
+    <Property Name="penezenka" Type="int" />
+  </EntityType>
+  <Association Name="FK_firma_adresa">
+    <End Role="adresa" Type="dbModel.Store.adresa" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="firma" Type="dbModel.Store.firma" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="adresa">
+        <PropertyRef Name="adresa_id" />
+      </Principal>
+      <Dependent Role="firma">
+        <PropertyRef Name="adresa_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_historie_akcie_akcie">
+    <End Role="akcie" Type="dbModel.Store.akcie" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="historie_akcie" Type="dbModel.Store.historie_akcie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="akcie">
+        <PropertyRef Name="akcie_id" />
+      </Principal>
+      <Dependent Role="historie_akcie">
+        <PropertyRef Name="akcie_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_historie_poukazek_pokl_poukazky">
+    <End Role="pokl_poukazky" Type="dbModel.Store.pokl_poukazky" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="historie_poukazek" Type="dbModel.Store.historie_poukazek" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pokl_poukazky">
+        <PropertyRef Name="poukazka_id" />
+      </Principal>
+      <Dependent Role="historie_poukazek">
+        <PropertyRef Name="poukazka_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_portfolio_akcie">
+    <End Role="akcie" Type="dbModel.Store.akcie" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="portfolio" Type="dbModel.Store.portfolio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="akcie">
+        <PropertyRef Name="akcie_id" />
+      </Principal>
+      <Dependent Role="portfolio">
+        <PropertyRef Name="akcie_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_portfolio_uzivatel">
+    <End Role="uzivatel" Type="dbModel.Store.uzivatel" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="portfolio" Type="dbModel.Store.portfolio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="uzivatel">
+        <PropertyRef Name="uzivatel_id" />
+      </Principal>
+      <Dependent Role="portfolio">
+        <PropertyRef Name="uzivatel_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_sledovane_akcie">
+    <End Role="akcie" Type="dbModel.Store.akcie" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="sledovane" Type="dbModel.Store.sledovane" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="akcie">
+        <PropertyRef Name="akcie_id" />
+      </Principal>
+      <Dependent Role="sledovane">
+        <PropertyRef Name="akcie_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_sledovane_uzivatel">
+    <End Role="uzivatel" Type="dbModel.Store.uzivatel" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="sledovane" Type="dbModel.Store.sledovane" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="uzivatel">
+        <PropertyRef Name="uzivatel_id" />
+      </Principal>
+      <Dependent Role="sledovane">
+        <PropertyRef Name="uzivatel_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_uzivatel_adresa">
+    <End Role="adresa" Type="dbModel.Store.adresa" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="uzivatel" Type="dbModel.Store.uzivatel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="adresa">
+        <PropertyRef Name="adresa_id" />
+      </Principal>
+      <Dependent Role="uzivatel">
+        <PropertyRef Name="adresa_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
