@@ -1,0 +1,36 @@
+﻿@model bcpp.Models.akcie
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>akcie</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.firma.ICO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.firma.ICO)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.nazev)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.nazev)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.zkratka)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.zkratka)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.akcie_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

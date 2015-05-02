@@ -55,7 +55,7 @@ namespace bcpp.Controllers
         {
             WebSecurity.Logout();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Akcie");
         }
         
         //
@@ -81,7 +81,18 @@ namespace bcpp.Controllers
                 try
                 {
                     WebSecurity.CreateUserAndAccount(model.regModel.UserName, model.regModel.Password);
-                    Roles.AddUserToRole(model.regModel.UserName, "user");
+
+
+                    if (!Roles.RoleExists("admin"))
+                        Roles.CreateRole("admin");
+                    if (!Roles.RoleExists("user"))
+                        Roles.CreateRole("user");
+
+                    if (model.regModel.UserName.Equals("admin") && !Roles.GetRolesForUser(model.regModel.UserName).Contains("admin"))
+                        Roles.AddUserToRole(model.regModel.UserName, "admin");
+                    else
+                        Roles.AddUserToRole(model.regModel.UserName, "user");
+                    
                     WebSecurity.Login(model.regModel.UserName, model.regModel.Password);
                     
                     db.AddToadresa(model.adModel);
@@ -90,7 +101,7 @@ namespace bcpp.Controllers
                     model.uzModel.adresa_id = model.adModel.adresa_id;
                     db.AddTouzivatel(model.uzModel);
                     db.SaveChanges();
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Akcie");
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -219,7 +230,7 @@ namespace bcpp.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Akcie");
             }
         }
 

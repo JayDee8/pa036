@@ -1,0 +1,51 @@
+﻿@model bcpp.Models.portfolio
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>portfolio</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.pocet)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.pocet)
+            @Html.ValidationMessageFor(model => model.pocet)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.datum_pridani)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.datum_pridani)
+            @Html.ValidationMessageFor(model => model.datum_pridani)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.datum_odebrani)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.datum_odebrani)
+            @Html.ValidationMessageFor(model => model.datum_odebrani)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

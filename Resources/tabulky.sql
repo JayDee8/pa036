@@ -21,10 +21,12 @@ CREATE TABLE "adresa" (
 );
 
 CREATE TABLE "sledovane" (
+  "sledovane_id" int NOT NULL UNIQUE,
+  "nazev" varchar(50) NOT NULL,
   "uzivatel_id" int NOT NULL UNIQUE,
   "akcie_id" int NOT NULL UNIQUE,
 
-  CONSTRAINT PK_sledovane_uzivatel_id_akcie_id PRIMARY KEY CLUSTERED (uzivatel_id,akcie_id)
+  CONSTRAINT PK_sledovane_sledovane_id PRIMARY KEY CLUSTERED (sledovane_id)
 );
 
 CREATE TABLE "pokl_poukazky" (

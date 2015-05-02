@@ -1,0 +1,36 @@
+﻿@model bcpp.Models.portfolio
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>portfolio</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.pocet)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.pocet)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.datum_pridani)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.datum_pridani)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.datum_odebrani)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.datum_odebrani)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,39 @@
+﻿@model bcpp.Models.portfolio
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>portfolio</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.pocet)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.pocet)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.datum_pridani)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.datum_pridani)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.datum_odebrani)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.datum_odebrani)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

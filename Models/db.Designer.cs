@@ -15,8 +15,6 @@ using System.Data.Objects.DataClasses;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -26,9 +24,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 [assembly: EdmRelationshipAttribute("dbModel", "FK_akcie_firma", "firma", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.firma), "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.akcie), true)]
 [assembly: EdmRelationshipAttribute("dbModel", "FK_historie_akcie_akcie", "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.akcie), "historie_akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.historie_akcie), true)]
 [assembly: EdmRelationshipAttribute("dbModel", "FK_portfolio_akcie", "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.akcie), "portfolio", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.portfolio), true)]
+[assembly: EdmRelationshipAttribute("dbModel", "FK_sledovane_akcie", "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.akcie), "sledovane", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.sledovane), true)]
 [assembly: EdmRelationshipAttribute("dbModel", "FK_historie_poukazek_pokl_poukazky", "pokl_poukazky", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.pokl_poukazky), "historie_poukazek", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bcpp.Models.historie_poukazek), true)]
 [assembly: EdmRelationshipAttribute("dbModel", "FK_portfolio_uzivatel", "uzivatel", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.uzivatel), "portfolio", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.portfolio), true)]
-[assembly: EdmRelationshipAttribute("dbModel", "sledovane", "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.akcie), "uzivatel", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.uzivatel))]
+[assembly: EdmRelationshipAttribute("dbModel", "FK_sledovane_uzivatel", "uzivatel", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.uzivatel), "sledovane", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.sledovane), true)]
 
 #endregion
 
@@ -211,6 +210,22 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<sledovane> sledovane
+        {
+            get
+            {
+                if ((_sledovane == null))
+                {
+                    _sledovane = base.CreateObjectSet<sledovane>("sledovane");
+                }
+                return _sledovane;
+            }
+        }
+        private ObjectSet<sledovane> _sledovane;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<uzivatel> uzivatel
         {
             get
@@ -290,6 +305,14 @@ namespace bcpp.Models
         public void AddToportfolio(portfolio portfolio)
         {
             base.AddObject("portfolio", portfolio);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the sledovane EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTosledovane(sledovane sledovane)
+        {
+            base.AddObject("sledovane", sledovane);
         }
     
         /// <summary>
@@ -373,7 +396,6 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [Required]
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String mesto
@@ -398,7 +420,6 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [Required]
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String ulice
@@ -423,7 +444,6 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [Required]
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String PSC
@@ -448,7 +468,6 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [Required]
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String telefon
@@ -473,7 +492,6 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [Required]
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String email
@@ -771,18 +789,18 @@ namespace bcpp.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("dbModel", "sledovane", "uzivatel")]
-        public EntityCollection<uzivatel> uzivatel
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_sledovane_akcie", "sledovane")]
+        public EntityCollection<sledovane> sledovane
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<uzivatel>("dbModel.sledovane", "uzivatel");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<sledovane>("dbModel.FK_sledovane_akcie", "sledovane");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<uzivatel>("dbModel.sledovane", "uzivatel", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<sledovane>("dbModel.FK_sledovane_akcie", "sledovane", value);
                 }
             }
         }
@@ -1824,6 +1842,221 @@ namespace bcpp.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="dbModel", Name="sledovane")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class sledovane : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new sledovane object.
+        /// </summary>
+        /// <param name="sledovane_id">Initial value of the sledovane_id property.</param>
+        /// <param name="nazev">Initial value of the nazev property.</param>
+        /// <param name="uzivatel_id">Initial value of the uzivatel_id property.</param>
+        /// <param name="akcie_id">Initial value of the akcie_id property.</param>
+        public static sledovane Createsledovane(global::System.Int32 sledovane_id, global::System.String nazev, global::System.Int32 uzivatel_id, global::System.Int32 akcie_id)
+        {
+            sledovane sledovane = new sledovane();
+            sledovane.sledovane_id = sledovane_id;
+            sledovane.nazev = nazev;
+            sledovane.uzivatel_id = uzivatel_id;
+            sledovane.akcie_id = akcie_id;
+            return sledovane;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 sledovane_id
+        {
+            get
+            {
+                return _sledovane_id;
+            }
+            set
+            {
+                if (_sledovane_id != value)
+                {
+                    Onsledovane_idChanging(value);
+                    ReportPropertyChanging("sledovane_id");
+                    _sledovane_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("sledovane_id");
+                    Onsledovane_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _sledovane_id;
+        partial void Onsledovane_idChanging(global::System.Int32 value);
+        partial void Onsledovane_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String nazev
+        {
+            get
+            {
+                return _nazev;
+            }
+            set
+            {
+                OnnazevChanging(value);
+                ReportPropertyChanging("nazev");
+                _nazev = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("nazev");
+                OnnazevChanged();
+            }
+        }
+        private global::System.String _nazev;
+        partial void OnnazevChanging(global::System.String value);
+        partial void OnnazevChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 uzivatel_id
+        {
+            get
+            {
+                return _uzivatel_id;
+            }
+            set
+            {
+                Onuzivatel_idChanging(value);
+                ReportPropertyChanging("uzivatel_id");
+                _uzivatel_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("uzivatel_id");
+                Onuzivatel_idChanged();
+            }
+        }
+        private global::System.Int32 _uzivatel_id;
+        partial void Onuzivatel_idChanging(global::System.Int32 value);
+        partial void Onuzivatel_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 akcie_id
+        {
+            get
+            {
+                return _akcie_id;
+            }
+            set
+            {
+                Onakcie_idChanging(value);
+                ReportPropertyChanging("akcie_id");
+                _akcie_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("akcie_id");
+                Onakcie_idChanged();
+            }
+        }
+        private global::System.Int32 _akcie_id;
+        partial void Onakcie_idChanging(global::System.Int32 value);
+        partial void Onakcie_idChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_sledovane_akcie", "akcie")]
+        public akcie akcie
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("dbModel.FK_sledovane_akcie", "akcie").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("dbModel.FK_sledovane_akcie", "akcie").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<akcie> akcieReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("dbModel.FK_sledovane_akcie", "akcie");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<akcie>("dbModel.FK_sledovane_akcie", "akcie", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_sledovane_uzivatel", "uzivatel")]
+        public uzivatel uzivatel
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<uzivatel>("dbModel.FK_sledovane_uzivatel", "uzivatel").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<uzivatel>("dbModel.FK_sledovane_uzivatel", "uzivatel").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<uzivatel> uzivatelReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<uzivatel>("dbModel.FK_sledovane_uzivatel", "uzivatel");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<uzivatel>("dbModel.FK_sledovane_uzivatel", "uzivatel", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="dbModel", Name="uzivatel")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -1882,7 +2115,6 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [Required]
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String jmeno
@@ -1907,7 +2139,6 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [Required]
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String prijmeni
@@ -2072,18 +2303,18 @@ namespace bcpp.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("dbModel", "sledovane", "akcie")]
-        public EntityCollection<akcie> akcie
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_sledovane_uzivatel", "sledovane")]
+        public EntityCollection<sledovane> sledovane
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<akcie>("dbModel.sledovane", "akcie");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<sledovane>("dbModel.FK_sledovane_uzivatel", "sledovane");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<akcie>("dbModel.sledovane", "akcie", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<sledovane>("dbModel.FK_sledovane_uzivatel", "sledovane", value);
                 }
             }
         }

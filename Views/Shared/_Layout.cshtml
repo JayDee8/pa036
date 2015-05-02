@@ -12,7 +12,7 @@
         <header>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
+                    <p class="site-title">@Html.ActionLink("your logo here", "Index", "Akcie")</p>
                 </div>
                 <div class="float-right">
                     <section id="login">
@@ -20,10 +20,23 @@
                     </section>
                     <nav>
                         <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            <li>@Html.ActionLink("Akcie", "Index", "Akcie")</li>
+                            @{
+                                Alert a = new Alert();
+                                
+                            }
+                            @if (User.IsInRole("user") || User.IsInRole("admin"))
+                            {
+                                <li>@Html.ActionLink("Sledované", "Index", "Watchlist")</li>
+                                <li>@Html.ActionLink("Portfolio", "Index", "Portfolio")</li>
+                            }
                         </ul>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <ul id="submenu">
+                                <li>@Html.ActionLink("Uživatelé", "Index", "user")</li>
+                            </ul>
+                        }
                     </nav>
                 </div>
             </div>
