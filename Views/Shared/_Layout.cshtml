@@ -2,22 +2,23 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <title>@ViewBag.Title - Burza cenných papírů Praha</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
     </head>
     <body>
+        <section id="login">
+            @Html.Partial("_LoginPartial")
+        </section>
         <header>
             <div class="content-wrapper">
+                <img id="img_logo" alt="Logo" src="@Url.Content("~/Content/Images/logo.png")" /> 
                 <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("your logo here", "Index", "Akcie")</p>
+                    <p class="site-title">@Html.ActionLink("Burza cenných papírů Praha", "Index", "Akcie")</p>
                 </div>
                 <div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
                     <nav>
                         <ul id="menu">
                             <li>@Html.ActionLink("Akcie", "Index", "Akcie")</li>

@@ -1,17 +1,19 @@
 ﻿html {
-    background-color: #e2e2e2;
+    background-color: #404796;
     margin: 0;
     padding: 0;
+    height:100%;
 }
 
 body {
-    background-color: #fff;
-    border-top: solid 10px #000;
+    background-color: #E0E0E0;
+    /*border-top: solid 10px #000;*/
     color: #333;
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
+    height:100%;
 }
 
 a {
@@ -96,33 +98,37 @@ h5, h6 {
 .content-wrapper {
     margin: 0 auto;
     max-width: 960px;
+    /*background-color: #404796;*/
 }
 
 #body {
-    background-color: #efeeef;
+    background-color: #fff;
     clear: both;
     padding-bottom: 35px;
+    min-height: 70%;
 }
 
     .main-content {
-        background: url("../Images/accent.png") no-repeat;
+        /*background: url("../Images/accent.png") no-repeat;*/
         padding-left: 10px;
         padding-top: 30px;
+        background-color: #fff;
     }
 
     .featured + .main-content {
-        background: url("../Images/heroAccent.png") no-repeat;
+        /*background: url("../Images/heroAccent.png") no-repeat;*/
     }
 
 header .content-wrapper {
-    padding-top: 20px; 
+    padding-top: 10px; 
 }
 
 footer {
     clear: both;
-    background-color: #e2e2e2;
+    background-color: #404796;
+    color: white;
     font-size: .8em;
-    height: 100px;
+    height: 40px;
 }
 
 
@@ -130,14 +136,22 @@ footer {
 ----------------------------------------------------------*/
 .site-title {
     color: #c8c8c8;
-    font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
-    font-size: 2.3em;
+    /*font-family: Rockwell, Consolas, "Courier New", Courier, monospace;*/
+    font-family: MS Sans Serif, Verdana, Trebuchet MS;
+    font-size: 2.0em;
     margin: 0;
+    width:150px;
+    margin-bottom: 10px;
+}
+
+#img_logo {
+    float: left;
+    height: 120px;
 }
 
 .site-title a, .site-title a:hover, .site-title a:active {
     background: none;
-    color: #c8c8c8;
+    color: #000;
     outline: none;
     text-decoration: none;
 }
@@ -150,6 +164,9 @@ footer {
     font-size: .85em;
     margin: 0 0 10px;
     text-align: right;
+    background-color: #404796;
+    padding: 5px;
+    color: white;
 }
 
     #login a {
@@ -158,6 +175,7 @@ footer {
         margin-right: 3px;
         padding: 2px 3px;
         text-decoration: none;
+        color: white;
     }
 
     #login a.username {
