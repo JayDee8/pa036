@@ -7,7 +7,7 @@
 
 body {
     background-color: #E0E0E0;
-    /*border-top: solid 10px #000;*/
+    /*border-top: solid 5px #404796;*/
     color: #333;
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
@@ -36,6 +36,10 @@ a {
 header, footer, hgroup,
 nav, section {
     display: block;
+}
+
+header {
+    border-top: solid 5px #404796;
 }
 
 mark {
@@ -105,7 +109,7 @@ h5, h6 {
     background-color: #fff;
     clear: both;
     padding-bottom: 35px;
-    min-height: 70%;
+    min-height: 60%;
 }
 
     .main-content {
@@ -166,7 +170,7 @@ footer {
     margin: 0 0 10px;
     text-align: right;
     background-color: #404796;
-    padding: 5px 0px;
+    padding: 7px 0px;
     position: absolute;
     color: white;
 }
