@@ -30,7 +30,7 @@ a {
     }
 
     a:hover {
-        background-color: #c7d1d6;
+        /*background-color: #c7d1d6;*/
     }
 
 header, footer, hgroup,
@@ -120,7 +120,7 @@ h5, h6 {
     }
 
 header .content-wrapper {
-    padding-top: 10px; 
+    padding-top: 30px; 
 }
 
 footer {
@@ -162,15 +162,17 @@ footer {
 #login {
     display: block;
     font-size: .85em;
+    width: 100%;
     margin: 0 0 10px;
     text-align: right;
     background-color: #404796;
-    padding: 5px;
+    padding: 5px 0px;
+    position: absolute;
     color: white;
 }
 
     #login a {
-        background-color: #d3dce0;
+        /*background-color: #d3dce0;*/
         margin-left: 10px;
         margin-right: 3px;
         padding: 2px 3px;
@@ -183,6 +185,10 @@ footer {
         margin: 0;
         padding: 0;
         text-decoration: underline;
+    }
+
+    login a:hover{
+        background-color: #373D80;
     }
 
     #login ul {

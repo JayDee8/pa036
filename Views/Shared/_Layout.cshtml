@@ -1,4 +1,42 @@
 ﻿<!DOCTYPE html>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+ @if (User.IsInRole("user") || User.IsInRole("admin"))
+    {
+<script>
+    
+    $(document).ready(function(){
+        var menu = $('#login');
+        var menuTimeout = null;
+
+        $('#login').on('mouseenter mouseleave', function () {
+            $(this).toggleClass('hover');
+        });
+
+        $(window).on('mousemove', mouseMoveHandler);
+	
+        function showMenu() {
+            menu.show("slide", { direction: "up" });
+        }
+
+        function hideMenu() {
+            menu.hide("slide", { direction: "up" });
+        }
+
+        function mouseMoveHandler(e) {
+            if ( e.pageY < 20 || menu.hasClass('hover')) {
+                clearTimeout(menuTimeout);
+                menuTimeout = null;
+                showMenu();
+            } else if(!menuTimeout ) {
+	        menuTimeout = setTimeout(hideMenu, 500);
+	    }
+	}
+});
+
+</script>
+ }
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -36,6 +74,7 @@
                         {
                             <ul id="submenu">
                                 <li>@Html.ActionLink("Uživatelé", "Index", "user")</li>
+                                <li>@Html.ActionLink("Firmy", "Index", "company")</li>
                             </ul>
                         }
                     </nav>
@@ -56,7 +95,6 @@
             </div>
         </footer>
 
-        @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)
     </body>
 </html>
