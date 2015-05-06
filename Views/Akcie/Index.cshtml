@@ -9,11 +9,16 @@
 
 <h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (User.IsInRole("admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
     
-    @grid.GetHtml(columns:
+    @grid.GetHtml(
+    tableStyle: "table table-striped table-hover",
+    columns:
     grid.Columns
     (
         grid.Column("nazev", "Název"),
