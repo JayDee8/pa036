@@ -1,0 +1,59 @@
+﻿@model bcpp.Models.firma
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>firma</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.adresa_id, "adresa")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("adresa_id", String.Empty)
+            @Html.ValidationMessageFor(model => model.adresa_id)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.nazev)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.nazev)
+            @Html.ValidationMessageFor(model => model.nazev)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ICO)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ICO)
+            @Html.ValidationMessageFor(model => model.ICO)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DIC)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DIC)
+            @Html.ValidationMessageFor(model => model.DIC)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

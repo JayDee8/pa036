@@ -1,0 +1,43 @@
+﻿@model bcpp.Models.firma
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>firma</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.adresa.mesto)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.adresa.mesto)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.nazev)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.nazev)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ICO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ICO)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DIC)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DIC)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.firma_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
