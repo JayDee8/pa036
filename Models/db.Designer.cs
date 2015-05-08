@@ -22,7 +22,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("dbModel", "FK_firma_adresa", "adresa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.adresa), "firma", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.firma), true)]
 [assembly: EdmRelationshipAttribute("dbModel", "FK_uzivatel_adresa", "adresa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.adresa), "uzivatel", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.uzivatel), true)]
 [assembly: EdmRelationshipAttribute("dbModel", "FK_akcie_firma", "firma", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.firma), "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.akcie), true)]
-[assembly: EdmRelationshipAttribute("dbModel", "FK_historie_akcie_akcie", "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.akcie), "historie_akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.historie_akcie), true)]
 [assembly: EdmRelationshipAttribute("dbModel", "FK_portfolio_akcie", "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.akcie), "portfolio", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.portfolio), true)]
 [assembly: EdmRelationshipAttribute("dbModel", "FK_sledovane_akcie", "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.akcie), "sledovane", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.sledovane), true)]
 [assembly: EdmRelationshipAttribute("dbModel", "FK_historie_poukazek_pokl_poukazky", "pokl_poukazky", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.pokl_poukazky), "historie_poukazek", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bcpp.Models.historie_poukazek), true)]
@@ -130,22 +129,6 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<historie_akcie> historie_akcie
-        {
-            get
-            {
-                if ((_historie_akcie == null))
-                {
-                    _historie_akcie = base.CreateObjectSet<historie_akcie>("historie_akcie");
-                }
-                return _historie_akcie;
-            }
-        }
-        private ObjectSet<historie_akcie> _historie_akcie;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<historie_poukazek> historie_poukazek
         {
             get
@@ -238,6 +221,22 @@ namespace bcpp.Models
             }
         }
         private ObjectSet<uzivatel> _uzivatel;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<historie_akcie> historie_akcie
+        {
+            get
+            {
+                if ((_historie_akcie == null))
+                {
+                    _historie_akcie = base.CreateObjectSet<historie_akcie>("historie_akcie");
+                }
+                return _historie_akcie;
+            }
+        }
+        private ObjectSet<historie_akcie> _historie_akcie;
 
         #endregion
 
@@ -265,14 +264,6 @@ namespace bcpp.Models
         public void AddTofirma(firma firma)
         {
             base.AddObject("firma", firma);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the historie_akcie EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTohistorie_akcie(historie_akcie historie_akcie)
-        {
-            base.AddObject("historie_akcie", historie_akcie);
         }
     
         /// <summary>
@@ -321,6 +312,14 @@ namespace bcpp.Models
         public void AddTouzivatel(uzivatel uzivatel)
         {
             base.AddObject("uzivatel", uzivatel);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the historie_akcie EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTohistorie_akcie(historie_akcie historie_akcie)
+        {
+            base.AddObject("historie_akcie", historie_akcie);
         }
 
         #endregion
@@ -745,28 +744,6 @@ namespace bcpp.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_historie_akcie_akcie", "historie_akcie")]
-        public EntityCollection<historie_akcie> historie_akcie
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<historie_akcie>("dbModel.FK_historie_akcie_akcie", "historie_akcie");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<historie_akcie>("dbModel.FK_historie_akcie_akcie", "historie_akcie", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_portfolio_akcie", "portfolio")]
         public EntityCollection<portfolio> portfolio
         {
@@ -1047,14 +1024,14 @@ namespace bcpp.Models
         /// <summary>
         /// Create a new historie_akcie object.
         /// </summary>
-        /// <param name="akcie_id">Initial value of the akcie_id property.</param>
+        /// <param name="id_akcie">Initial value of the id_akcie property.</param>
         /// <param name="datum">Initial value of the datum property.</param>
         /// <param name="cena_prodej">Initial value of the cena_prodej property.</param>
         /// <param name="cena_nakup">Initial value of the cena_nakup property.</param>
-        public static historie_akcie Createhistorie_akcie(global::System.Int32 akcie_id, global::System.DateTime datum, global::System.Single cena_prodej, global::System.Single cena_nakup)
+        public static historie_akcie Createhistorie_akcie(global::System.Int32 id_akcie, global::System.DateTime datum, global::System.Single cena_prodej, global::System.Single cena_nakup)
         {
             historie_akcie historie_akcie = new historie_akcie();
-            historie_akcie.akcie_id = akcie_id;
+            historie_akcie.id_akcie = id_akcie;
             historie_akcie.datum = datum;
             historie_akcie.cena_prodej = cena_prodej;
             historie_akcie.cena_nakup = cena_nakup;
@@ -1068,29 +1045,26 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 akcie_id
+        public global::System.Int32 id_akcie
         {
             get
             {
-                return _akcie_id;
+                return _id_akcie;
             }
             set
             {
-                if (_akcie_id != value)
-                {
-                    Onakcie_idChanging(value);
-                    ReportPropertyChanging("akcie_id");
-                    _akcie_id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("akcie_id");
-                    Onakcie_idChanged();
-                }
+                Onid_akcieChanging(value);
+                ReportPropertyChanging("id_akcie");
+                _id_akcie = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("id_akcie");
+                Onid_akcieChanged();
             }
         }
-        private global::System.Int32 _akcie_id;
-        partial void Onakcie_idChanging(global::System.Int32 value);
-        partial void Onakcie_idChanged();
+        private global::System.Int32 _id_akcie;
+        partial void Onid_akcieChanging(global::System.Int32 value);
+        partial void Onid_akcieChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1170,48 +1144,6 @@ namespace bcpp.Models
         #endregion
 
     
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_historie_akcie_akcie", "akcie")]
-        public akcie akcie
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("dbModel.FK_historie_akcie_akcie", "akcie").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("dbModel.FK_historie_akcie_akcie", "akcie").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<akcie> akcieReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("dbModel.FK_historie_akcie_akcie", "akcie");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<akcie>("dbModel.FK_historie_akcie_akcie", "akcie", value);
-                }
-            }
-        }
-
-        #endregion
-
     }
     
     /// <summary>

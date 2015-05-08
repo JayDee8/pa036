@@ -55,7 +55,7 @@ namespace bcpp.Controllers
         {
             WebSecurity.Logout();
 
-            return RedirectToAction("Index", "Akcie");
+            return RedirectToAction("Index", "Main");
         }
         
         //
@@ -101,7 +101,7 @@ namespace bcpp.Controllers
                     model.uzModel.adresa_id = model.adModel.adresa_id;
                     db.AddTouzivatel(model.uzModel);
                     db.SaveChanges();
-                    return RedirectToAction("Index", "Akcie");
+                    return RedirectToAction("Index", "Main");
                 }
                 catch (MembershipCreateUserException e)
                 {

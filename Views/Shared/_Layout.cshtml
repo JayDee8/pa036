@@ -37,6 +37,17 @@
 
 </script>
  }
+else
+{
+    <script>
+
+        $(document).ready(function () {
+            var menu = $('#login');
+            menu.css("display","block");    
+        });
+
+    </script>
+}
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -75,6 +86,7 @@
                             <ul id="submenu">
                                 <li>@Html.ActionLink("Uživatelé", "Index", "user")</li>
                                 <li>@Html.ActionLink("Firmy", "Index", "firma")</li>
+                                <li>@Html.ActionLink("Historie akcií", "Index", "historieakcie")</li>
                                 <li>@Html.ActionLink("Index burzy", "Index", "indexPX")</li>
                             </ul>
                         }

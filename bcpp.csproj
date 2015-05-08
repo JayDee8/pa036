@@ -176,6 +176,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AkcieController.cs" />
     <Compile Include="Controllers\FirmaController.cs" />
+    <Compile Include="Controllers\HistorieAkcieController.cs" />
     <Compile Include="Controllers\IndexPXController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\PortfolioController.cs" />
@@ -187,6 +188,7 @@
     </Compile>
     <Compile Include="Helpers\Html.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\AkcieUserModel.cs" />
     <Compile Include="Models\db.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -372,6 +374,11 @@
     <Content Include="Views\Watchlist\Details.cshtml" />
     <Content Include="Views\Watchlist\Edit.cshtml" />
     <Content Include="Views\Watchlist\Index.cshtml" />
+    <Content Include="Views\HistorieAkcie\Create.cshtml" />
+    <Content Include="Views\HistorieAkcie\Delete.cshtml" />
+    <Content Include="Views\HistorieAkcie\Details.cshtml" />
+    <Content Include="Views\HistorieAkcie\Edit.cshtml" />
+    <Content Include="Views\HistorieAkcie\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
