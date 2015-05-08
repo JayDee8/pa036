@@ -142,9 +142,9 @@ footer {
     color: #c8c8c8;
     /*font-family: Rockwell, Consolas, "Courier New", Courier, monospace;*/
     font-family: MS Sans Serif, Verdana, Trebuchet MS;
-    font-size: 2.0em;
+    font-size: 1.6em;
     margin: 0;
-    width:150px;
+    width:130px;
     margin-bottom: 10px;
 }
 
@@ -232,6 +232,22 @@ ul#menu {
             text-decoration: none;
         }
 
+        #tabs-1 ul li a,
+        #tabs-2 ul li a,
+        #tabs .ui-tabs-active a,
+        #tabs .ui-state-active a{
+            color: black;
+        }
+
+        nav .active {
+            background-color: white;
+        }
+
+        ul#menu li {
+              display: inline;
+              /* list-style: none; */
+              padding: 5px; 
+        }
 
 /* page elements
 ----------------------------------------------------------*/

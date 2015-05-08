@@ -2,6 +2,8 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
+@{string controllerName = ViewContext.RouteData.Values["controller"].ToString();}
+
  @if (User.IsInRole("user") || User.IsInRole("admin"))
     {
 <script>
@@ -9,6 +11,13 @@
     $(document).ready(function(){
         var menu = $('#login');
         var menuTimeout = null;
+        
+
+        
+            $("#tabs").tabs({
+                collapsible: true
+            });
+        
 
         $('#login').on('mouseenter mouseleave', function () {
             $(this).toggleClass('hover');
@@ -16,6 +25,8 @@
 
         $(window).on('mousemove', mouseMoveHandler);
 	
+        getActual();
+
         function showMenu() {
             menu.show("slide", { direction: "up" });
         }
@@ -30,10 +41,28 @@
                 menuTimeout = null;
                 showMenu();
             } else if(!menuTimeout ) {
-	        menuTimeout = setTimeout(hideMenu, 500);
-	    }
-	}
-});
+                menuTimeout = setTimeout(hideMenu, 500);
+            }
+        }
+    
+        function smallHeader() {
+            var logo = $('#img_logo');
+            var title = $('.site-title');
+
+            logo.css("height", "50px");
+            title.css("font-size", "2em");
+            title.css("width", "360px");
+        }
+        
+        function getActual() {
+            var actual = "@HttpContext.Current.Request.Url.AbsolutePath";
+            if (actual == '/' | actual == '/Akcie' | actual == '/Watchlist' | actual == '/Portfolio') {
+            }
+            else {
+                $("#tabs").tabs("option", "active", 1);
+            }
+        }
+    });
 
 </script>
  }
@@ -71,27 +100,50 @@ else
                     <p class="site-title">@Html.ActionLink("Burza cenných papírů Praha", "Index", "Main")</p>
                 </div>
                 <div class="float-right">
+                    @if (User.IsInRole("admin"))
+                    {
+                    <div id="tabs">
+                        <ul id="menu">
+                            <li><a href="#tabs-1">Uživatelské rozhranní</a></li>
+                            <li><a href="#tabs-2">Administrace</a></li>
+                        </ul>
+                        <div id="tabs-1">
+                            <nav class="float-right user submenu">
+                                <ul id="menu">
+                                    <li class="@(controllerName == "Akcie" ? "active" : "")">@Html.ActionLink("Akcie", "Index", "Akcie")</li>
+                                    <li class="@(controllerName == "Watchlist" ? "active" : "")">@Html.ActionLink("Sledované", "Index", "Watchlist")</li>
+                                    <li class="@(controllerName == "Portfolio" ? "active" : "")">@Html.ActionLink("Portfolio", "Index", "Portfolio")</li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div id="tabs-2">
+                            <div class="float-right admin submenu">
+                                <nav>
+                                    <ul id="menu">
+                                        <li>@Html.ActionLink("Uživatelé", "Index", "user")</li>
+                                        <li>@Html.ActionLink("Firmy", "Index", "firma")</li>
+                                        <li>@Html.ActionLink("Historie akcií", "Index", "historieakcie")</li>
+                                        <li>@Html.ActionLink("Index burzy", "Index", "indexPX")</li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    } 
+
+                    @if (User.IsInRole("user"))
+                    {
                     <nav>
                         <ul id="menu">
-                            <li>@Html.ActionLink("Akcie", "Index", "Akcie")</li>
-                           
-                            @if (User.IsInRole("user") || User.IsInRole("admin"))
-                            {
-                                <li>@Html.ActionLink("Sledované", "Index", "Watchlist")</li>
-                                <li>@Html.ActionLink("Portfolio", "Index", "Portfolio")</li>
-                            }
+                            <li class="@(controllerName == "Akcie" ? "active" : "")">@Html.ActionLink("Akcie", "Index", "Akcie")</li>
+                            <li>@Html.ActionLink("Sledované", "Index", "Watchlist")</li>
+                            <li>@Html.ActionLink("Portfolio", "Index", "Portfolio")</li>
                         </ul>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <ul id="submenu">
-                                <li>@Html.ActionLink("Uživatelé", "Index", "user")</li>
-                                <li>@Html.ActionLink("Firmy", "Index", "firma")</li>
-                                <li>@Html.ActionLink("Historie akcií", "Index", "historieakcie")</li>
-                                <li>@Html.ActionLink("Index burzy", "Index", "indexPX")</li>
-                            </ul>
-                        }
                     </nav>
+
+                    }
                 </div>
+
             </div>
         </header>
         <div id="body">
@@ -103,7 +155,7 @@ else
         <footer>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+                    <p>&copy; @DateTime.Now.Year - BCPP FI MUNI</p>
                 </div>
             </div>
         </footer>
