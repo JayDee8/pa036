@@ -57,7 +57,7 @@
             <div class="content-wrapper">
                 <img id="img_logo" alt="Logo" src="@Url.Content("~/Content/Images/logo.png")" /> 
                 <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("Burza cenných papírů Praha", "Index", "Akcie")</p>
+                    <p class="site-title">@Html.ActionLink("Burza cenných papírů Praha", "Index", "Main")</p>
                 </div>
                 <div class="float-right">
                     <nav>
@@ -74,7 +74,8 @@
                         {
                             <ul id="submenu">
                                 <li>@Html.ActionLink("Uživatelé", "Index", "user")</li>
-                                <li>@Html.ActionLink("Firmy", "Index", "company")</li>
+                                <li>@Html.ActionLink("Firmy", "Index", "firma")</li>
+                                <li>@Html.ActionLink("Index burzy", "Index", "indexPX")</li>
                             </ul>
                         }
                     </nav>

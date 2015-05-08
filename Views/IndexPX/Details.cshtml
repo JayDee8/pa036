@@ -1,0 +1,22 @@
+﻿@model bcpp.Models.index_PX
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>index_PX</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.hodnota)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.hodnota)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.datum }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

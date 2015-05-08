@@ -15,16 +15,15 @@
         @Html.ActionLink("Create New", "Create")
     </p>
 }
-    
-    @grid.GetHtml(
+
+@grid.GetHtml(
     tableStyle: "table table-striped table-hover",
     columns:
     grid.Columns
     (
         grid.Column("nazev", "Název"),
         grid.Column("zkratka", "Zkratka"),
-        grid.Column("ico", "IČO"),
-        Html.RoleBasedColumns("user",grid,"Množství",sum),
+        Html.RoleBasedColumns("user", grid, "Množství", sum),
         grid.Column(format: (item) => Html.ActionLink("Detaily", "Details", new { id = item.pk_id }))
         @*jeste zde pak pridam sloupec pro upravu*@
-    ))
+))
