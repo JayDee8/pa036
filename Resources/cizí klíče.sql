@@ -15,14 +15,6 @@ ADD CONSTRAINT FK_firma_adresa FOREIGN KEY (adresa_id)
     ON UPDATE CASCADE
 ;
 GO
-GO
-ALTER TABLE uzivatel
-ADD CONSTRAINT FK_uzivatel_users FOREIGN KEY (uzivatel_id) 
-    REFERENCES UserProfile (UserId) 
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-;
-GO
 
 GO
 ALTER TABLE uzivatel
@@ -82,6 +74,15 @@ GO
 ALTER TABLE historie_akcie
 ADD CONSTRAINT FK_historie_akcie_akcie FOREIGN KEY (akcie_id) 
     REFERENCES akcie (akcie_id) 
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+;
+GO
+
+GO
+ALTER TABLE uzivatel
+ADD CONSTRAINT FK_uzivatel_users FOREIGN KEY (uzivatel_id) 
+    REFERENCES UserProfile (UserId) 
     ON DELETE CASCADE
     ON UPDATE CASCADE
 ;
