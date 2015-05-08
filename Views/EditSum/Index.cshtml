@@ -1,0 +1,33 @@
+﻿@model bcpp.Models.PortfolioChangeSumModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    
+    @Html.HiddenFor(model => model.pModel.akcie_id)
+    @Html.HiddenFor(model => model.pModel.uzivatel_id)
+    
+    if (ViewBag.err != null)
+    {
+        <h2> Nemáš prachy brouku!</h2>
+    }
+    
+    <text>pro akcii @Model.pModel.akcie.nazev <br />
+
+    máš </text>@(Model.pModel.pocet == null ? 0 : Model.pModel.pocet)
+    <text><br />
+    počet - koupit: @Html.TextBoxFor(modelItem => modelItem.sumToBuy)
+    počet - prodat: @Html.TextBoxFor(modelItem => modelItem.sumToSell)</text>
+        
+    <p>
+        <input type="submit" value="proveď" />
+    </p>
+}
+
+
+

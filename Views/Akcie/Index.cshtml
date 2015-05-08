@@ -33,7 +33,7 @@
 
     if (User.IsInRole("user") || User.IsInRole("admin"))
     {
-        gridColumns.Add(grid.Column(format: (item) => Html.ActionLink("Upravit množství", "ChangeSum", new { id = item.akcie_id })));
+        gridColumns.Add(grid.Column(format: (item) => Html.ActionLink("Upravit množství", "Index", "EditSum", new RouteValueDictionary ( new { id = item.akcie_id }),null)));
     }
     
     if(User.IsInRole("admin"))    

@@ -15,4 +15,12 @@ namespace bcpp.Models
         public DateTime datum { get; set; }
         public int? pocet { get; set; }
     }
+
+    public class PortfolioChangeSumModel
+    {
+        public portfolio pModel { get; set; }
+        public int sumToSell { get; set; }
+        public int sumToBuy { get; set; }
+
+    }
 }

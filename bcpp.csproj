@@ -7,7 +7,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E64124D7-3A7E-403A-982F-F806E28AC388}</ProjectGuid>
+    <ProjectGuid>{AF4814A7-104D-4CEF-9D8F-F79952A41377}</ProjectGuid>
     <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -175,6 +175,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AkcieController.cs" />
+    <Compile Include="Controllers\EditSumController.cs" />
     <Compile Include="Controllers\FirmaController.cs" />
     <Compile Include="Controllers\HistorieAkcieController.cs" />
     <Compile Include="Controllers\IndexPXController.cs" />
@@ -379,6 +380,7 @@
     <Content Include="Views\HistorieAkcie\Details.cshtml" />
     <Content Include="Views\HistorieAkcie\Edit.cshtml" />
     <Content Include="Views\HistorieAkcie\Index.cshtml" />
+    <Content Include="Views\EditSum\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
