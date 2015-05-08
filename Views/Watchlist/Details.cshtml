@@ -1,0 +1,36 @@
+﻿@model bcpp.Models.sledovane
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>sledovane</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.nazev)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.nazev)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.uzivatel.jmeno)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.uzivatel.jmeno)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.akcie.nazev)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.akcie.nazev)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.sledovane_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

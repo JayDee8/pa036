@@ -18,21 +18,21 @@ namespace bcpp.Controllers
 
         public ActionResult Index()
         {
-            var watchlist = db.sledovane.Include("akcie").Include("uzivatel");
-            return View(watchlist.ToList());
+            var sledovane = db.sledovane.Include("akcie").Include("uzivatel");
+            return View(sledovane.ToList());
         }
 
         //
         // GET: /Watchlist/Details/5
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int id = 0)
         {
-            sledovane watchlist = db.sledovane.Single(p => p.uzivatel_id == id);
-            if (watchlist == null)
+            sledovane sledovane = db.sledovane.Single(s => s.sledovane_id == id);
+            if (sledovane == null)
             {
                 return HttpNotFound();
             }
-            return View(watchlist);
+            return View(sledovane);
         }
 
         //
@@ -49,70 +49,85 @@ namespace bcpp.Controllers
         // POST: /Watchlist/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(sledovane sledovane)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
+                db.sledovane.AddObject(sledovane);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            ViewBag.akcie_id = new SelectList(db.akcie, "akcie_id", "nazev", sledovane.akcie_id);
+            ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno", sledovane.uzivatel_id);
+            return View(sledovane);
         }
 
         //
         // GET: /Watchlist/Edit/5
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id = 0)
         {
-            return View();
+            sledovane sledovane = db.sledovane.Single(s => s.sledovane_id == id);
+            if (sledovane == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.akcie_id = new SelectList(db.akcie, "akcie_id", "nazev", sledovane.akcie_id);
+            ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno", sledovane.uzivatel_id);
+            return View(sledovane);
         }
 
         //
         // POST: /Watchlist/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(sledovane sledovane)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                db.sledovane.Attach(sledovane);
+                db.ObjectStateManager.ChangeObjectState(sledovane, EntityState.Modified);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            ViewBag.akcie_id = new SelectList(db.akcie, "akcie_id", "nazev", sledovane.akcie_id);
+            ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno", sledovane.uzivatel_id);
+            return View(sledovane);
         }
 
         //
         // GET: /Watchlist/Delete/5
 
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id = 0)
         {
-            return View();
+            sledovane sledovane = db.sledovane.Single(s => s.sledovane_id == id);
+            if (sledovane == null)
+            {
+                return HttpNotFound();
+            }
+            return View(sledovane);
         }
 
         //
         // POST: /Watchlist/Delete/5
 
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            sledovane sledovane = db.sledovane.Single(s => s.sledovane_id == id);
+            db.sledovane.DeleteObject(sledovane);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
         }
     }
 }
