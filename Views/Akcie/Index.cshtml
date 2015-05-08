@@ -1,29 +1,49 @@
-﻿@model IEnumerable<bcpp.Models.akcie>
+﻿@model IEnumerable<bcpp.Models.AkcieUserModel>
 @using bcpp.Helpers
 
 @{
     ViewBag.Title = "Akcie";
     WebGrid grid = new WebGrid(Model);
-    String sum = "0"; //dodělat
 }
 
-<h2>@ViewBag.Title</h2>
 
-@if (User.IsInRole("admin"))
+@if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
 {
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.Bootstrap().ActionLinkButton("Create New", "Create","Akcie")
     </p>
 }
 
-@grid.GetHtml(
+@{
+    
+    var gridColumns = new List<WebGridColumn>();
+    
+    gridColumns.Add(grid.Column("nazev", "Název"));
+    gridColumns.Add(grid.Column("zkratka", "Zkratka"));
+    gridColumns.Add(grid.Column("cena_prodej", "Prodejní cena"));
+    gridColumns.Add(grid.Column("cena_nakup", "Nákupní cena"));
+    gridColumns.Add(grid.Column("datum", "Cena k datu"));
+    
+    if (User.IsInRole("user") || User.IsInRole("admin"))
+    {
+        gridColumns.Add(grid.Column("pocet","Počet"));
+    }
+    
+    gridColumns.Add(grid.Column(format: (item) => Html.ActionLink("Detaily", "Details", new { id = item.akcie_id })));
+
+    if (User.IsInRole("user") || User.IsInRole("admin"))
+    {
+        gridColumns.Add(grid.Column(format: (item) => Html.ActionLink("Upravit množství", "ChangeSum", new { id = item.akcie_id })));
+    }
+    
+    if(User.IsInRole("admin"))    
+    {
+        gridColumns.Add(grid.Column(format: (item) => new HtmlString(Html.ActionLink("  ", "Edit", new { id = item.akcie_id }, new { @class = "glyphicon glyphicon-edit", @title = "Upravit" }) + " " + Html.ActionLink("  ", "Delete", new { id = item.akcie_id }, new { @class = "glyphicon glyphicon-trash", @title = "Vymazat" }))));
+    }
+        
+}
+    
+    @grid.GetHtml(
     tableStyle: "table table-striped table-hover",
     columns:
-    grid.Columns
-    (
-        grid.Column("nazev", "Název"),
-        grid.Column("zkratka", "Zkratka"),
-        Html.RoleBasedColumns("user", grid, "Množství", sum),
-        grid.Column(format: (item) => Html.ActionLink("Detaily", "Details", new { id = item.pk_id }))
-        @*jeste zde pak pridam sloupec pro upravu*@
-))
+    grid.Columns(gridColumns.ToArray()))

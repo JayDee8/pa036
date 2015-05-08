@@ -6,9 +6,28 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using bcpp.Models;
+using WebMatrix.WebData;
+using System.Data.Objects;
+using bcpp.Filters;
 
 namespace bcpp.Controllers
 {
+
+    class DistinctItemComparer : IEqualityComparer<historie_akcie>
+    {
+
+        public bool Equals(historie_akcie x, historie_akcie y)
+        {
+            return x.id_akcie == y.id_akcie;
+        }
+
+        public int GetHashCode(historie_akcie obj)
+        {
+            return obj.id_akcie.GetHashCode();
+        }
+    }
+
+    [InitializeSimpleMembership]
     public class AkcieController : Controller
     {
         private dbEntities db = new dbEntities();
@@ -18,8 +37,29 @@ namespace bcpp.Controllers
 
         public ActionResult Index()
         {
-            var akcie = db.akcie.Include("firma");
-            return View(akcie.ToList());
+            
+            var akcie = db.akcie.Include("historie_akcie");
+            
+            
+            int userId = WebSecurity.GetUserId(User.Identity.Name);
+
+            IEnumerable<portfolio> mojePortfolio = db.portfolio.Where(p => p.uzivatel_id == userId);
+            IEnumerable<historie_akcie> ha = from h in db.historie_akcie group h by h.id_akcie into g let maxDate = g.Max(r => r.datum) from rowGroup in g where rowGroup.datum == maxDate select rowGroup;
+            IEnumerable<AkcieUserModel> model = (
+                from a in db.akcie
+                join h in ha
+                    on a.akcie_id equals h.id_akcie 
+                join p in db.portfolio
+                    on new { a.akcie_id,id = userId } equals new { p.akcie_id,id = p.uzivatel_id } into ap
+                from row in ap.DefaultIfEmpty()
+                select new AkcieUserModel { akcie_id = a.akcie_id, nazev = a.nazev, zkratka = a.zkratka, cena_nakup = h.cena_nakup, cena_prodej = h.cena_prodej, datum = h.datum, pocet = (row == null ? 0 : row.pocet) });
+            
+
+                //select new { pk_id = a.akcie_id, zkratka = a.zkratka, }); //cena_prodej = ha.cena_prodej, cena_nakup = ha.cena_nakup, pocet = p.pocet});
+            
+           // uzivatel uz = db.uzivatel.Single(a => a.uzivatel_id == WebSecurity.GetUserId(User.Identity.Name));
+            
+            return View(model);
         }
 
         //

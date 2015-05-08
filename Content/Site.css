@@ -164,7 +164,7 @@ footer {
 /* login
 ----------------------------------------------------------*/
 #login {
-    display: block;
+    display: none;
     font-size: .85em;
     width: 100%;
     margin: 0 0 10px;

@@ -7,7 +7,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{AF4814A7-104D-4CEF-9D8F-F79952A41377}</ProjectGuid>
+    <ProjectGuid>{E64124D7-3A7E-403A-982F-F806E28AC388}</ProjectGuid>
     <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -16,6 +16,10 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -116,7 +120,7 @@
       <HintPath>..\packages\T4MVCExtensions.3.15.0\lib\net40\T4MVCExtensions.dll</HintPath>
     </Reference>
     <Reference Include="TwitterBootstrapMVC4">
-      <HintPath>..\..\TwitterBootstrapMVC4.dll</HintPath>
+      <HintPath>Resources\TwitterBootstrapMVC4.dll</HintPath>
     </Reference>
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -171,8 +175,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AkcieController.cs" />
+    <Compile Include="Controllers\FirmaController.cs" />
+    <Compile Include="Controllers\IndexPXController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\PortfolioController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WatchlistController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -184,6 +192,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>db.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\MainPageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -347,6 +356,22 @@
     <Content Include="Views\Portfolio\Create.cshtml" />
     <Content Include="Views\Portfolio\Edit.cshtml" />
     <Content Include="Views\Portfolio\Delete.cshtml" />
+    <Content Include="Views\Firma\Create.cshtml" />
+    <Content Include="Views\Firma\Delete.cshtml" />
+    <Content Include="Views\Firma\Details.cshtml" />
+    <Content Include="Views\Firma\Edit.cshtml" />
+    <Content Include="Views\Firma\Index.cshtml" />
+    <Content Include="Views\IndexPX\Create.cshtml" />
+    <Content Include="Views\IndexPX\Delete.cshtml" />
+    <Content Include="Views\IndexPX\Details.cshtml" />
+    <Content Include="Views\IndexPX\Edit.cshtml" />
+    <Content Include="Views\IndexPX\Index.cshtml" />
+    <Content Include="Views\Main\Index.cshtml" />
+    <Content Include="Views\Watchlist\Create.cshtml" />
+    <Content Include="Views\Watchlist\Delete.cshtml" />
+    <Content Include="Views\Watchlist\Details.cshtml" />
+    <Content Include="Views\Watchlist\Edit.cshtml" />
+    <Content Include="Views\Watchlist\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
