@@ -1,4 +1,4 @@
-id_akcie;datum;cena_nakup;cena_prodej
+akcie_id;datum;cena_nakup;cena_prodej
 1;2015-04-30;5360,00;5451,00
 1;2015-04-29;5377,00;5361,00
 1;2015-04-28;5340,00;5383,00

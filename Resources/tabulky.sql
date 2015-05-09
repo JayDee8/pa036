@@ -13,7 +13,7 @@ CREATE TABLE "adresa" (
   "adresa_id" int IDENTITY(1,1) NOT NULL UNIQUE,
   "mesto" varchar(50) NOT NULL,
   "ulice" varchar(50) NOT NULL,
-  "PSC" varchar(5) NOT NULL,
+  "PSC" varchar(15),
   "telefon" varchar(15),
   "email" varchar(50) NOT NULL,
 
@@ -38,7 +38,7 @@ CREATE TABLE "pokl_poukazky" (
 );
 
 CREATE TABLE "historie_poukazek" (
-  "poukazka_id" int NOT NULL UNIQUE,
+  "poukazka_id" int NOT NULL,
   "datum" datetime NOT NULL,
   "urok" float(10) NOT NULL,
 
@@ -79,7 +79,7 @@ CREATE TABLE "historie_akcie" (
 CREATE TABLE "firma" (
   "firma_id" int IDENTITY(1,1) NOT NULL UNIQUE,
   "adresa_id" int NOT NULL UNIQUE,
-  "nazev" float(10) NOT NULL,
+  "nazev" varchar(30) NOT NULL,
   "ICO" varchar(8),
   "DIC" varchar(10),
 
