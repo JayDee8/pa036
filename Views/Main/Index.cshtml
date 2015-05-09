@@ -4,15 +4,7 @@
 
 @{
     WebGrid aGrid = new WebGrid(Model.AModel);
-    WebGrid iGrid = new WebGrid(Model.IModel);
-    CultureInfo us = new CultureInfo("en-US");
-    //string text = toString(Model.IModel.First().datum);
-    //string text2 = "1434-09-23T15:16";
-    //string format = "yyyy-mm-dd hh:mm:ss";
-    TimeSpan span = (Model.IModel.First().datum - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc));
-    //DateTime first = DateTime.ParseExact(text2,format,us);
-    Console.WriteLine(span);
-    
+    WebGrid iGrid = new WebGrid(Model.IModel); 
 }
 
 <script>

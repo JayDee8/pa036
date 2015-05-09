@@ -8,6 +8,27 @@
 
 <fieldset>
     <legend>historie_akcie</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.akcie.nazev)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.akcie.nazev)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.cena_prodej)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.cena_prodej)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.cena_nakup)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.cena_nakup)
+    </div>
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |

@@ -1,33 +1,90 @@
 ﻿@model IEnumerable<bcpp.Models.index_PX>
 
 @{
-    ViewBag.Title = "Index";
+    WebGrid grid = new WebGrid(Model);
 }
+<script>
 
-<h2>Index</h2>
+    $(function () {
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.hodnota)
-        </th>
-        <th></th>
-    </tr>
+        var data = [@{foreach (var item in Model){ @Html.Raw("[")@((item.datum - new DateTime(1970, 1, 1,0,0,0).ToLocalTime()).TotalSeconds); @Html.Raw("000,"); @item.hodnota @Html.Raw("],")}}], StockChart;
+        data = data.sort();
+        console.log(data);
+        $(document).ready(function () {
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.hodnota)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.datum }) |
-            @Html.ActionLink("Details", "Details", new { id=item.datum }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.datum })
-        </td>
-    </tr>
-}
+            $('#index-container').highcharts('StockChart', {
 
-</table>
+                chart: {
+
+                    zoomType: 'x'
+                },
+
+                rangeSelector: {
+                    inputBoxWidth: 130,
+                    buttons: [{
+                        type: 'week',
+                        count: 1,
+                        text: '1t'
+                    }, {
+                        type: 'month',
+                        count: 1,
+                        text: '1m'
+                    }, {
+                        type: 'month',
+                        count: 6,
+                        text: '6m'
+                    }, {
+                        type: 'year',
+                        count: 1,
+                        text: '1r'
+                    },{
+                        type: 'year',
+                        count: 3,
+                        text: '3r'
+                    }, {
+                        type: 'all',
+                        text: 'Vše'
+                    }],
+                    selected: 3
+                },
+                xAxis: {
+                    type: 'date',
+                    labels: { format: "{value:%m %Y}" }
+                },
+
+                yAxis: {
+                    title: {
+                        text: 'Index PX'
+                    }
+                },
+
+                title: {
+                    text: 'Vývoj hodnoty PX index'
+                },
+
+                series: [{
+                    turboThreshold: 3330,
+                    name: 'PX index: ',
+                    data: data,
+                    tooltip: {
+                        valueSuffix: '',
+                        labels: { format: "{value:%j. %F %Y}" }
+                    },
+                }]
+            });
+        });
+    });
+
+
+</script>
+
+@grid.GetHtml(
+    tableStyle: "table table-striped table-hover",
+    columns:
+        grid.Columns
+    (
+        grid.Column("datum", "Datum", format: (item) => string.Format("{0:dd.MM.yyyy}", item.datum)),
+        grid.Column("hodnota", "Hodnota")
+))
+
+<div id="index-container" style="width:100%; height:400px;"></div>
