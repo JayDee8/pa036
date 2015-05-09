@@ -4,49 +4,100 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+      <Schema Namespace="dbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="dbModelStoreContainer">
+          <EntitySet Name="adresa" EntityType="dbModel.Store.adresa" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="akcie" EntityType="dbModel.Store.akcie" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="firma" EntityType="dbModel.Store.firma" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="historie_akcie" EntityType="dbModel.Store.historie_akcie" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="historie_poukazek" EntityType="dbModel.Store.historie_poukazek" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="index_PX" EntityType="dbModel.Store.index_PX" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="pokl_poukazky" EntityType="dbModel.Store.pokl_poukazky" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="portfolio" EntityType="dbModel.Store.portfolio" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sledovane" EntityType="dbModel.Store.sledovane" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="uzivatel" EntityType="dbModel.Store.uzivatel" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_akcie_firma" Association="dbModel.Store.FK_akcie_firma">
+            <End Role="firma" EntitySet="firma" />
+            <End Role="akcie" EntitySet="akcie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_firma_adresa" Association="dbModel.Store.FK_firma_adresa">
+            <End Role="adresa" EntitySet="adresa" />
+            <End Role="firma" EntitySet="firma" />
+          </AssociationSet>
+          <AssociationSet Name="FK_historie_akcie_akcie" Association="dbModel.Store.FK_historie_akcie_akcie">
+            <End Role="akcie" EntitySet="akcie" />
+            <End Role="historie_akcie" EntitySet="historie_akcie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_historie_poukazek_pokl_poukazky" Association="dbModel.Store.FK_historie_poukazek_pokl_poukazky">
+            <End Role="pokl_poukazky" EntitySet="pokl_poukazky" />
+            <End Role="historie_poukazek" EntitySet="historie_poukazek" />
+          </AssociationSet>
+          <AssociationSet Name="FK_portfolio_akcie" Association="dbModel.Store.FK_portfolio_akcie">
+            <End Role="akcie" EntitySet="akcie" />
+            <End Role="portfolio" EntitySet="portfolio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_portfolio_uzivatel" Association="dbModel.Store.FK_portfolio_uzivatel">
+            <End Role="uzivatel" EntitySet="uzivatel" />
+            <End Role="portfolio" EntitySet="portfolio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sledovane_akcie" Association="dbModel.Store.FK_sledovane_akcie">
+            <End Role="akcie" EntitySet="akcie" />
+            <End Role="sledovane" EntitySet="sledovane" />
+          </AssociationSet>
+          <AssociationSet Name="FK_sledovane_uzivatel" Association="dbModel.Store.FK_sledovane_uzivatel">
+            <End Role="uzivatel" EntitySet="uzivatel" />
+            <End Role="sledovane" EntitySet="sledovane" />
+          </AssociationSet>
+          <AssociationSet Name="FK_uzivatel_adresa" Association="dbModel.Store.FK_uzivatel_adresa">
+            <End Role="adresa" EntitySet="adresa" />
+            <End Role="uzivatel" EntitySet="uzivatel" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="adresa">
           <Key>
             <PropertyRef Name="adresa_id" />
           </Key>
-          <Property Name="adresa_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="mesto" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ulice" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="PSC" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="telefon" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="adresa_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="mesto" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ulice" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="PSC" Type="varchar" MaxLength="15" />
+          <Property Name="telefon" Type="varchar" MaxLength="15" />
+          <Property Name="email" Type="varchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="akcie">
           <Key>
             <PropertyRef Name="akcie_id" />
           </Key>
-          <Property Name="akcie_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="akcie_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="firma_id" Type="int" Nullable="false" />
-          <Property Name="nazev" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="zkratka" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nazev" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="zkratka" Type="varchar" Nullable="false" MaxLength="20" />
         </EntityType>
         <EntityType Name="firma">
           <Key>
             <PropertyRef Name="firma_id" />
           </Key>
-          <Property Name="firma_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firma_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="adresa_id" Type="int" Nullable="false" />
-          <Property Name="nazev" Type="real" Nullable="false" />
-          <Property Name="ICO" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="DIC" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nazev" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="ICO" Type="varchar" MaxLength="8" />
+          <Property Name="DIC" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="historie_akcie">
           <Key>
+            <PropertyRef Name="historie_id" />
             <PropertyRef Name="datum" />
           </Key>
-          <Property Name="id_akcie" Type="int" Nullable="false" />
+          <Property Name="historie_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="datum" Type="datetime" Nullable="false" />
+          <Property Name="akcie_id" Type="int" Nullable="false" />
           <Property Name="cena_prodej" Type="real" Nullable="false" />
           <Property Name="cena_nakup" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="historie_poukazek">
           <Key>
             <PropertyRef Name="poukazka_id" />
+            <PropertyRef Name="datum" />
           </Key>
           <Property Name="poukazka_id" Type="int" Nullable="false" />
           <Property Name="datum" Type="datetime" Nullable="false" />
@@ -63,27 +114,28 @@
           <Key>
             <PropertyRef Name="poukazka_id" />
           </Key>
-          <Property Name="poukazka_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nazev" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="zkratka" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="poukazka_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nazev" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="zkratka" Type="varchar" Nullable="false" MaxLength="10" />
         </EntityType>
         <EntityType Name="portfolio">
           <Key>
-            <PropertyRef Name="uzivatel_id" />
-            <PropertyRef Name="akcie_id" />
+            <PropertyRef Name="portfolio_id" />
           </Key>
+          <Property Name="portfolio_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="uzivatel_id" Type="int" Nullable="false" />
           <Property Name="akcie_id" Type="int" Nullable="false" />
-          <Property Name="pocet" Type="int" />
-          <Property Name="datum_pridani" Type="datetime" Nullable="false" />
-          <Property Name="datum_odebrani" Type="datetime" />
+          <Property Name="pocet" Type="int" Nullable="false" />
+          <Property Name="cena" Type="real" Nullable="false" />
+          <Property Name="nakup" Type="bit" Nullable="false" />
+          <Property Name="datum_zmeny" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="sledovane">
           <Key>
             <PropertyRef Name="sledovane_id" />
           </Key>
-          <Property Name="sledovane_id" Type="int" Nullable="false" />
-          <Property Name="nazev" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sledovane_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nazev" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="uzivatel_id" Type="int" Nullable="false" />
           <Property Name="akcie_id" Type="int" Nullable="false" />
         </EntityType>
@@ -92,15 +144,15 @@
             <PropertyRef Name="uzivatel_id" />
           </Key>
           <Property Name="uzivatel_id" Type="int" Nullable="false" />
-          <Property Name="jmeno" Type="varchar" MaxLength="40" Nullable="false" />
-          <Property Name="prijmeni" Type="varchar" MaxLength="160" Nullable="false" />
+          <Property Name="jmeno" Type="varchar" Nullable="false" MaxLength="40" />
+          <Property Name="prijmeni" Type="varchar" Nullable="false" MaxLength="160" />
           <Property Name="adresa_id" Type="int" Nullable="false" />
           <Property Name="poznamka" Type="varchar" MaxLength="500" />
-          <Property Name="penezenka" Type="int" />
+          <Property Name="penezenka" Type="real" />
         </EntityType>
         <Association Name="FK_akcie_firma">
-          <End Role="firma" Type="Self.firma" Multiplicity="1" />
-          <End Role="akcie" Type="Self.akcie" Multiplicity="*" />
+          <End Role="firma" Type="dbModel.Store.firma" Multiplicity="1" />
+          <End Role="akcie" Type="dbModel.Store.akcie" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="firma">
               <PropertyRef Name="firma_id" />
@@ -111,10 +163,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_firma_adresa">
-          <End Role="adresa" Type="Self.adresa" Multiplicity="1">
+          <End Role="adresa" Type="dbModel.Store.adresa" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="firma" Type="Self.firma" Multiplicity="*" />
+          <End Role="firma" Type="dbModel.Store.firma" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="adresa">
               <PropertyRef Name="adresa_id" />
@@ -124,11 +176,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_historie_poukazek_pokl_poukazky">
-          <End Role="pokl_poukazky" Type="Self.pokl_poukazky" Multiplicity="1">
+        <Association Name="FK_historie_akcie_akcie">
+          <End Role="akcie" Type="dbModel.Store.akcie" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="historie_poukazek" Type="Self.historie_poukazek" Multiplicity="0..1" />
+          <End Role="historie_akcie" Type="dbModel.Store.historie_akcie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="akcie">
+              <PropertyRef Name="akcie_id" />
+            </Principal>
+            <Dependent Role="historie_akcie">
+              <PropertyRef Name="akcie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_historie_poukazek_pokl_poukazky">
+          <End Role="pokl_poukazky" Type="dbModel.Store.pokl_poukazky" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="historie_poukazek" Type="dbModel.Store.historie_poukazek" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="pokl_poukazky">
               <PropertyRef Name="poukazka_id" />
@@ -139,10 +205,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_portfolio_akcie">
-          <End Role="akcie" Type="Self.akcie" Multiplicity="1">
+          <End Role="akcie" Type="dbModel.Store.akcie" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="portfolio" Type="Self.portfolio" Multiplicity="*" />
+          <End Role="portfolio" Type="dbModel.Store.portfolio" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="akcie">
               <PropertyRef Name="akcie_id" />
@@ -153,10 +219,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_portfolio_uzivatel">
-          <End Role="uzivatel" Type="Self.uzivatel" Multiplicity="1">
+          <End Role="uzivatel" Type="dbModel.Store.uzivatel" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="portfolio" Type="Self.portfolio" Multiplicity="*" />
+          <End Role="portfolio" Type="dbModel.Store.portfolio" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="uzivatel">
               <PropertyRef Name="uzivatel_id" />
@@ -167,10 +233,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_sledovane_akcie">
-          <End Role="akcie" Type="Self.akcie" Multiplicity="1">
+          <End Role="akcie" Type="dbModel.Store.akcie" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="sledovane" Type="Self.sledovane" Multiplicity="*" />
+          <End Role="sledovane" Type="dbModel.Store.sledovane" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="akcie">
               <PropertyRef Name="akcie_id" />
@@ -181,10 +247,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_sledovane_uzivatel">
-          <End Role="uzivatel" Type="Self.uzivatel" Multiplicity="1">
+          <End Role="uzivatel" Type="dbModel.Store.uzivatel" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="sledovane" Type="Self.sledovane" Multiplicity="*" />
+          <End Role="sledovane" Type="dbModel.Store.sledovane" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="uzivatel">
               <PropertyRef Name="uzivatel_id" />
@@ -195,10 +261,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_uzivatel_adresa">
-          <End Role="adresa" Type="Self.adresa" Multiplicity="1">
+          <End Role="adresa" Type="dbModel.Store.adresa" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="uzivatel" Type="Self.uzivatel" Multiplicity="*" />
+          <End Role="uzivatel" Type="dbModel.Store.uzivatel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="adresa">
               <PropertyRef Name="adresa_id" />
@@ -208,51 +274,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="dbModelStoreContainer">
-          <EntitySet Name="adresa" EntityType="Self.adresa" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="akcie" EntityType="Self.akcie" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="firma" EntityType="Self.firma" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="historie_akcie" EntityType="Self.historie_akcie" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="historie_poukazek" EntityType="Self.historie_poukazek" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="index_PX" EntityType="Self.index_PX" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="pokl_poukazky" EntityType="Self.pokl_poukazky" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="portfolio" EntityType="Self.portfolio" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sledovane" EntityType="Self.sledovane" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="uzivatel" EntityType="Self.uzivatel" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_akcie_firma" Association="Self.FK_akcie_firma">
-            <End Role="firma" EntitySet="firma" />
-            <End Role="akcie" EntitySet="akcie" />
-          </AssociationSet>
-          <AssociationSet Name="FK_firma_adresa" Association="Self.FK_firma_adresa">
-            <End Role="adresa" EntitySet="adresa" />
-            <End Role="firma" EntitySet="firma" />
-          </AssociationSet>
-          <AssociationSet Name="FK_historie_poukazek_pokl_poukazky" Association="Self.FK_historie_poukazek_pokl_poukazky">
-            <End Role="pokl_poukazky" EntitySet="pokl_poukazky" />
-            <End Role="historie_poukazek" EntitySet="historie_poukazek" />
-          </AssociationSet>
-          <AssociationSet Name="FK_portfolio_akcie" Association="Self.FK_portfolio_akcie">
-            <End Role="akcie" EntitySet="akcie" />
-            <End Role="portfolio" EntitySet="portfolio" />
-          </AssociationSet>
-          <AssociationSet Name="FK_portfolio_uzivatel" Association="Self.FK_portfolio_uzivatel">
-            <End Role="uzivatel" EntitySet="uzivatel" />
-            <End Role="portfolio" EntitySet="portfolio" />
-          </AssociationSet>
-          <AssociationSet Name="FK_sledovane_akcie" Association="Self.FK_sledovane_akcie">
-            <End Role="akcie" EntitySet="akcie" />
-            <End Role="sledovane" EntitySet="sledovane" />
-          </AssociationSet>
-          <AssociationSet Name="FK_sledovane_uzivatel" Association="Self.FK_sledovane_uzivatel">
-            <End Role="uzivatel" EntitySet="uzivatel" />
-            <End Role="sledovane" EntitySet="sledovane" />
-          </AssociationSet>
-          <AssociationSet Name="FK_uzivatel_adresa" Association="Self.FK_uzivatel_adresa">
-            <End Role="adresa" EntitySet="adresa" />
-            <End Role="uzivatel" EntitySet="uzivatel" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -260,6 +283,7 @@
           <EntitySet Name="adresa" EntityType="dbModel.adresa" />
           <EntitySet Name="akcie" EntityType="dbModel.akcie" />
           <EntitySet Name="firma" EntityType="dbModel.firma" />
+          <EntitySet Name="historie_akcie" EntityType="dbModel.historie_akcie" />
           <EntitySet Name="historie_poukazek" EntityType="dbModel.historie_poukazek" />
           <EntitySet Name="index_PX" EntityType="dbModel.index_PX" />
           <EntitySet Name="pokl_poukazky" EntityType="dbModel.pokl_poukazky" />
@@ -277,6 +301,10 @@
           <AssociationSet Name="FK_akcie_firma" Association="dbModel.FK_akcie_firma">
             <End Role="firma" EntitySet="firma" />
             <End Role="akcie" EntitySet="akcie" />
+          </AssociationSet>
+          <AssociationSet Name="FK_historie_akcie_akcie" Association="dbModel.FK_historie_akcie_akcie">
+            <End Role="akcie" EntitySet="akcie" />
+            <End Role="historie_akcie" EntitySet="historie_akcie" />
           </AssociationSet>
           <AssociationSet Name="FK_portfolio_akcie" Association="dbModel.FK_portfolio_akcie">
             <End Role="akcie" EntitySet="akcie" />
@@ -298,7 +326,6 @@
             <End Role="uzivatel" EntitySet="uzivatel" />
             <End Role="sledovane" EntitySet="sledovane" />
           </AssociationSet>
-          <EntitySet Name="historie_akcie" EntityType="dbModel.historie_akcie" />
         </EntityContainer>
         <EntityType Name="adresa">
           <Key>
@@ -307,8 +334,8 @@
           <Property Name="adresa_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="mesto" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="ulice" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="PSC" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="false" />
-          <Property Name="telefon" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="PSC" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="telefon" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
           <Property Name="email" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="firma" Relationship="dbModel.FK_firma_adresa" FromRole="adresa" ToRole="firma" />
           <NavigationProperty Name="uzivatel" Relationship="dbModel.FK_uzivatel_adresa" FromRole="adresa" ToRole="uzivatel" />
@@ -322,6 +349,7 @@
           <Property Name="nazev" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="zkratka" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="firma" Relationship="dbModel.FK_akcie_firma" FromRole="akcie" ToRole="firma" />
+          <NavigationProperty Name="historie_akcie" Relationship="dbModel.FK_historie_akcie_akcie" FromRole="akcie" ToRole="historie_akcie" />
           <NavigationProperty Name="portfolio" Relationship="dbModel.FK_portfolio_akcie" FromRole="akcie" ToRole="portfolio" />
           <NavigationProperty Name="sledovane" Relationship="dbModel.FK_sledovane_akcie" FromRole="akcie" ToRole="sledovane" />
         </EntityType>
@@ -331,18 +359,31 @@
           </Key>
           <Property Name="firma_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="adresa_id" Type="Int32" Nullable="false" />
-          <Property Name="nazev" Type="Single" Nullable="false" />
-          <Property Name="ICO" Type="String" Nullable="false" MaxLength="8" Unicode="false" FixedLength="false" />
-          <Property Name="DIC" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="nazev" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="ICO" Type="String" MaxLength="8" Unicode="false" FixedLength="false" />
+          <Property Name="DIC" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="adresa" Relationship="dbModel.FK_firma_adresa" FromRole="firma" ToRole="adresa" />
           <NavigationProperty Name="akcie" Relationship="dbModel.FK_akcie_firma" FromRole="firma" ToRole="akcie" />
+        </EntityType>
+        <EntityType Name="historie_akcie">
+          <Key>
+            <PropertyRef Name="historie_id" />
+            <PropertyRef Name="datum" />
+          </Key>
+          <Property Name="historie_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="datum" Type="DateTime" Nullable="false" />
+          <Property Name="akcie_id" Type="Int32" Nullable="false" />
+          <Property Name="cena_prodej" Type="Single" Nullable="false" />
+          <Property Name="cena_nakup" Type="Single" Nullable="false" />
+          <NavigationProperty Name="akcie" Relationship="dbModel.FK_historie_akcie_akcie" FromRole="historie_akcie" ToRole="akcie" />
         </EntityType>
         <EntityType Name="historie_poukazek">
           <Key>
             <PropertyRef Name="poukazka_id" />
+            <PropertyRef Name="datum" />
           </Key>
           <Property Name="poukazka_id" Type="Int32" Nullable="false" />
-          <Property Name="datum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="datum" Type="DateTime" Nullable="false" />
           <Property Name="urok" Type="Single" Nullable="false" />
           <NavigationProperty Name="pokl_poukazky" Relationship="dbModel.FK_historie_poukazek_pokl_poukazky" FromRole="historie_poukazek" ToRole="pokl_poukazky" />
         </EntityType>
@@ -350,7 +391,7 @@
           <Key>
             <PropertyRef Name="datum" />
           </Key>
-          <Property Name="datum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="datum" Type="DateTime" Nullable="false" />
           <Property Name="hodnota" Type="Single" Nullable="false" />
         </EntityType>
         <EntityType Name="pokl_poukazky">
@@ -364,14 +405,15 @@
         </EntityType>
         <EntityType Name="portfolio">
           <Key>
-            <PropertyRef Name="uzivatel_id" />
-            <PropertyRef Name="akcie_id" />
+            <PropertyRef Name="portfolio_id" />
           </Key>
+          <Property Name="portfolio_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="uzivatel_id" Type="Int32" Nullable="false" />
           <Property Name="akcie_id" Type="Int32" Nullable="false" />
-          <Property Name="pocet" Type="Int32" />
-          <Property Name="datum_pridani" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="datum_odebrani" Type="DateTime" Precision="3" />
+          <Property Name="pocet" Type="Int32" Nullable="false" />
+          <Property Name="cena" Type="Single" Nullable="false" />
+          <Property Name="nakup" Type="Boolean" Nullable="false" />
+          <Property Name="datum_zmeny" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="akcie" Relationship="dbModel.FK_portfolio_akcie" FromRole="portfolio" ToRole="akcie" />
           <NavigationProperty Name="uzivatel" Relationship="dbModel.FK_portfolio_uzivatel" FromRole="portfolio" ToRole="uzivatel" />
         </EntityType>
@@ -379,7 +421,7 @@
           <Key>
             <PropertyRef Name="sledovane_id" />
           </Key>
-          <Property Name="sledovane_id" Type="Int32" Nullable="false" />
+          <Property Name="sledovane_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nazev" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="uzivatel_id" Type="Int32" Nullable="false" />
           <Property Name="akcie_id" Type="Int32" Nullable="false" />
@@ -395,7 +437,7 @@
           <Property Name="prijmeni" Type="String" Nullable="false" MaxLength="160" Unicode="false" FixedLength="false" />
           <Property Name="adresa_id" Type="Int32" Nullable="false" />
           <Property Name="poznamka" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
-          <Property Name="penezenka" Type="Int32" />
+          <Property Name="penezenka" Type="Single" />
           <NavigationProperty Name="adresa" Relationship="dbModel.FK_uzivatel_adresa" FromRole="uzivatel" ToRole="adresa" />
           <NavigationProperty Name="portfolio" Relationship="dbModel.FK_portfolio_uzivatel" FromRole="uzivatel" ToRole="portfolio" />
           <NavigationProperty Name="sledovane" Relationship="dbModel.FK_sledovane_uzivatel" FromRole="uzivatel" ToRole="sledovane" />
@@ -440,6 +482,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_historie_akcie_akcie">
+          <End Role="akcie" Type="dbModel.akcie" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="historie_akcie" Type="dbModel.historie_akcie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="akcie">
+              <PropertyRef Name="akcie_id" />
+            </Principal>
+            <Dependent Role="historie_akcie">
+              <PropertyRef Name="akcie_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_portfolio_akcie">
           <End Role="akcie" Type="dbModel.akcie" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -472,7 +528,7 @@
           <End Role="pokl_poukazky" Type="dbModel.pokl_poukazky" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="historie_poukazek" Type="dbModel.historie_poukazek" Multiplicity="0..1" />
+          <End Role="historie_poukazek" Type="dbModel.historie_poukazek" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="pokl_poukazky">
               <PropertyRef Name="poukazka_id" />
@@ -510,15 +566,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="historie_akcie">
-          <Key>
-            <PropertyRef Name="datum" />
-          </Key>
-          <Property Name="id_akcie" Type="Int32" Nullable="false" />
-          <Property Name="datum" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="cena_prodej" Type="Single" Nullable="false" />
-          <Property Name="cena_nakup" Type="Single" Nullable="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -558,6 +605,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="historie_akcie">
+            <EntityTypeMapping TypeName="dbModel.historie_akcie">
+              <MappingFragment StoreEntitySet="historie_akcie">
+                <ScalarProperty Name="historie_id" ColumnName="historie_id" />
+                <ScalarProperty Name="datum" ColumnName="datum" />
+                <ScalarProperty Name="akcie_id" ColumnName="akcie_id" />
+                <ScalarProperty Name="cena_prodej" ColumnName="cena_prodej" />
+                <ScalarProperty Name="cena_nakup" ColumnName="cena_nakup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="historie_poukazek">
             <EntityTypeMapping TypeName="dbModel.historie_poukazek">
               <MappingFragment StoreEntitySet="historie_poukazek">
@@ -587,11 +645,13 @@
           <EntitySetMapping Name="portfolio">
             <EntityTypeMapping TypeName="dbModel.portfolio">
               <MappingFragment StoreEntitySet="portfolio">
+                <ScalarProperty Name="portfolio_id" ColumnName="portfolio_id" />
                 <ScalarProperty Name="uzivatel_id" ColumnName="uzivatel_id" />
                 <ScalarProperty Name="akcie_id" ColumnName="akcie_id" />
                 <ScalarProperty Name="pocet" ColumnName="pocet" />
-                <ScalarProperty Name="datum_pridani" ColumnName="datum_pridani" />
-                <ScalarProperty Name="datum_odebrani" ColumnName="datum_odebrani" />
+                <ScalarProperty Name="cena" ColumnName="cena" />
+                <ScalarProperty Name="nakup" ColumnName="nakup" />
+                <ScalarProperty Name="datum_zmeny" ColumnName="datum_zmeny" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -617,16 +677,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="historie_akcie">
-            <EntityTypeMapping TypeName="dbModel.historie_akcie">
-              <MappingFragment StoreEntitySet="historie_akcie">
-                <ScalarProperty Name="cena_nakup" ColumnName="cena_nakup" />
-                <ScalarProperty Name="cena_prodej" ColumnName="cena_prodej" />
-                <ScalarProperty Name="datum" ColumnName="datum" />
-                <ScalarProperty Name="id_akcie" ColumnName="id_akcie" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -643,59 +693,58 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
-        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="db">
-        <EntityTypeShape EntityType="dbModel.adresa" Width="1.5" PointX="0.75" PointY="5.875" Height="2.5571907552083335" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbModel.akcie" Width="1.5" PointX="5.25" PointY="4.125" Height="2.5571907552083317" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbModel.firma" Width="1.5" PointX="3" PointY="4.25" Height="2.3648893229166656" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbModel.historie_poukazek" Width="1.5" PointX="3" PointY="0.875" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbModel.index_PX" Width="1.5" PointX="5.75" PointY="0.75" Height="1.4033821614583326" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbModel.pokl_poukazky" Width="1.5" PointX="0.75" PointY="0.875" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbModel.portfolio" Width="1.5" PointX="7.5" PointY="8" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbModel.sledovane" Width="1.5" PointX="10.5" PointY="6.125" Height="2.1725878906249987" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbModel.uzivatel" Width="1.5" PointX="3" PointY="7.5" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.adresa" Width="1.5" PointX="0.5" PointY="2.25" Height="2.5571907552083326" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.akcie" Width="1.5" PointX="8.125" PointY="0.5" Height="2.5571907552083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.firma" Width="1.5" PointX="2.75" PointY="0.5" Height="2.3648893229166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.historie_akcie" Width="1.5" PointX="5.875" PointY="1.375" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.historie_poukazek" Width="1.5" PointX="10.5" PointY="2.875" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.index_PX" Width="1.5" PointX="10.5" PointY="5.25" Height="1.4033821614583326" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.pokl_poukazky" Width="1.5" PointX="10.5" PointY="0.5" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.portfolio" Width="1.5" PointX="8.125" PointY="4.125" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.sledovane" Width="1.5" PointX="5" PointY="3.875" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbModel.uzivatel" Width="1.5" PointX="2.75" PointY="3.75" Height="2.7494921874999996" IsExpanded="true" />
         <AssociationConnector Association="dbModel.FK_firma_adresa" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="6.2449446614583328" />
-          <ConnectorPoint PointX="3" PointY="6.2449446614583328" />
+          <ConnectorPoint PointX="2" PointY="2.5574446614583328" />
+          <ConnectorPoint PointX="2.75" PointY="2.5574446614583328" />
         </AssociationConnector>
         <AssociationConnector Association="dbModel.FK_uzivatel_adresa" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="7.9660953776041667" />
-          <ConnectorPoint PointX="3" PointY="7.9660953776041667" />
+          <ConnectorPoint PointX="2" PointY="4.2785953776041659" />
+          <ConnectorPoint PointX="2.75" PointY="4.2785953776041659" />
         </AssociationConnector>
         <AssociationConnector Association="dbModel.FK_akcie_firma" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="5.4324446614583328" />
-          <ConnectorPoint PointX="5.25" PointY="5.4324446614583328" />
+          <ConnectorPoint PointX="4.25" PointY="0.90625" />
+          <ConnectorPoint PointX="8.125" PointY="0.90625" />
+        </AssociationConnector>
+        <AssociationConnector Association="dbModel.FK_historie_akcie_akcie" ManuallyRouted="false">
+          <ConnectorPoint PointX="8.125" PointY="2.2160953776041659" />
+          <ConnectorPoint PointX="7.375" PointY="2.2160953776041659" />
         </AssociationConnector>
         <AssociationConnector Association="dbModel.FK_portfolio_akcie" ManuallyRouted="false">
-          <ConnectorPoint PointX="6" PointY="6.6821907552083317" />
-          <ConnectorPoint PointX="6" PointY="9.1824446614583337" />
-          <ConnectorPoint PointX="7.5" PointY="9.1824446614583337" />
+          <ConnectorPoint PointX="8.875" PointY="3.0571907552083317" />
+          <ConnectorPoint PointX="8.875" PointY="4.125" />
         </AssociationConnector>
         <AssociationConnector Association="dbModel.FK_sledovane_akcie" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="6.5499886067708326" />
-          <ConnectorPoint PointX="10.5" PointY="6.5499886067708326" />
+          <ConnectorPoint PointX="8.125" PointY="1.1406275" />
+          <ConnectorPoint PointX="5.40625" PointY="1.1406275" />
+          <ConnectorPoint PointX="5.40625" PointY="3.875" />
         </AssociationConnector>
         <AssociationConnector Association="dbModel.FK_historie_poukazek_pokl_poukazky" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="1.7689925130208337" />
-          <ConnectorPoint PointX="3" PointY="1.7689925130208337" />
+          <ConnectorPoint PointX="11.25" PointY="2.2879850260416674" />
+          <ConnectorPoint PointX="11.25" PointY="2.875" />
         </AssociationConnector>
         <AssociationConnector Association="dbModel.FK_portfolio_uzivatel" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="8.5287223307291669" />
-          <ConnectorPoint PointX="5.916666666666667" PointY="8.5287223307291669" />
-          <ConnectorPoint PointX="6.083333333333333" PointY="8.5287223307291669" />
-          <ConnectorPoint PointX="7.5" PointY="8.5287223307291669" />
+          <ConnectorPoint PointX="4.25" PointY="6.3047900390625" />
+          <ConnectorPoint PointX="8.125" PointY="6.3047900390625" />
         </AssociationConnector>
         <AssociationConnector Association="dbModel.FK_sledovane_uzivatel" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="7.71875" />
-          <ConnectorPoint PointX="5.916666666666667" PointY="7.7187499999999991" />
-          <ConnectorPoint PointX="6.083333333333333" PointY="7.71875" />
-          <ConnectorPoint PointX="10.5" PointY="7.71875" />
+          <ConnectorPoint PointX="4.25" PointY="4.9612939453125" />
+          <ConnectorPoint PointX="5" PointY="4.9612939453125" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="dbModel.historie_akcie" Width="1.5" PointX="7.375" PointY="3.75" />
       </Diagram>
     </Diagrams>
   </Designer>

@@ -26,7 +26,7 @@ namespace bcpp.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            historie_akcie historie_akcie = db.historie_akcie.Single(h => h.id_akcie == id);
+            historie_akcie historie_akcie = db.historie_akcie.Single(h => h.akcie_id == id);
             if (historie_akcie == null)
             {
                 return HttpNotFound();
@@ -63,7 +63,7 @@ namespace bcpp.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            historie_akcie historie_akcie = db.historie_akcie.Single(h => h.id_akcie == id);
+            historie_akcie historie_akcie = db.historie_akcie.Single(h => h.akcie_id == id);
             if (historie_akcie == null)
             {
                 return HttpNotFound();
@@ -92,7 +92,7 @@ namespace bcpp.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            historie_akcie historie_akcie = db.historie_akcie.Single(h => h.id_akcie == id);
+            historie_akcie historie_akcie = db.historie_akcie.Single(h => h.akcie_id == id);
             if (historie_akcie == null)
             {
                 return HttpNotFound();
@@ -106,7 +106,7 @@ namespace bcpp.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            historie_akcie historie_akcie = db.historie_akcie.Single(h => h.id_akcie == id);
+            historie_akcie historie_akcie = db.historie_akcie.Single(h => h.akcie_id == id);
             db.historie_akcie.DeleteObject(historie_akcie);
             db.SaveChanges();
             return RedirectToAction("Index");

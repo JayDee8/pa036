@@ -23,11 +23,11 @@ namespace bcpp.Helpers
 
             if (grid.SortColumn == columnName && grid.SortDirection == System.Web.Helpers.SortDirection.Ascending)
             {
-                html = "˅";
+                html = "▾";
             }
             else if (grid.SortColumn == columnName && grid.SortDirection == System.Web.Helpers.SortDirection.Descending)
             {
-                html = "˄";
+                html = "▴";
             }
             else
             {
