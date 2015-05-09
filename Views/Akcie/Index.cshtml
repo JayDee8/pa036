@@ -1,32 +1,26 @@
-﻿@model IEnumerable<bcpp.Models.AkcieUserModel>
+﻿@model bcpp.Models.PagedList<bcpp.Models.AkcieUserModel>
 @using bcpp.Helpers
 
 @{
     ViewBag.Title = "Akcie";
-    WebGrid grid = new WebGrid(Model);
-}
-
-
-@if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
-{
-    <p>
-        @Html.Bootstrap().ActionLinkButton("Create New", "Create","Akcie")
-    </p>
+    WebGrid grid = new WebGrid(canPage: true,canSort: true);
+    grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
+    grid.Pager(WebGridPagerModes.All);
 }
 
 @{
     
     var gridColumns = new List<WebGridColumn>();
-    
-    gridColumns.Add(grid.Column("nazev", "Název"));
-    gridColumns.Add(grid.Column("zkratka", "Zkratka"));
-    gridColumns.Add(grid.Column("cena_prodej", "Prodejní cena"));
-    gridColumns.Add(grid.Column("cena_nakup", "Nákupní cena"));
-    gridColumns.Add(grid.Column("datum", "Cena k datu"));
+
+    gridColumns.Add(grid.Column("nazev", "Název " + Html.SortDirection(ref grid, "nazev")));
+    gridColumns.Add(grid.Column("zkratka", "Zkratka " + Html.SortDirection(ref grid, "zkratka")));
+    gridColumns.Add(grid.Column("cena_prodej", "Prodejní cena [Kč] " + Html.SortDirection(ref grid, "cena_prodej"), format: (item) => string.Format("{0:0.0000}", item.cena_prodej)));
+    gridColumns.Add(grid.Column("cena_nakup", "Nákupní cena [Kč] " + Html.SortDirection(ref grid, "cena_nakup"), format: (item) => string.Format("{0:0.0000}", item.cena_nakup)));
+    gridColumns.Add(grid.Column("datum", "Cena k datu " + Html.SortDirection(ref grid, "datum"), format: (item) => string.Format("{0:dd.MM.yyyy}", item.datum)));
     
     if (User.IsInRole("user") || User.IsInRole("admin"))
     {
-        gridColumns.Add(grid.Column("pocet","Počet"));
+        gridColumns.Add(grid.Column("pocet", "Počet " + Html.SortDirection(ref grid, "pocet")));
     }
     
     gridColumns.Add(grid.Column(format: (item) => Html.ActionLink("Detaily", "Details", new { id = item.akcie_id })));
@@ -45,5 +39,6 @@
     
     @grid.GetHtml(
     tableStyle: "table table-striped table-hover",
+    mode: WebGridPagerModes.All,
     columns:
     grid.Columns(gridColumns.ToArray()))

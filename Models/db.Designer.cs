@@ -22,9 +22,10 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("dbModel", "FK_firma_adresa", "adresa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.adresa), "firma", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.firma), true)]
 [assembly: EdmRelationshipAttribute("dbModel", "FK_uzivatel_adresa", "adresa", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.adresa), "uzivatel", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.uzivatel), true)]
 [assembly: EdmRelationshipAttribute("dbModel", "FK_akcie_firma", "firma", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.firma), "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.akcie), true)]
+[assembly: EdmRelationshipAttribute("dbModel", "FK_historie_akcie_akcie", "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.akcie), "historie_akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.historie_akcie), true)]
 [assembly: EdmRelationshipAttribute("dbModel", "FK_portfolio_akcie", "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.akcie), "portfolio", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.portfolio), true)]
 [assembly: EdmRelationshipAttribute("dbModel", "FK_sledovane_akcie", "akcie", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.akcie), "sledovane", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.sledovane), true)]
-[assembly: EdmRelationshipAttribute("dbModel", "FK_historie_poukazek_pokl_poukazky", "pokl_poukazky", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.pokl_poukazky), "historie_poukazek", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(bcpp.Models.historie_poukazek), true)]
+[assembly: EdmRelationshipAttribute("dbModel", "FK_historie_poukazek_pokl_poukazky", "pokl_poukazky", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.pokl_poukazky), "historie_poukazek", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.historie_poukazek), true)]
 [assembly: EdmRelationshipAttribute("dbModel", "FK_portfolio_uzivatel", "uzivatel", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.uzivatel), "portfolio", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.portfolio), true)]
 [assembly: EdmRelationshipAttribute("dbModel", "FK_sledovane_uzivatel", "uzivatel", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(bcpp.Models.uzivatel), "sledovane", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(bcpp.Models.sledovane), true)]
 
@@ -129,6 +130,22 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<historie_akcie> historie_akcie
+        {
+            get
+            {
+                if ((_historie_akcie == null))
+                {
+                    _historie_akcie = base.CreateObjectSet<historie_akcie>("historie_akcie");
+                }
+                return _historie_akcie;
+            }
+        }
+        private ObjectSet<historie_akcie> _historie_akcie;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<historie_poukazek> historie_poukazek
         {
             get
@@ -221,22 +238,6 @@ namespace bcpp.Models
             }
         }
         private ObjectSet<uzivatel> _uzivatel;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<historie_akcie> historie_akcie
-        {
-            get
-            {
-                if ((_historie_akcie == null))
-                {
-                    _historie_akcie = base.CreateObjectSet<historie_akcie>("historie_akcie");
-                }
-                return _historie_akcie;
-            }
-        }
-        private ObjectSet<historie_akcie> _historie_akcie;
 
         #endregion
 
@@ -264,6 +265,14 @@ namespace bcpp.Models
         public void AddTofirma(firma firma)
         {
             base.AddObject("firma", firma);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the historie_akcie EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTohistorie_akcie(historie_akcie historie_akcie)
+        {
+            base.AddObject("historie_akcie", historie_akcie);
         }
     
         /// <summary>
@@ -313,14 +322,6 @@ namespace bcpp.Models
         {
             base.AddObject("uzivatel", uzivatel);
         }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the historie_akcie EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTohistorie_akcie(historie_akcie historie_akcie)
-        {
-            base.AddObject("historie_akcie", historie_akcie);
-        }
 
         #endregion
 
@@ -346,17 +347,13 @@ namespace bcpp.Models
         /// <param name="adresa_id">Initial value of the adresa_id property.</param>
         /// <param name="mesto">Initial value of the mesto property.</param>
         /// <param name="ulice">Initial value of the ulice property.</param>
-        /// <param name="pSC">Initial value of the PSC property.</param>
-        /// <param name="telefon">Initial value of the telefon property.</param>
         /// <param name="email">Initial value of the email property.</param>
-        public static adresa Createadresa(global::System.Int32 adresa_id, global::System.String mesto, global::System.String ulice, global::System.String pSC, global::System.String telefon, global::System.String email)
+        public static adresa Createadresa(global::System.Int32 adresa_id, global::System.String mesto, global::System.String ulice, global::System.String email)
         {
             adresa adresa = new adresa();
             adresa.adresa_id = adresa_id;
             adresa.mesto = mesto;
             adresa.ulice = ulice;
-            adresa.PSC = pSC;
-            adresa.telefon = telefon;
             adresa.email = email;
             return adresa;
         }
@@ -443,7 +440,7 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String PSC
         {
@@ -455,7 +452,7 @@ namespace bcpp.Models
             {
                 OnPSCChanging(value);
                 ReportPropertyChanging("PSC");
-                _PSC = StructuralObject.SetValidValue(value, false);
+                _PSC = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("PSC");
                 OnPSCChanged();
             }
@@ -467,7 +464,7 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String telefon
         {
@@ -479,7 +476,7 @@ namespace bcpp.Models
             {
                 OntelefonChanging(value);
                 ReportPropertyChanging("telefon");
-                _telefon = StructuralObject.SetValidValue(value, false);
+                _telefon = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("telefon");
                 OntelefonChanged();
             }
@@ -744,6 +741,28 @@ namespace bcpp.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_historie_akcie_akcie", "historie_akcie")]
+        public EntityCollection<historie_akcie> historie_akcie
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<historie_akcie>("dbModel.FK_historie_akcie_akcie", "historie_akcie");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<historie_akcie>("dbModel.FK_historie_akcie_akcie", "historie_akcie", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_portfolio_akcie", "portfolio")]
         public EntityCollection<portfolio> portfolio
         {
@@ -802,16 +821,12 @@ namespace bcpp.Models
         /// <param name="firma_id">Initial value of the firma_id property.</param>
         /// <param name="adresa_id">Initial value of the adresa_id property.</param>
         /// <param name="nazev">Initial value of the nazev property.</param>
-        /// <param name="iCO">Initial value of the ICO property.</param>
-        /// <param name="dIC">Initial value of the DIC property.</param>
-        public static firma Createfirma(global::System.Int32 firma_id, global::System.Int32 adresa_id, global::System.Single nazev, global::System.String iCO, global::System.String dIC)
+        public static firma Createfirma(global::System.Int32 firma_id, global::System.Int32 adresa_id, global::System.String nazev)
         {
             firma firma = new firma();
             firma.firma_id = firma_id;
             firma.adresa_id = adresa_id;
             firma.nazev = nazev;
-            firma.ICO = iCO;
-            firma.DIC = dIC;
             return firma;
         }
 
@@ -875,7 +890,7 @@ namespace bcpp.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Single nazev
+        public global::System.String nazev
         {
             get
             {
@@ -885,19 +900,19 @@ namespace bcpp.Models
             {
                 OnnazevChanging(value);
                 ReportPropertyChanging("nazev");
-                _nazev = StructuralObject.SetValidValue(value);
+                _nazev = StructuralObject.SetValidValue(value, false);
                 ReportPropertyChanged("nazev");
                 OnnazevChanged();
             }
         }
-        private global::System.Single _nazev;
-        partial void OnnazevChanging(global::System.Single value);
+        private global::System.String _nazev;
+        partial void OnnazevChanging(global::System.String value);
         partial void OnnazevChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String ICO
         {
@@ -909,7 +924,7 @@ namespace bcpp.Models
             {
                 OnICOChanging(value);
                 ReportPropertyChanging("ICO");
-                _ICO = StructuralObject.SetValidValue(value, false);
+                _ICO = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("ICO");
                 OnICOChanged();
             }
@@ -921,7 +936,7 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String DIC
         {
@@ -933,7 +948,7 @@ namespace bcpp.Models
             {
                 OnDICChanging(value);
                 ReportPropertyChanging("DIC");
-                _DIC = StructuralObject.SetValidValue(value, false);
+                _DIC = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("DIC");
                 OnDICChanged();
             }
@@ -1024,15 +1039,17 @@ namespace bcpp.Models
         /// <summary>
         /// Create a new historie_akcie object.
         /// </summary>
-        /// <param name="id_akcie">Initial value of the id_akcie property.</param>
+        /// <param name="historie_id">Initial value of the historie_id property.</param>
         /// <param name="datum">Initial value of the datum property.</param>
+        /// <param name="akcie_id">Initial value of the akcie_id property.</param>
         /// <param name="cena_prodej">Initial value of the cena_prodej property.</param>
         /// <param name="cena_nakup">Initial value of the cena_nakup property.</param>
-        public static historie_akcie Createhistorie_akcie(global::System.Int32 id_akcie, global::System.DateTime datum, global::System.Single cena_prodej, global::System.Single cena_nakup)
+        public static historie_akcie Createhistorie_akcie(global::System.Int32 historie_id, global::System.DateTime datum, global::System.Int32 akcie_id, global::System.Single cena_prodej, global::System.Single cena_nakup)
         {
             historie_akcie historie_akcie = new historie_akcie();
-            historie_akcie.id_akcie = id_akcie;
+            historie_akcie.historie_id = historie_id;
             historie_akcie.datum = datum;
+            historie_akcie.akcie_id = akcie_id;
             historie_akcie.cena_prodej = cena_prodej;
             historie_akcie.cena_nakup = cena_nakup;
             return historie_akcie;
@@ -1045,26 +1062,29 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 id_akcie
+        public global::System.Int32 historie_id
         {
             get
             {
-                return _id_akcie;
+                return _historie_id;
             }
             set
             {
-                Onid_akcieChanging(value);
-                ReportPropertyChanging("id_akcie");
-                _id_akcie = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("id_akcie");
-                Onid_akcieChanged();
+                if (_historie_id != value)
+                {
+                    Onhistorie_idChanging(value);
+                    ReportPropertyChanging("historie_id");
+                    _historie_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("historie_id");
+                    Onhistorie_idChanged();
+                }
             }
         }
-        private global::System.Int32 _id_akcie;
-        partial void Onid_akcieChanging(global::System.Int32 value);
-        partial void Onid_akcieChanged();
+        private global::System.Int32 _historie_id;
+        partial void Onhistorie_idChanging(global::System.Int32 value);
+        partial void Onhistorie_idChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1092,6 +1112,30 @@ namespace bcpp.Models
         private global::System.DateTime _datum;
         partial void OndatumChanging(global::System.DateTime value);
         partial void OndatumChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 akcie_id
+        {
+            get
+            {
+                return _akcie_id;
+            }
+            set
+            {
+                Onakcie_idChanging(value);
+                ReportPropertyChanging("akcie_id");
+                _akcie_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("akcie_id");
+                Onakcie_idChanged();
+            }
+        }
+        private global::System.Int32 _akcie_id;
+        partial void Onakcie_idChanging(global::System.Int32 value);
+        partial void Onakcie_idChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1144,6 +1188,48 @@ namespace bcpp.Models
         #endregion
 
     
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_historie_akcie_akcie", "akcie")]
+        public akcie akcie
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("dbModel.FK_historie_akcie_akcie", "akcie").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("dbModel.FK_historie_akcie_akcie", "akcie").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<akcie> akcieReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<akcie>("dbModel.FK_historie_akcie_akcie", "akcie");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<akcie>("dbModel.FK_historie_akcie_akcie", "akcie", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
     
     /// <summary>
@@ -1205,7 +1291,7 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.DateTime datum
         {
@@ -1215,11 +1301,14 @@ namespace bcpp.Models
             }
             set
             {
-                OndatumChanging(value);
-                ReportPropertyChanging("datum");
-                _datum = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("datum");
-                OndatumChanged();
+                if (_datum != value)
+                {
+                    OndatumChanging(value);
+                    ReportPropertyChanging("datum");
+                    _datum = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("datum");
+                    OndatumChanged();
+                }
             }
         }
         private global::System.DateTime _datum;
@@ -1496,33 +1585,17 @@ namespace bcpp.Models
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("dbModel", "FK_historie_poukazek_pokl_poukazky", "historie_poukazek")]
-        public historie_poukazek historie_poukazek
+        public EntityCollection<historie_poukazek> historie_poukazek
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<historie_poukazek>("dbModel.FK_historie_poukazek_pokl_poukazky", "historie_poukazek").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<historie_poukazek>("dbModel.FK_historie_poukazek_pokl_poukazky", "historie_poukazek").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<historie_poukazek> historie_poukazekReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<historie_poukazek>("dbModel.FK_historie_poukazek_pokl_poukazky", "historie_poukazek");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<historie_poukazek>("dbModel.FK_historie_poukazek_pokl_poukazky", "historie_poukazek");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<historie_poukazek>("dbModel.FK_historie_poukazek_pokl_poukazky", "historie_poukazek", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<historie_poukazek>("dbModel.FK_historie_poukazek_pokl_poukazky", "historie_poukazek", value);
                 }
             }
         }
@@ -1544,15 +1617,23 @@ namespace bcpp.Models
         /// <summary>
         /// Create a new portfolio object.
         /// </summary>
+        /// <param name="portfolio_id">Initial value of the portfolio_id property.</param>
         /// <param name="uzivatel_id">Initial value of the uzivatel_id property.</param>
         /// <param name="akcie_id">Initial value of the akcie_id property.</param>
-        /// <param name="datum_pridani">Initial value of the datum_pridani property.</param>
-        public static portfolio Createportfolio(global::System.Int32 uzivatel_id, global::System.Int32 akcie_id, global::System.DateTime datum_pridani)
+        /// <param name="pocet">Initial value of the pocet property.</param>
+        /// <param name="cena">Initial value of the cena property.</param>
+        /// <param name="nakup">Initial value of the nakup property.</param>
+        /// <param name="datum_zmeny">Initial value of the datum_zmeny property.</param>
+        public static portfolio Createportfolio(global::System.Int32 portfolio_id, global::System.Int32 uzivatel_id, global::System.Int32 akcie_id, global::System.Int32 pocet, global::System.Single cena, global::System.Boolean nakup, global::System.DateTime datum_zmeny)
         {
             portfolio portfolio = new portfolio();
+            portfolio.portfolio_id = portfolio_id;
             portfolio.uzivatel_id = uzivatel_id;
             portfolio.akcie_id = akcie_id;
-            portfolio.datum_pridani = datum_pridani;
+            portfolio.pocet = pocet;
+            portfolio.cena = cena;
+            portfolio.nakup = nakup;
+            portfolio.datum_zmeny = datum_zmeny;
             return portfolio;
         }
 
@@ -1565,6 +1646,33 @@ namespace bcpp.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
+        public global::System.Int32 portfolio_id
+        {
+            get
+            {
+                return _portfolio_id;
+            }
+            set
+            {
+                if (_portfolio_id != value)
+                {
+                    Onportfolio_idChanging(value);
+                    ReportPropertyChanging("portfolio_id");
+                    _portfolio_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("portfolio_id");
+                    Onportfolio_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _portfolio_id;
+        partial void Onportfolio_idChanging(global::System.Int32 value);
+        partial void Onportfolio_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
         public global::System.Int32 uzivatel_id
         {
             get
@@ -1573,14 +1681,11 @@ namespace bcpp.Models
             }
             set
             {
-                if (_uzivatel_id != value)
-                {
-                    Onuzivatel_idChanging(value);
-                    ReportPropertyChanging("uzivatel_id");
-                    _uzivatel_id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("uzivatel_id");
-                    Onuzivatel_idChanged();
-                }
+                Onuzivatel_idChanging(value);
+                ReportPropertyChanging("uzivatel_id");
+                _uzivatel_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("uzivatel_id");
+                Onuzivatel_idChanged();
             }
         }
         private global::System.Int32 _uzivatel_id;
@@ -1590,7 +1695,7 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int32 akcie_id
         {
@@ -1600,14 +1705,11 @@ namespace bcpp.Models
             }
             set
             {
-                if (_akcie_id != value)
-                {
-                    Onakcie_idChanging(value);
-                    ReportPropertyChanging("akcie_id");
-                    _akcie_id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("akcie_id");
-                    Onakcie_idChanged();
-                }
+                Onakcie_idChanging(value);
+                ReportPropertyChanging("akcie_id");
+                _akcie_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("akcie_id");
+                Onakcie_idChanged();
             }
         }
         private global::System.Int32 _akcie_id;
@@ -1617,9 +1719,9 @@ namespace bcpp.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> pocet
+        public global::System.Int32 pocet
         {
             get
             {
@@ -1634,8 +1736,8 @@ namespace bcpp.Models
                 OnpocetChanged();
             }
         }
-        private Nullable<global::System.Int32> _pocet;
-        partial void OnpocetChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _pocet;
+        partial void OnpocetChanging(global::System.Int32 value);
         partial void OnpocetChanged();
     
         /// <summary>
@@ -1643,48 +1745,72 @@ namespace bcpp.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.DateTime datum_pridani
+        public global::System.Single cena
         {
             get
             {
-                return _datum_pridani;
+                return _cena;
             }
             set
             {
-                Ondatum_pridaniChanging(value);
-                ReportPropertyChanging("datum_pridani");
-                _datum_pridani = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("datum_pridani");
-                Ondatum_pridaniChanged();
+                OncenaChanging(value);
+                ReportPropertyChanging("cena");
+                _cena = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("cena");
+                OncenaChanged();
             }
         }
-        private global::System.DateTime _datum_pridani;
-        partial void Ondatum_pridaniChanging(global::System.DateTime value);
-        partial void Ondatum_pridaniChanged();
+        private global::System.Single _cena;
+        partial void OncenaChanging(global::System.Single value);
+        partial void OncenaChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> datum_odebrani
+        public global::System.Boolean nakup
         {
             get
             {
-                return _datum_odebrani;
+                return _nakup;
             }
             set
             {
-                Ondatum_odebraniChanging(value);
-                ReportPropertyChanging("datum_odebrani");
-                _datum_odebrani = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("datum_odebrani");
-                Ondatum_odebraniChanged();
+                OnnakupChanging(value);
+                ReportPropertyChanging("nakup");
+                _nakup = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("nakup");
+                OnnakupChanged();
             }
         }
-        private Nullable<global::System.DateTime> _datum_odebrani;
-        partial void Ondatum_odebraniChanging(Nullable<global::System.DateTime> value);
-        partial void Ondatum_odebraniChanged();
+        private global::System.Boolean _nakup;
+        partial void OnnakupChanging(global::System.Boolean value);
+        partial void OnnakupChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime datum_zmeny
+        {
+            get
+            {
+                return _datum_zmeny;
+            }
+            set
+            {
+                Ondatum_zmenyChanging(value);
+                ReportPropertyChanging("datum_zmeny");
+                _datum_zmeny = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("datum_zmeny");
+                Ondatum_zmenyChanged();
+            }
+        }
+        private global::System.DateTime _datum_zmeny;
+        partial void Ondatum_zmenyChanging(global::System.DateTime value);
+        partial void Ondatum_zmenyChanged();
 
         #endregion
 
@@ -2145,7 +2271,7 @@ namespace bcpp.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> penezenka
+        public Nullable<global::System.Single> penezenka
         {
             get
             {
@@ -2160,8 +2286,8 @@ namespace bcpp.Models
                 OnpenezenkaChanged();
             }
         }
-        private Nullable<global::System.Int32> _penezenka;
-        partial void OnpenezenkaChanging(Nullable<global::System.Int32> value);
+        private Nullable<global::System.Single> _penezenka;
+        partial void OnpenezenkaChanging(Nullable<global::System.Single> value);
         partial void OnpenezenkaChanged();
 
         #endregion
