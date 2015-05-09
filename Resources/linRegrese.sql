@@ -34,12 +34,13 @@ BEGIN
 		SET @Vynosnost_aktiva_PX = @Vynosnost_aktiva_PX - 0.01* @P_Urok
 --		!!!!!!!!!!!!!!!!!!  Teraz Èerešnièka - LINEARNI REGRESE
 		SET @LinReg = @linReg + @Vynosnost_Aktiva / @Vynosnost_Aktiva_PX 
---		##############################  TLAÈÍME  (nie na hajzli)
-		SET @debug = convert(varchar,@Vynosnost_aktiva) + '  ' + convert(varchar,@Vynosnost_Aktiva_PX)
+
+--		##############################  TLAÈÍME
+/*		SET @debug = convert(varchar,@Vynosnost_aktiva) + '  ' + convert(varchar,@Vynosnost_Aktiva_PX)
 		SET @debug = @debug + ' * ' + convert(varchar,@LinReg)
 		SET @debug = @debug + ' | ' + convert(varchar,@Datum, 104) + '  \  ' + convert(varchar,@LinReg_Pocit)
 		Print @debug
-
+*/
 --		Prepis premenný - posun o krok
 		SET @Datum_PRED = @Datum
 		SET @CProd_PRED = @CProd
@@ -56,8 +57,8 @@ BEGIN
 	
 	END
 
-Print ' '
-Print @LinReg / @linReg_Pocit
+--Print ' '
+--Print @LinReg / @linReg_Pocit
 
 CLOSE Cur_Hist_Pouk
 CLOSE Cur_AkcInd
