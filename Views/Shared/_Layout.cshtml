@@ -67,7 +67,21 @@
             }
         }
     });
+</script>
+ }
+else
+{
+    <script>
 
+        $(document).ready(function () {
+            var menu = $('#login');
+            menu.css("display","block");    
+        });
+
+    </script>
+}
+
+<script>
     $(function () {
         Highcharts.setOptions({
             lang: {
@@ -86,20 +100,7 @@
             }
         });
     });
-
 </script>
- }
-else
-{
-    <script>
-
-        $(document).ready(function () {
-            var menu = $('#login');
-            menu.css("display","block");    
-        });
-
-    </script>
-}
 <html lang="en">
     <head>
         <meta charset="utf-8" />
