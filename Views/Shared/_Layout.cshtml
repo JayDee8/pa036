@@ -1,6 +1,9 @@
 ﻿<!DOCTYPE html>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
+<script src="http://code.highcharts.com/stock/highstock.js"></script>
+<script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
 
 @{string controllerName = ViewContext.RouteData.Values["controller"].ToString();}
 
@@ -10,6 +13,7 @@
     
     $(document).ready(function(){
         var menu = $('#login');
+        //smallHeader();
         var menuTimeout = null;
         
 
@@ -49,9 +53,9 @@
             var logo = $('#img_logo');
             var title = $('.site-title');
 
-            logo.css("height", "50px");
-            title.css("font-size", "2em");
-            title.css("width", "360px");
+            logo.css("height", "100px");
+            title.css("font-size", "1.5em");
+            //title.css("width", "360px");
         }
         
         function getActual() {
@@ -62,6 +66,25 @@
                 $("#tabs").tabs("option", "active", 1);
             }
         }
+    });
+
+    $(function () {
+        Highcharts.setOptions({
+            lang: {
+                shortMonths: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'],
+                weekdays: ['Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota', 'Neděle'],
+                //shortMonths: ['Led', 'Ún', 'Břez', 'Dub', 'Květ', 'Červ', 'Červc', 'Srp', 'Zář', 'Říj', 'List', 'Pros']
+                rangeSelectorFrom: "Od",
+                rangeSelectorTo: "Do",
+                loading: "Načítání...",
+                downloadJPEG: "Stáhnout JPEG obrázek",
+                downloadPDF: "Stáhnout PDF obrázek",
+                downloadPNG: "Stáhnout PNG obrázek",
+                downloadSVG: "Stáhnout SVG obrázek",
+                printChart: "Vytisknout graf"
+
+            }
+        });
     });
 
 </script>
@@ -120,10 +143,10 @@ else
                             <div class="float-right admin submenu">
                                 <nav>
                                     <ul id="menu">
-                                        <li>@Html.ActionLink("Uživatelé", "Index", "user")</li>
-                                        <li>@Html.ActionLink("Firmy", "Index", "firma")</li>
-                                        <li>@Html.ActionLink("Historie akcií", "Index", "historieakcie")</li>
-                                        <li>@Html.ActionLink("Index burzy", "Index", "indexPX")</li>
+                                        <li class="@(controllerName == "user" ? "active" : "")">@Html.ActionLink("Uživatelé", "Index", "user")</li>
+                                        <li class="@(controllerName == "firma" ? "active" : "")">@Html.ActionLink("Firmy", "Index", "firma")</li>
+                                        <li class="@(controllerName == "historieakcie" ? "active" : "")">@Html.ActionLink("Historie akcií", "Index", "historieakcie")</li>
+                                        <li class="@(controllerName == "indexPX" ? "active" : "")">@Html.ActionLink("Index burzy", "Index", "indexPX")</li>
                                     </ul>
                                 </nav>
                             </div>
@@ -136,8 +159,8 @@ else
                     <nav>
                         <ul id="menu">
                             <li class="@(controllerName == "Akcie" ? "active" : "")">@Html.ActionLink("Akcie", "Index", "Akcie")</li>
-                            <li>@Html.ActionLink("Sledované", "Index", "Watchlist")</li>
-                            <li>@Html.ActionLink("Portfolio", "Index", "Portfolio")</li>
+                            <li class="@(controllerName == "Watchlist" ? "active" : "")">@Html.ActionLink("Sledované", "Index", "Watchlist")</li>
+                            <li class="@(controllerName == "Portfolio" ? "active" : "")">@Html.ActionLink("Portfolio", "Index", "Portfolio")</li>
                         </ul>
                     </nav>
 

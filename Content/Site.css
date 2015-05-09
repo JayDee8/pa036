@@ -50,10 +50,17 @@ mark {
 
 .float-left {
     float: left;
+    margin-bottom: 15px;
 }
 
 .float-right {
     float: right;
+    position: relative;
+}
+
+.float-right #tabs {
+    top: 20px;
+    position: relative;
 }
 
 .clear-fix:after {
@@ -101,7 +108,7 @@ h5, h6 {
 ----------------------------------------------------------*/
 .content-wrapper {
     margin: 0 auto;
-    max-width: 960px;
+    max-width: 1250px;
     /*background-color: #404796;*/
 }
 
@@ -141,7 +148,7 @@ footer {
 .site-title {
     color: #c8c8c8;
     /*font-family: Rockwell, Consolas, "Courier New", Courier, monospace;*/
-    font-family: MS Sans Serif, Verdana, Trebuchet MS;
+    font-family: 'Comfortaa', cursive;
     font-size: 1.6em;
     margin: 0;
     width:130px;
@@ -213,6 +220,7 @@ ul#menu {
     margin: 0 0 5px;
     padding: 0;
     text-align: right;
+    font-weight: 100;
 }
 
     ul#menu li {
@@ -233,20 +241,26 @@ ul#menu {
         }
 
         #tabs-1 ul li a,
-        #tabs-2 ul li a,
-        #tabs .ui-tabs-active a,
-        #tabs .ui-state-active a{
+        #tabs-2 ul li a{
             color: black;
-        }
-
-        nav .active {
-            background-color: white;
+            font-family: 'Comfortaa', cursive;
         }
 
         ul#menu li {
               display: inline;
-              /* list-style: none; */
               padding: 5px; 
+        }
+
+        #tabs {
+            font-family: 'Comfortaa', cursive;
+        }
+
+        .active a,
+        #tabs .ui-tabs-active a,
+        #tabs .ui-state-active a{
+            /*background-color: white;*/
+            color: #666CBD !important;
+            font-weight: bold;
         }
 
 /* page elements
@@ -641,12 +655,13 @@ tr.pager td {
     header .float-left,
     header .float-right {
         float: none;
+        position: relative;
     }
 
     /* logo */
     header .site-title {
         margin: 10px;
-        text-align: center;
+        text-align: center
     }
 
     /* login */

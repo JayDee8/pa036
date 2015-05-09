@@ -1,68 +1,42 @@
 ﻿@model bcpp.Models.MainPageModel
 @using bcpp.Helpers
+@using System.Globalization;
 
 @{
     WebGrid aGrid = new WebGrid(Model.AModel);
     WebGrid iGrid = new WebGrid(Model.IModel);
+    CultureInfo us = new CultureInfo("en-US");
+    //string text = toString(Model.IModel.First().datum);
+    //string text2 = "1434-09-23T15:16";
+    //string format = "yyyy-mm-dd hh:mm:ss";
+    TimeSpan span = (Model.IModel.First().datum - new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc));
+    //DateTime first = DateTime.ParseExact(text2,format,us);
+    Console.WriteLine(span);
     
 }
 
-<script src="http://code.highcharts.com/stock/highstock.js"></script>
-<script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
 <script>
 
     $(function () {
-        $('#index-container').highcharts({
-            chart: {
-                type: 'spline'
-            },
-            title: {
-                text: 'Graf vývoje PX indexu'
-            },
-            xAxis: {
-                type: 'datetime',
-                dateTimeLabelFormats: { // don't display the dummy year
-                    month: '%e. %b',
-                    year: '%b'
-                },
-                categories: [@{foreach (var item in Model.IModel){ @Html.Raw("'")@item.datum @Html.Raw("'") @Html.Raw(",")}}]
-            },
-            yAxis: {
-                title: {
-                    text: 'Hodnota indexu'
-                }
-            },
-            series: [{
-                name: 'Index',
-                data: [@{foreach (var item in Model.IModel){ @item.hodnota @Html.Raw(",")}}]
-            }]
-        });
-    });
-    /*_______*/
 
-    $(function () {
-
-        var data = [@{foreach (var item in Model.IModel){ @item.hodnota @Html.Raw(",")}}],
-                     StockChart;
+        var data = [@{foreach (var item in Model.IModel){ @Html.Raw("[")@((item.datum - new DateTime(1970, 1, 1,0,0,0).ToLocalTime()).TotalSeconds); @Html.Raw("000,"); @item.hodnota @Html.Raw("],")}}], StockChart;
+        data = data.sort();
+        console.log(data);
         $(document).ready(function () {
 
-            // Create a timer
-            var start = +new Date();
+            $('#index-container').highcharts('StockChart', {
 
-            // Create the chart
-            $('#inde-container').highcharts('StockChart', {
                 chart: {
-                    events: {
-                    },
+                    
                     zoomType: 'x'
                 },
 
                 rangeSelector: {
-
+                    inputBoxWidth: 130,
                     buttons: [{
                         type: 'week',
                         count: 1,
-                        text: '1w'
+                        text: '1t'
                     }, {
                         type: 'month',
                         count: 1,
@@ -74,332 +48,46 @@
                     }, {
                         type: 'year',
                         count: 1,
-                        text: '1y'
+                        text: '1r'
+                    },{
+                        type: 'year',
+                        count: 3,
+                        text: '3r'
                     }, {
                         type: 'all',
-                        text: 'All'
+                        text: 'Vše'
                     }],
                     selected: 3
                 },
                 xAxis: {
-                    categories: [@{foreach (var item in Model.IModel){ @Html.Raw("'")@item.datum @Html.Raw("'") @Html.Raw(",")}}]
-                ,
-                title: {
-                    text: 'Date'
-                }
+                    type: 'date',
+                    labels: { format: "{value:%m %Y}" }
                 },
 
                 yAxis: {
-                title: {
-                            text: 'Index PX'
-                }
+                    title: {
+                        text: 'Index PX'
+                    }
                 },
 
-            title: {
-                text: 'Vývoj PX indexu'
-            },
+                title: {
+                    text: 'Vývoj hodnoty PX index'
+                },
 
-            series: [{
-                name: 'PX index',
-                data: data,
-                //pointStart: Date.UTC(2004, 3, 1),
-                //pointInterval: 24 * 3600 * 1000,
-                /*tooltip: {
-                    valueDecimals: 1,
-                    valueSuffix: ''
-                }*/
-            }]
-
+                series: [{
+                    turboThreshold: 3330,
+                    name: 'PX index: ',
+                    data: data,
+                    tooltip: {
+                        valueSuffix: '',
+                        labels: { format: "{value:%j. %F %Y}" }
+                    },
+                }]
+            });
         });
     });
-    });
 
 
-    /*---------*/
-
-    $(function () {
-        var data = [@{foreach (var item in Model.IModel){ @item.hodnota @Html.Raw(",")}}],
-            detailChart;
-
-        $(document).ready(function () {
-
-            // create the detail chart
-            function createDetail(masterChart) {
-
-                // prepare the detail chart
-                var detailData = [@{foreach (var item in Model.IModel){ @item.hodnota @Html.Raw(",")}}],
-                    detailStart = Date.UTC(2000, 7, 1);
-
-                $.each(masterChart.series[0].data, function () {
-                    if (this.x >= detailStart) {
-                        detailData.push(this.y);
-                    }
-                });
-
-                // create a detail chart referenced by a global variable
-                detailChart = $('#detail-container').highcharts({
-                    chart: {
-                        marginBottom: 120,
-                        reflow: false,
-                        marginLeft: 50,
-                        marginRight: 20,
-                        rangeSelector: {
-
-                            buttons: [{
-                                type: 'month',
-                                count: 1,
-                                text: 'měs'
-                            }, {
-                                type: 'month',
-                                count: 6,
-                                text: '6 měs'
-                            }, {
-                                type: 'year',
-                                count: 1,
-                                text: 'rok'
-                            }, {
-                                type: 'year',
-                                count: 3,
-                                text: '3 roky'
-                            }, {
-                                type: 'all',
-                                text: 'Vše'
-                            }],
-                            selected: 3
-                        },
-                        style: {
-                            position: 'absolute'
-                        }
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    title: {
-                        text: 'Vývoj hodnoty Index PX'
-                    },
-                    subtitle: {
-                        text: 'Vyberte si oblast zobrazení tažením přes spodní graf'
-                    },
-                    xAxis: {
-                        type: 'datetime'
-                    },
-                    yAxis: {
-                        title: {
-                            text: null
-                        },
-                        maxZoom: 0.1
-                    },
-                    tooltip: {
-                        formatter: function () {
-                            var point = this.points[0];
-                            return '<b>' + point.series.name + '</b><br/>' +
-                                Highcharts.dateFormat('%m. %e. %Y', this.x) + ':<br/>' +
-                                'Index = ' + Highcharts.numberFormat(point.y, 2);
-                        },
-                        shared: true
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    plotOptions: {
-                        series: {
-                            marker: {
-                                enabled: false,
-                                states: {
-                                    hover: {
-                                        enabled: true,
-                                        radius: 3
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    series: [{
-                        name: 'Index PX',
-                        pointStart: detailStart,
-                        pointInterval: 24 * 3600 * 1000,
-                        data: detailData
-                    }],
-
-                    exporting: {
-                        enabled: false
-                    }
-
-                }).highcharts(); // return chart
-            }
-
-            // create the master chart
-            function createMaster() {
-                $('#master-container').highcharts({
-                    chart: {
-                        reflow: false,
-                        borderWidth: 0,
-                        backgroundColor: null,
-                        marginLeft: 50,
-                        marginRight: 20,
-                        zoomType: 'x',
-                        rangeSelector: {
-
-                            buttons: [{
-                                type: 'month',
-                                count: 1,
-                                text: 'měs'
-                            }, {
-                                type: 'month',
-                                count: 6,
-                                text: '6 měs'
-                            }, {
-                                type: 'year',
-                                count: 1,
-                                text: 'rok'
-                            }, {
-                                type: 'year',
-                                count: 3,
-                                text: '3 roky'
-                            }, {
-                                type: 'all',
-                                text: 'Vše'
-                            }],
-                            selected: 3
-                        },
-                        events: {
-
-                            // listen to the selection event on the master chart to update the
-                            // extremes of the detail chart
-                            selection: function (event) {
-                                var extremesObject = event.xAxis[0],
-                                    min = extremesObject.min,
-                                    max = extremesObject.max,
-                                    detailData = [],
-                                    xAxis = this.xAxis[0];
-
-                                // reverse engineer the last part of the data
-                                $.each(this.series[0].data, function () {
-                                    if (this.x > min && this.x < max) {
-                                        detailData.push([this.x, this.y]);
-                                    }
-                                });
-
-                                // move the plot bands to reflect the new detail span
-                                xAxis.removePlotBand('mask-before');
-                                xAxis.addPlotBand({
-                                    id: 'mask-before',
-                                    from: Date.UTC(2000, 0, 1),
-                                    to: min,
-                                    color: 'rgba(0, 0, 0, 0.2)'
-                                });
-
-                                xAxis.removePlotBand('mask-after');
-                                xAxis.addPlotBand({
-                                    id: 'mask-after',
-                                    from: max,
-                                    to: Date.UTC(2002, 11, 31),
-                                    color: 'rgba(0, 0, 0, 0.2)'
-                                });
-
-
-                                detailChart.series[0].setData(detailData);
-
-                                return false;
-                            }
-                        }
-                    },
-                    title: {
-                        text: null
-                    },
-                    xAxis: {
-                        type: 'date',
-                        showLastTickLabel: true,
-                        maxZoom: 14 * 24 * 3600000, // fourteen days
-                        plotBands: [{
-                            id: 'mask-before',
-                            from: Date.UTC(2000, 0, 1),
-                            to: Date.UTC(2002, 7, 1),
-                            color: 'rgba(0, 0, 0, 0.2)'
-                        }],
-                        title: {
-                            text: null
-                        }
-                    },
-                    yAxis: {
-                        gridLineWidth: 0,
-                        labels: {
-                            enabled: false
-                        },
-                        title: {
-                            text: null
-                        },
-                        min: 0.6,
-                        showFirstLabel: false
-                    },
-                    tooltip: {
-                        formatter: function () {
-                            return false;
-                        }
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    plotOptions: {
-                        series: {
-                            fillColor: {
-                                linearGradient: [0, 0, 0, 70],
-                                stops: [
-                                    [0, Highcharts.getOptions().colors[0]],
-                                    [1, 'rgba(255,255,255,0)']
-                                ]
-                            },
-                            lineWidth: 1,
-                            marker: {
-                                enabled: false
-                            },
-                            shadow: false,
-                            states: {
-                                hover: {
-                                    lineWidth: 1
-                                }
-                            },
-                            enableMouseTracking: false
-                        }
-                    },
-
-                    series: [{
-                        type: 'area',
-                        name: 'Index PX',
-                        pointInterval: 24 * 3600 * 1000,
-                        pointStart: Date.UTC(2000, 0, 1),
-                        data: data
-                    }],
-
-                    exporting: {
-                        enabled: false
-                    }
-
-                }, function (masterChart) {
-                    createDetail(masterChart);
-                })
-                    .highcharts(); // return chart instance
-            }
-
-            // make the container smaller and add a second container for the master chart
-            var $container = $('#indes-container')
-                .css('position', 'relative');
-
-            $('<div id="detail-container">')
-                .appendTo($container);
-
-            $('<div id="master-container">')
-                .css({ position: 'absolute', top: 300, height: 100, width: '100%' })
-                .appendTo($container);
-
-            // create master and in its callback, create the detail chart
-            createMaster();
-        });
-
-    });
 </script>
 
 @aGrid.GetHtml(
@@ -418,6 +106,6 @@
     columns:
     iGrid.Columns
     (
-        iGrid.Column("datum", "Datum"),
+    iGrid.Column("datum", "Datum",format: (item)=>string.Format("{0:dd.MM.yyyy}",item.datum)),
         iGrid.Column("hodnota", "Hodnota")
 ))
