@@ -3,9 +3,8 @@
 
 @{
     ViewBag.Title = "Akcie";
-    WebGrid grid = new WebGrid(canPage: true,canSort: true);
+    WebGrid grid = new WebGrid(canPage: false,canSort: true);
     grid.Bind(Model.Content, rowCount: Model.TotalRecords, autoSortAndPage: false);
-    grid.Pager(WebGridPagerModes.All);
 }
 
 @{
@@ -39,6 +38,5 @@
     
     @grid.GetHtml(
     tableStyle: "table table-striped table-hover",
-    mode: WebGridPagerModes.All,
     columns:
     grid.Columns(gridColumns.ToArray()))
