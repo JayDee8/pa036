@@ -1,9 +1,9 @@
 ﻿<!DOCTYPE html>
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/highstock.js"></script>
+<script src="~/Scripts/exporting.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
-<script src="http://code.highcharts.com/stock/highstock.js"></script>
-<script src="http://code.highcharts.com/stock/modules/exporting.js"></script>
 
 @{string controllerName = ViewContext.RouteData.Values["controller"].ToString();}
 
@@ -13,15 +13,11 @@
     
     $(document).ready(function(){
         var menu = $('#login');
-        //smallHeader();
         var menuTimeout = null;
-        
 
-        
-            $("#tabs").tabs({
-                collapsible: true
-            });
-        
+        jQuery("#tabs").tabs({
+            collapsible: true
+        });
 
         $('#login').on('mouseenter mouseleave', function () {
             $(this).toggleClass('hover');
@@ -48,15 +44,14 @@
                 menuTimeout = setTimeout(hideMenu, 500);
             }
         }
-    
+        /*
         function smallHeader() {
             var logo = $('#img_logo');
             var title = $('.site-title');
 
             logo.css("height", "100px");
             title.css("font-size", "1.5em");
-            //title.css("width", "360px");
-        }
+        }*/
         
         function getActual() {
             var actual = "@HttpContext.Current.Request.Url.AbsolutePath";
@@ -119,55 +114,63 @@ else
         </section>
         <header>
             <div class="content-wrapper">
-                <img id="img_logo" alt="Logo" src="@Url.Content("~/Content/Images/logo.png")" /> 
+                <img id="img_logo" alt="Logo" src="@Url.Content("~/Content/Images/logo.png")" />
                 <div class="float-left">
                     <p class="site-title">@Html.ActionLink("Burza cenných papírů Praha", "Index", "Main")</p>
                 </div>
                 <div class="float-right">
-                    @if (User.IsInRole("admin"))
+                    @{if (User.IsInRole("admin"))
                     {
-                    <div id="tabs">
-                        <ul id="menu">
-                            <li><a href="#tabs-1">Uživatelské rozhranní</a></li>
-                            <li><a href="#tabs-2">Administrace</a></li>
-                        </ul>
-                        <div id="tabs-1">
-                            <nav class="float-right user submenu">
-                                <ul id="menu">
-                                    <li class="@(controllerName == "Akcie" ? "active" : "")">@Html.ActionLink("Akcie", "Index", "Akcie")</li>
-                                    <li class="@(controllerName == "Watchlist" ? "active" : "")">@Html.ActionLink("Sledované", "Index", "Watchlist")</li>
-                                    <li class="@(controllerName == "Portfolio" ? "active" : "")">@Html.ActionLink("Portfolio", "Index", "Portfolio")</li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <div id="tabs-2">
-                            <div class="float-right admin submenu">
-                                <nav>
+                        <div id="tabs">
+                            <ul id="menu">
+                                <li><a href="#tabs-1">Uživatelské rozhranní</a></li>
+                                <li><a href="#tabs-2">Administrace</a></li>
+                            </ul>
+                            <div id="tabs-1">
+                                <nav class="float-right user submenu">
                                     <ul id="menu">
-                                        <li class="@(controllerName == "user" ? "active" : "")">@Html.ActionLink("Uživatelé", "Index", "user")</li>
-                                        <li class="@(controllerName == "firma" ? "active" : "")">@Html.ActionLink("Firmy", "Index", "firma")</li>
-                                        <li class="@(controllerName == "historieakcie" ? "active" : "")">@Html.ActionLink("Historie akcií", "Index", "historieakcie")</li>
-                                        <li class="@(controllerName == "indexPX" ? "active" : "")">@Html.ActionLink("Index burzy", "Index", "indexPX")</li>
+                                        <li class="@(controllerName == "Akcie" ? "active" : "")">@Html.ActionLink("Akcie", "Index", "Akcie")</li>
+                                        <li class="@(controllerName == "Watchlist" ? "active" : "")">@Html.ActionLink("Sledované", "Index", "Watchlist")</li>
+                                        <li class="@(controllerName == "Portfolio" ? "active" : "")">@Html.ActionLink("Portfolio", "Index", "Portfolio")</li>
                                     </ul>
                                 </nav>
                             </div>
+                            <div id="tabs-2">
+                                <div class="float-right admin submenu">
+                                    <nav>
+                                        <ul id="menu">
+                                            <li class="@(controllerName == "user" ? "active" : "")">@Html.ActionLink("Uživatelé", "Index", "user")</li>
+                                            <li class="@(controllerName == "firma" ? "active" : "")">@Html.ActionLink("Firmy", "Index", "firma")</li>
+                                            <li class="@(controllerName == "historieakcie" ? "active" : "")">@Html.ActionLink("Historie akcií", "Index", "historieakcie")</li>
+                                            <li class="@(controllerName == "indexPX" ? "active" : "")">@Html.ActionLink("Index burzy", "Index", "indexPX")</li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    } 
-
-                    @if (User.IsInRole("user"))
+                    }
+                    else if (User.IsInRole("admin"))
                     {
-                    <nav>
-                        <ul id="menu">
-                            <li class="@(controllerName == "Akcie" ? "active" : "")">@Html.ActionLink("Akcie", "Index", "Akcie")</li>
-                            <li class="@(controllerName == "Watchlist" ? "active" : "")">@Html.ActionLink("Sledované", "Index", "Watchlist")</li>
-                            <li class="@(controllerName == "Portfolio" ? "active" : "")">@Html.ActionLink("Portfolio", "Index", "Portfolio")</li>
-                        </ul>
-                    </nav>
+                        <nav>
+                            <ul id="menu">
+                                <li class="@(controllerName == "Akcie" ? "active" : "")">@Html.ActionLink("Akcie", "Index", "Akcie")</li>
+                                <li class="@(controllerName == "Watchlist" ? "active" : "")">@Html.ActionLink("Sledované", "Index", "Watchlist")</li>
+                                <li class="@(controllerName == "Portfolio" ? "active" : "")">@Html.ActionLink("Portfolio", "Index", "Portfolio")</li>
+                            </ul>
+                        </nav>
+                    }
+                    else
+                    {
+                        <!--<div class="welcome-text-main" style="top:20px">
+                            Pro využívání našeho systému se můžete
+                            <button class="btn btn-default" type="submit">@*Html.ActionLink("přihlásit", "Login", "Account")*@</button>
+                            nebo
+                            <button class="btn btn-default" type="submit">@*Html.ActionLink("zaregistrovat", "Register", "Account")*@</button>
+                        </div>-->
 
                     }
+                    }
                 </div>
-
             </div>
         </header>
         <div id="body">
@@ -179,7 +182,7 @@ else
         <footer>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - BCPP FI MUNI</p>
+                    <p>&copy; @DateTime.Now.Year - BcpP FI MUNI</p>
                 </div>
             </div>
         </footer>

@@ -10,5 +10,6 @@ namespace bcpp.Models
     {
         public IEnumerable<akcie2> AModel { get; set; }
         public PagedList.IPagedList<index_PX> IModel { get; set; }
+        public IEnumerable<index_PX> I2Model { get; set; }
     }
 }

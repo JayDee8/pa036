@@ -35,11 +35,13 @@ namespace bcpp.Controllers
             int pageNumber = (page ?? 1);
 
             var indexPX = from s in db.index_PX select s;
+            var index2PX = from s in db.index_PX select s;
 
-            indexPX = indexPX.OrderBy(s => s.datum);
-
+            indexPX = indexPX.OrderByDescending(s => s.datum);
+            //index2PX = index2PX.OrderByDescending(s => s.datum);
             M.AModel = content;
             M.IModel = indexPX.ToPagedList(pageNumber, pageSize);//db.index_PX.ToList();
+            M.I2Model = index2PX.ToList();
 
             return View(M);
         }

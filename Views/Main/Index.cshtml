@@ -13,18 +13,33 @@
 
     $(function () {
 
-        var data = [@{foreach (var item in Model.IModel){ @Html.Raw("[")@((item.datum - new DateTime(1970, 1, 1,0,0,0).ToLocalTime()).TotalSeconds); @Html.Raw("000,"); @item.hodnota @Html.Raw("],")}}], StockChart;
+        var data2 = [@{foreach (var item in Model.I2Model){
+                        @Html.Raw("[")
+                        @((item.datum - new DateTime(1970, 1, 1,0,0,0).ToLocalTime()).TotalSeconds);
+                        @Html.Raw("000,");
+                        @item.hodnota
+                        @Html.Raw("],")}}],
+            StockChart;
+
+        var data = [@{foreach (var item in Model.IModel){
+                        @Html.Raw("[")
+                        @((item.datum - new DateTime(1970, 1, 1,0,0,0).ToLocalTime()).TotalSeconds);
+                        @Html.Raw("000,");
+                        @item.hodnota
+                        @Html.Raw("],")}}],
+            StockChart;
+        
         data = data.sort();
-        console.log(data);
         $(document).ready(function () {
 
             $('#index-container').highcharts('StockChart', {
 
                 chart: {
-                    
                     zoomType: 'x'
                 },
-
+                navigator: {
+                    data: data2
+                },
                 rangeSelector: {
                     inputBoxWidth: 130,
                     buttons: [{
@@ -51,7 +66,7 @@
                         type: 'all',
                         text: 'Vše'
                     }],
-                    selected: 3
+                    selected: 2
                 },
                 xAxis: {
                     type: 'date',
@@ -71,19 +86,18 @@
                 series: [{
                     turboThreshold: 3330,
                     name: 'PX index: ',
-                    data: data,
+                    data: data2,
                     tooltip: {
                         valueSuffix: '',
                         labels: { format: "{value:%j. %F %Y}" }
                     },
                 }]
             });
+            //chart.xAxis[0].setExtremes(minRange, maxRange);
         });
     });
 
-
 </script>
-
 
 @aGrid.GetHtml(
     tableStyle: "table table-striped table-hover akcie-table",
@@ -112,10 +126,14 @@
     Page @(Model.IModel.PageCount < Model.IModel.PageNumber ? 0 : Model.IModel.PageNumber) of @Model.IModel.PageCount
 
     @{var options = new PagedListRenderOptions();
-    options.PageCountAndCurrentLocationFormat = ("Strana {0} z {1}.").ToString();
+    options.PageCountAndCurrentLocationFormat = ("Strana {0} z {1}.");
     options.MaximumPageNumbersToDisplay = 3;
+    //options.DisplayPageCountAndCurrentLocation = false;
+    options.ItemSliceAndTotalFormat = "Showing items {0} through {1} of {2}.";
     }
 
     @Html.PagedListPager(Model.IModel, page => Url.Action("Index",
                     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), options)
+
 </div>
+
