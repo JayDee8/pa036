@@ -55,7 +55,7 @@
         
         function getActual() {
             var actual = "@HttpContext.Current.Request.Url.AbsolutePath";
-            if (actual == '/' | actual == '/Akcie' | actual == '/Watchlist' | actual == '/Portfolio') {
+            if (actual == '/' | actual == '/Akcie' | actual == '/Watchlist' | actual == '/Portfolio' | actual == '/Wallet') {
             }
             else {
                 $("#tabs").tabs("option", "active", 1);
@@ -134,6 +134,7 @@ else
                                         <li class="@(controllerName == "Akcie" ? "active" : "")">@Html.ActionLink("Akcie", "Index", "Akcie")</li>
                                         <li class="@(controllerName == "Watchlist" ? "active" : "")">@Html.ActionLink("Sledované", "Index", "Watchlist")</li>
                                         <li class="@(controllerName == "Portfolio" ? "active" : "")">@Html.ActionLink("Portfolio", "Index", "Portfolio")</li>
+                                        <li class="@(controllerName == "Wallet" ? "active" : "")">@Html.ActionLink("Peněženka", "Index", "Wallet")</li>
                                     </ul>
                                 </nav>
                             </div>
@@ -160,6 +161,7 @@ else
                                     <li class="@(controllerName == "Akcie" ? "active" : "")">@Html.ActionLink("Akcie", "Index", "Akcie")</li>
                                     <li class="@(controllerName == "Watchlist" ? "active" : "")">@Html.ActionLink("Sledované", "Index", "Watchlist")</li>
                                     <li class="@(controllerName == "Portfolio" ? "active" : "")">@Html.ActionLink("Portfolio", "Index", "Portfolio")</li>
+                                    <li class="@(controllerName == "Wallet" ? "active" : "")">@Html.ActionLink("Peněženka", "Index", "Wallet")</li>
                                 </ul>
                             </nav>
                         }

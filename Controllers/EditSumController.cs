@@ -12,6 +12,7 @@ using WebMatrix.WebData;
 namespace bcpp.Controllers
 {
     [InitializeSimpleMembership]
+    [Authorize]
     public class EditSumController : BaseController
     {
         private dbEntities db = new dbEntities();

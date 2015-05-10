@@ -29,6 +29,7 @@ namespace bcpp.Controllers
     }
 
     [InitializeSimpleMembership]
+    [Authorize]
     public class AkcieController : Controller
     {
         private dbEntities db = new dbEntities();
@@ -62,11 +63,15 @@ namespace bcpp.Controllers
                 );
 
             records.Content = content.OrderBy(sort + " " + sortdir).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-            
 
-                //select new { pk_id = a.akcie_id, zkratka = a.zkratka, }); //cena_prodej = ha.cena_prodej, cena_nakup = ha.cena_nakup, pocet = p.pocet});
-            
-           // uzivatel uz = db.uzivatel.Single(a => a.uzivatel_id == WebSecurity.GetUserId(User.Identity.Name));
+            if (WebSecurity.IsAuthenticated)
+            {
+                float? wallet = db.uzivatel.Single(a => a.uzivatel_id == userId).penezenka;
+                if (wallet == null)
+                    ViewBag.wallet = 0;
+                else
+                    ViewBag.wallet = wallet;
+            }
 
             records.TotalRecords = content.Count();
 
@@ -89,87 +94,6 @@ namespace bcpp.Controllers
             return View(akcie);
         }
 
-        //
-        // GET: /Akcie/Create
-
-        public ActionResult Create()
-        {
-            ViewBag.firma_id = new SelectList(db.firma, "firma_id", "ICO");
-            return View();
-        }
-
-        //
-        // POST: /Akcie/Create
-
-        [HttpPost]
-        public ActionResult Create(akcie akcie)
-        {
-            if (ModelState.IsValid)
-            {
-                db.akcie.AddObject(akcie);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.firma_id = new SelectList(db.firma, "firma_id", "ICO", akcie.firma_id);
-            return View(akcie);
-        }
-
-        //
-        // GET: /Akcie/Edit/5
-
-        public ActionResult Edit(int id = 0)
-        {
-            akcie akcie = db.akcie.Single(a => a.akcie_id == id);
-            if (akcie == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.firma_id = new SelectList(db.firma, "firma_id", "ICO", akcie.firma_id);
-            return View(akcie);
-        }
-
-        //
-        // POST: /Akcie/Edit/5
-
-        [HttpPost]
-        public ActionResult Edit(akcie akcie)
-        {
-            if (ModelState.IsValid)
-            {
-                db.akcie.Attach(akcie);
-                db.ObjectStateManager.ChangeObjectState(akcie, EntityState.Modified);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.firma_id = new SelectList(db.firma, "firma_id", "ICO", akcie.firma_id);
-            return View(akcie);
-        }
-
-        //
-        // GET: /Akcie/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            akcie akcie = db.akcie.Single(a => a.akcie_id == id);
-            if (akcie == null)
-            {
-                return HttpNotFound();
-            }
-            return View(akcie);
-        }
-
-        //
-        // POST: /Akcie/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            akcie akcie = db.akcie.Single(a => a.akcie_id == id);
-            db.akcie.DeleteObject(akcie);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
         protected override void Dispose(bool disposing)
         {

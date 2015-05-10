@@ -9,6 +9,8 @@ using bcpp.Models;
 
 namespace bcpp.Controllers
 {
+    
+    [Authorize]
     public class PortfolioController : Controller
     {
         private dbEntities db = new dbEntities();

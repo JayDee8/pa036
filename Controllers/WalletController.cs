@@ -13,7 +13,7 @@ namespace bcpp.Controllers
 {
     [InitializeSimpleMembership]
     [Authorize]
-    public class WalletController : Controller
+    public class WalletController : BaseController
     {
         private dbEntities db = new dbEntities();
 
@@ -38,9 +38,10 @@ namespace bcpp.Controllers
                 model.penezenka = wallet;
                 db.ObjectStateManager.ChangeObjectState(model, EntityState.Modified);
                 db.SaveChanges();
+                Success(String.Format("Hodnota peněženky upravena. Aktuální hodnota: {0}",wallet), true);
                 return RedirectToAction("Index", "Akcie", new { area = "" });
             }
-
+            Danger("Zadaná hodnota není správná!",true);
             return View(model);
         }
 
