@@ -36,7 +36,7 @@ namespace bcpp.Controllers
             }
             model.pModel = port;
             model.akcieName = db.akcie.Single(a => a.akcie_id == id).nazev;
-            
+
             return View(model);
         }
 
