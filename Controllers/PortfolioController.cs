@@ -18,7 +18,7 @@ namespace bcpp.Controllers
 
         public ActionResult Index()
         {
-            var portfolio = db.portfolio.Include("akcie").Include("uzivatel");
+            var portfolio = db.portfolio.Include("akcie").Include("uzivatel").Where(p => p.pocet != 0);
             return View(portfolio.ToList());
         }
 
@@ -27,7 +27,7 @@ namespace bcpp.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            portfolio portfolio = db.portfolio.Single(p => p.uzivatel_id == id);
+            portfolio portfolio = db.portfolio.Single(p => p.portfolio_id == id);
             if (portfolio == null)
             {
                 return HttpNotFound();
@@ -68,7 +68,7 @@ namespace bcpp.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            portfolio portfolio = db.portfolio.Single(p => p.uzivatel_id == id);
+            portfolio portfolio = db.portfolio.Single(p => p.portfolio_id == id);
             if (portfolio == null)
             {
                 return HttpNotFound();
@@ -101,7 +101,7 @@ namespace bcpp.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            portfolio portfolio = db.portfolio.Single(p => p.uzivatel_id == id);
+            portfolio portfolio = db.portfolio.Single(p => p.portfolio_id == id);
             if (portfolio == null)
             {
                 return HttpNotFound();
@@ -115,7 +115,7 @@ namespace bcpp.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            portfolio portfolio = db.portfolio.Single(p => p.uzivatel_id == id);
+            portfolio portfolio = db.portfolio.Single(p => p.portfolio_id == id);
             db.portfolio.DeleteObject(portfolio);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -12,13 +12,22 @@
 <table>
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.uzivatel.jmeno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.akcie.nazev)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.pocet)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.datum_pridani)
+            @Html.DisplayNameFor(model => model.cena)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.datum_odebrani)
+            @Html.DisplayNameFor(model => model.nakup)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.datum_zmeny)
         </th>
         <th></th>
     </tr>
@@ -26,18 +35,27 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.uzivatel.jmeno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.akcie.nazev)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.pocet)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.datum_pridani)
+            @Html.DisplayFor(modelItem => item.cena)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.datum_odebrani)
+            @Html.DisplayFor(modelItem => item.nakup)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.DisplayFor(modelItem => item.datum_zmeny)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.portfolio_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.portfolio_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.portfolio_id })
         </td>
     </tr>
 }

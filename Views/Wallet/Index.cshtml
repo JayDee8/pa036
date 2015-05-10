@@ -1,0 +1,31 @@
+﻿@model bcpp.Models.uzivatel
+
+@{
+    ViewBag.Title = "Peněženka";
+}
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>uzivatel</legend>
+
+        @Html.HiddenFor(model => model.uzivatel_id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.penezenka)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.penezenka)
+            @Html.ValidationMessageFor(model => model.penezenka)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

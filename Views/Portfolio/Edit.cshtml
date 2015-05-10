@@ -12,9 +12,23 @@
     <fieldset>
         <legend>portfolio</legend>
 
-        @Html.HiddenFor(model => model.uzivatel_id)
+        @Html.HiddenFor(model => model.portfolio_id)
 
-        @Html.HiddenFor(model => model.akcie_id)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.uzivatel_id, "uzivatel")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("uzivatel_id", String.Empty)
+            @Html.ValidationMessageFor(model => model.uzivatel_id)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.akcie_id, "akcie")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("akcie_id", String.Empty)
+            @Html.ValidationMessageFor(model => model.akcie_id)
+        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.pocet)
@@ -25,19 +39,27 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.datum_pridani)
+            @Html.LabelFor(model => model.cena)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.datum_pridani)
-            @Html.ValidationMessageFor(model => model.datum_pridani)
+            @Html.EditorFor(model => model.cena)
+            @Html.ValidationMessageFor(model => model.cena)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.datum_odebrani)
+            @Html.LabelFor(model => model.nakup)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.datum_odebrani)
-            @Html.ValidationMessageFor(model => model.datum_odebrani)
+            @Html.EditorFor(model => model.nakup)
+            @Html.ValidationMessageFor(model => model.nakup)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.datum_zmeny)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.datum_zmeny)
+            @Html.ValidationMessageFor(model => model.datum_zmeny)
         </div>
 
         <p>

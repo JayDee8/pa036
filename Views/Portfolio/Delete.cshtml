@@ -11,6 +11,20 @@
     <legend>portfolio</legend>
 
     <div class="display-label">
+         @Html.DisplayNameFor(model => model.uzivatel.jmeno)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.uzivatel.jmeno)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.akcie.nazev)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.akcie.nazev)
+    </div>
+
+    <div class="display-label">
          @Html.DisplayNameFor(model => model.pocet)
     </div>
     <div class="display-field">
@@ -18,17 +32,24 @@
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.datum_pridani)
+         @Html.DisplayNameFor(model => model.cena)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.datum_pridani)
+        @Html.DisplayFor(model => model.cena)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.datum_odebrani)
+         @Html.DisplayNameFor(model => model.nakup)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.datum_odebrani)
+        @Html.DisplayFor(model => model.nakup)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.datum_zmeny)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.datum_zmeny)
     </div>
 </fieldset>
 @using (Html.BeginForm()) {

@@ -12,7 +12,7 @@ using WebMatrix.WebData;
 namespace bcpp.Controllers
 {
     [InitializeSimpleMembership]
-    public class EditSumController : Controller
+    public class EditSumController : BaseController
     {
         private dbEntities db = new dbEntities();
 
@@ -53,7 +53,7 @@ namespace bcpp.Controllers
             float buyPrice = (float)h1.cena_nakup;
             float? wallet = db.uzivatel.Single(u => u.uzivatel_id == userId).penezenka;
             
-            if (wallet >= model.sumToBuy*buyPrice && ModelState.IsValid)
+            if (wallet >= model.sumToBuy*buyPrice && ModelState.IsValid && model.sumToSell <= model.pModel.pocet && (model.sumToBuy != 0 || model.sumToSell != 0))
             {
                 int akcieId = model.pModel.akcie_id;
                 bool newPortfolio = false;
@@ -97,9 +97,20 @@ namespace bcpp.Controllers
                 else
                     db.ObjectStateManager.ChangeObjectState(model.pModel, EntityState.Modified);
                 db.SaveChanges();
+                if (model.sumToBuy != 0)
+                    Success(string.Format("Koupeno položek akcií firmy {1}: <b>{0}</b> v celkové hodnotě {2}Kč", model.sumToBuy, model.akcieName, buyPrice * model.sumToBuy), true);
+                if (model.sumToSell != 0)
+                    Success(string.Format("Prodáno položek akcií firmy {1}: <b>{0}</b> v celkové hodnotě {2}Kč", model.sumToBuy, model.akcieName, sellPrice * model.sumToSell), true);
+
                 return RedirectToAction("Index", "Akcie", new { area = "" });
             }
-            ViewBag.err = true;
+            
+            if (wallet < model.sumToBuy * buyPrice)
+                Danger("Nemáte dostatek peněz!", true);
+            if (model.sumToSell > model.pModel.pocet)
+                Danger("Nemůžete prodat více akcií, než máte!", true); 
+            else
+                Danger("Portfólio nebylo upraveno", true);
             return View(model);
         }
 

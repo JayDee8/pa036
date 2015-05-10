@@ -1,0 +1,32 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        $(".alert").fadeTo(3000, 500).slideUp(500, function () {
+            $(".alert").alert('close');
+        });
+    });
+</script>
+
+
+
+@{
+    var alerts = TempData.ContainsKey(bcpp.Helpers.Alert.TempDataKey)
+                ? (List<bcpp.Helpers.Alert>)TempData[bcpp.Helpers.Alert.TempDataKey]
+                : new List<bcpp.Helpers.Alert>();
+
+    if (alerts.Any())
+    {
+        <hr/>
+    }
+    
+    foreach (var alert in alerts)
+    {
+        var dismissableClass = alert.Dismissable ? "alert-dismissable" : null;
+        <div class="alert alert-@alert.AlertStyle @dismissableClass">
+            @if (alert.Dismissable)
+            {
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            }
+            @Html.Raw(alert.Message)
+        </div>
+    }
+}

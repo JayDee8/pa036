@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+
 }
     <h2>Akcie "@Model.akcieName"</h2>
     počet vlastněných akcií: @(Model.pModel.pocet == null ? 0 : Model.pModel.pocet)
@@ -21,7 +22,7 @@
         @f.ControlGroup().TextBoxFor(m => m.sumToSell).Label().LabelText("Prodat")
         @f.ControlGroup().CustomControls(Html.Bootstrap().SubmitButton().Text("Provést"))
         
-        <span style="height:30px;color:Red;">&nbsp;@if (ViewBag.err != null){<text>Nemáte dostatek peněz!</text>}</span>
+        <span style="height:30px;color:Red;">&nbsp;@if (ViewBag.err != null){<text>@ViewBag.err</text>}</span>
     }
 
         
