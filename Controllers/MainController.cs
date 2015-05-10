@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using bcpp.Models;
+using WebMatrix.WebData;
+using PagedList;
 
 namespace bcpp.Controllers
 {
@@ -13,11 +15,32 @@ namespace bcpp.Controllers
     {
         private dbEntities db = new dbEntities();
 
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, int? page)
         {
             MainPageModel M = new MainPageModel();
-            M.AModel = db.akcie.ToList();
-            M.IModel = db.index_PX.ToList();
+            var akcie = db.akcie.Include("historie_akcie");
+            IEnumerable<historie_akcie> ha = from h in db.historie_akcie group h by h.akcie_id into g let maxDate = g.Max(r => r.datum) from rowGroup in g where rowGroup.datum == maxDate select rowGroup;
+
+            IEnumerable<akcie2> content =
+                (
+                    from a in db.akcie
+                    join h in ha
+                        on a.akcie_id equals h.akcie_id
+                    select new akcie2 { akcie_id = a.akcie_id, nazev = a.nazev, zkratka = a.zkratka, cena_nakup = h.cena_nakup, cena_prodej = h.cena_prodej, datum = h.datum }
+                );
+
+            ViewBag.CurrentSort = sortOrder;
+            int pageSize = 10;
+            
+            int pageNumber = (page ?? 1);
+
+            var indexPX = from s in db.index_PX select s;
+
+            indexPX = indexPX.OrderBy(s => s.datum);
+
+            M.AModel = content;
+            M.IModel = indexPX.ToPagedList(pageNumber, pageSize);//db.index_PX.ToList();
+
             return View(M);
         }
     }

@@ -15,7 +15,15 @@ namespace bcpp.Models
         public DateTime datum { get; set; }
         public int? pocet { get; set; }
     }
-
+    public class akcie2
+    {
+        public int akcie_id { get; set; }
+        public string nazev { get; set; }
+        public string zkratka { get; set; }
+        public double cena_nakup { get; set; }
+        public double cena_prodej { get; set; }
+        public DateTime datum { get; set; }
+    }
     public class PortfolioChangeSumModel
     {
         public portfolio pModel { get; set; }

@@ -1,10 +1,12 @@
 ﻿@model bcpp.Models.MainPageModel
+@using PagedList.Mvc;
 @using bcpp.Helpers
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @using System.Globalization;
 
 @{
-    WebGrid aGrid = new WebGrid(Model.AModel);
-    WebGrid iGrid = new WebGrid(Model.IModel); 
+    WebGrid aGrid = new WebGrid(Model.AModel, canPage: false, canSort: false);
+    WebGrid iGrid = new WebGrid(Model.IModel);
 }
 
 <script>
@@ -82,22 +84,38 @@
 
 </script>
 
+
 @aGrid.GetHtml(
-    tableStyle: "table table-striped table-hover",
+    tableStyle: "table table-striped table-hover akcie-table",
     columns:
     aGrid.Columns
     (
         aGrid.Column("nazev", "Název"),
-        aGrid.Column("zkratka", "Zkratka")
+        aGrid.Column("zkratka", "Zkratka"),
+        aGrid.Column("cena_prodej", "Prodejní cena [Kč]"),
+        aGrid.Column("cena_nakup", "Nákupní cena [Kč]"),
+        aGrid.Column("datum", "Cena k datu",format:(item)=> string.Format("{0:dd.MM.yyyy}",item.datum))
 ))
 
-<div id="index-container" style="width:100%; height:400px;"></div>
 
-@iGrid.GetHtml(
+<div class="index-chart" id="index-container" style="width:70%; height:450px;"></div>
+<div class="index-table" style="width:25%;float:left">
+    @iGrid.GetHtml(
     tableStyle: "table table-striped table-hover",
     columns:
     iGrid.Columns
     (
-    iGrid.Column("datum", "Datum",format: (item)=>string.Format("{0:dd.MM.yyyy}",item.datum)),
+    iGrid.Column("datum", "Datum", format: (item) => string.Format("{0:dd.MM.yyyy}", item.datum)),
         iGrid.Column("hodnota", "Hodnota")
-))
+    ))
+
+    Page @(Model.IModel.PageCount < Model.IModel.PageNumber ? 0 : Model.IModel.PageNumber) of @Model.IModel.PageCount
+
+    @{var options = new PagedListRenderOptions();
+    options.PageCountAndCurrentLocationFormat = ("Strana {0} z {1}.").ToString();
+    options.MaximumPageNumbersToDisplay = 3;
+    }
+
+    @Html.PagedListPager(Model.IModel, page => Url.Action("Index",
+                    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }), options)
+</div>

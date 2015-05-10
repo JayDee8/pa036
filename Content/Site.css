@@ -63,6 +63,15 @@ mark {
     position: relative;
 }
 
+.index-chart {
+    float: right;
+}
+
+.index-table {
+    float: right;
+    width: 30%;
+}
+
 .clear-fix:after {
     content: ".";
     clear: both;

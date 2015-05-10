@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using bcpp.Models;
+using PagedList;
 
 namespace bcpp.Controllers
 {
@@ -16,9 +17,30 @@ namespace bcpp.Controllers
         //
         // GET: /HistorieAkcie/
 
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(db.historie_akcie.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            int pageSize = 10;
+            if (searchString != null){
+                page = 1;
+            }
+            else{
+                searchString = currentFilter;
+            }
+            
+            var historie_akcie = from s in db.historie_akcie select s;
+            
+            int pageNumber = (page ?? 1);
+
+            ViewBag.CurrentFilter = searchString;
+            
+            if (!String.IsNullOrEmpty(searchString)) {
+                historie_akcie = db.historie_akcie.Where(p => p.akcie.nazev.Contains(searchString));
+            }
+
+            historie_akcie = historie_akcie.OrderBy(s => s.akcie.akcie_id);
+
+            return View(historie_akcie.ToPagedList(pageNumber, pageSize));
         }
 
         //
@@ -26,7 +48,7 @@ namespace bcpp.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            historie_akcie historie_akcie = db.historie_akcie.Single(h => h.akcie_id == id);
+            historie_akcie historie_akcie = db.historie_akcie.Single(h => h.historie_id == id);
             if (historie_akcie == null)
             {
                 return HttpNotFound();
@@ -39,6 +61,7 @@ namespace bcpp.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.akcie_id = new SelectList(db.akcie, "akcie_id", "nazev");
             return View();
         }
 
@@ -46,6 +69,7 @@ namespace bcpp.Controllers
         // POST: /HistorieAkcie/Create
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(historie_akcie historie_akcie)
         {
             if (ModelState.IsValid)
@@ -55,6 +79,7 @@ namespace bcpp.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.akcie_id = new SelectList(db.akcie, "akcie_id", "nazev", historie_akcie.akcie_id);
             return View(historie_akcie);
         }
 
@@ -63,11 +88,12 @@ namespace bcpp.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            historie_akcie historie_akcie = db.historie_akcie.Single(h => h.akcie_id == id);
+            historie_akcie historie_akcie = db.historie_akcie.Single(h => h.historie_id == id);
             if (historie_akcie == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.akcie_id = new SelectList(db.akcie, "akcie_id", "nazev", historie_akcie.akcie_id);
             return View(historie_akcie);
         }
 
@@ -75,6 +101,7 @@ namespace bcpp.Controllers
         // POST: /HistorieAkcie/Edit/5
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(historie_akcie historie_akcie)
         {
             if (ModelState.IsValid)
@@ -84,6 +111,7 @@ namespace bcpp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.akcie_id = new SelectList(db.akcie, "akcie_id", "nazev", historie_akcie.akcie_id);
             return View(historie_akcie);
         }
 
@@ -92,7 +120,7 @@ namespace bcpp.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            historie_akcie historie_akcie = db.historie_akcie.Single(h => h.akcie_id == id);
+            historie_akcie historie_akcie = db.historie_akcie.Single(h => h.historie_id == id);
             if (historie_akcie == null)
             {
                 return HttpNotFound();
@@ -104,9 +132,10 @@ namespace bcpp.Controllers
         // POST: /HistorieAkcie/Delete/5
 
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            historie_akcie historie_akcie = db.historie_akcie.Single(h => h.akcie_id == id);
+            historie_akcie historie_akcie = db.historie_akcie.Single(h => h.historie_id == id);
             db.historie_akcie.DeleteObject(historie_akcie);
             db.SaveChanges();
             return RedirectToAction("Index");
