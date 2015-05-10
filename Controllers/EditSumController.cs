@@ -24,21 +24,18 @@ namespace bcpp.Controllers
             int userId = WebSecurity.GetUserId(User.Identity.Name);
 
             PortfolioChangeSumModel model = new PortfolioChangeSumModel();
-            
+
+            model.wallet = db.uzivatel.Single(u => u.uzivatel_id == userId).penezenka;
 
             portfolio port = db.portfolio.SingleOrDefault(p => p.akcie_id == id && p.uzivatel_id == userId);
             if (port == null)
             {
-                /*port = new portfolio();
-                port.uzivatel_id = userId;
+                port = new portfolio();
                 port.akcie_id = id;
-                port.
-                port = portfolio.Createportfolio( (userId, id, DateTime.Today);
-                port.pocet = 0;
-                db.portfolio.AddObject(port);
-                db.SaveChanges();*/
+                port.uzivatel_id = userId;
             }
-                model.pModel = port;
+            model.pModel = port;
+            model.akcieName = db.akcie.Single(a => a.akcie_id == id).nazev;
             
             return View(model);
         }
@@ -58,27 +55,47 @@ namespace bcpp.Controllers
             
             if (wallet >= model.sumToBuy*buyPrice && ModelState.IsValid)
             {
-                model.pModel = db.portfolio.Single(p => p.uzivatel_id == model.pModel.uzivatel_id && p.akcie_id == model.pModel.akcie_id);
-                db.portfolio.Attach(model.pModel);
+                int akcieId = model.pModel.akcie_id;
+                bool newPortfolio = false;
+                model.pModel = db.portfolio.SingleOrDefault(p => p.uzivatel_id == model.pModel.uzivatel_id && p.akcie_id == model.pModel.akcie_id);
+                if (model.pModel == null)
+                {
+                    model.pModel = new portfolio();
+                    model.pModel.uzivatel_id = userId;
+                    model.pModel.akcie_id = akcieId;
+                    newPortfolio = true;
+                }
+                else
+                {
+                    db.portfolio.Attach(model.pModel);
+                }
+
 
                 if(model.sumToBuy != 0)
                 {
                     wallet -= model.sumToBuy * buyPrice;
                     model.pModel.datum_zmeny = DateTime.Today;
                     model.pModel.nakup = true;
-                    model.pModel.pocet = model.sumToBuy;
+                    model.pModel.pocet += model.sumToBuy;
+                    model.pModel.cena = buyPrice;
                 }
                 if(model.sumToSell != 0)
                 {
                     wallet += model.sumToSell * sellPrice;
                     model.pModel.datum_zmeny = DateTime.Today;
                     model.pModel.nakup = false;
-                    model.pModel.pocet = model.sumToSell;
+                    model.pModel.pocet -= model.sumToSell;
+                    model.pModel.cena = sellPrice;
                 }
+                uzivatel meUser = db.uzivatel.Single(u => u.uzivatel_id == userId);
+                db.uzivatel.Attach(meUser);
+                meUser.penezenka = wallet;
+                db.SaveChanges();
 
-
-                
-                db.ObjectStateManager.ChangeObjectState(model.pModel, EntityState.Modified);
+                if(newPortfolio)
+                    db.portfolio.AddObject(model.pModel);
+                else
+                    db.ObjectStateManager.ChangeObjectState(model.pModel, EntityState.Modified);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Akcie", new { area = "" });
             }

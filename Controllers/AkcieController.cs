@@ -36,7 +36,7 @@ namespace bcpp.Controllers
         //
         // GET: /Akcie/
 
-        public ActionResult Index(int page = 1, int pageSize = 5, string sort = "nazev", string sortdir = "DESC")
+        public ActionResult Index(int page = 1, int pageSize = 12, string sort = "nazev", string sortdir = "DESC")
         {
             
             var akcie = db.akcie.Include("historie_akcie");

@@ -4,30 +4,33 @@
     ViewBag.Title = "Index";
 }
 
+    <h2>Akcie "@Model.akcieName"</h2>
+    počet vlastněných akcií: @(Model.pModel.pocet == null ? 0 : Model.pModel.pocet)
+    <text>Peněženka: @Model.wallet Kč</text> 
 
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary(true)
-    
-    @Html.HiddenFor(model => model.pModel.akcie_id)
-    @Html.HiddenFor(model => model.pModel.uzivatel_id)
-    
-    if (ViewBag.err != null)
+
+   
+    @using (var f = Html.Bootstrap().Begin(new Form().Type(FormType.Horizontal)))
     {
-        <h2> Nemáš prachy brouku!</h2>
-    }
-    
-    <text>pro akcii @Model.pModel.akcie.nazev <br />
+        @Html.HiddenFor(model => model.pModel.akcie_id)
+        @Html.HiddenFor(model => model.pModel.uzivatel_id)
+        @Html.HiddenFor(model => model.akcieName)
+        @Html.HiddenFor(model => model.wallet)
+        
 
-    máš </text>@(Model.pModel.pocet == null ? 0 : Model.pModel.pocet)
-    <text><br />
-    počet - koupit: @Html.TextBoxFor(modelItem => modelItem.sumToBuy)
-    počet - prodat: @Html.TextBoxFor(modelItem => modelItem.sumToSell)</text>
+        @f.ControlGroup().TextBoxFor(m => m.sumToBuy).HtmlAttributes(new { @required = "as" }).Label().LabelText("Koupit")
+        @f.ControlGroup().TextBoxFor(m => m.sumToSell).Label().LabelText("Prodat")
+        @f.ControlGroup().CustomControls(Html.Bootstrap().SubmitButton().Text("Provést"))
+        
+        <span style="height:30px;color:Red;">&nbsp;@if (ViewBag.err != null){<text>Nemáte dostatek peněz!</text>}</span>
+    }
+
         
     <p>
-        <input type="submit" value="proveď" />
+        
+        @Html.Bootstrap().ActionLinkButton("Zpět na seznam", "Index", "Akcie")
     </p>
-}
+
 
 
 

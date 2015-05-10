@@ -29,7 +29,8 @@ namespace bcpp.Models
         public portfolio pModel { get; set; }
         public int sumToSell { get; set; }
         public int sumToBuy { get; set; }
-
+        public float? wallet { get; set; }
+        public string akcieName { get; set; }
     }
 
     public class PagedList<T>
