@@ -10,16 +10,25 @@
     if (User.IsInRole("admin"))
     {
         gridColumns.Add(grid.Column("uzivatel.jmeno", "Jméno vlastníka"));
+        gridColumns.Add(grid.Column("uzivatel.prijmeni", "Příjmení vlastníka"));
     }
         gridColumns.Add(grid.Column("akcie.nazev", "Název"));
         gridColumns.Add(grid.Column("pocet", "Počet"));
-        gridColumns.Add(grid.Column("cena", "Cena"));
-        gridColumns.Add(grid.Column("datum_zmeny", "Datum poslední změny"));
-        if (User.IsInRole("user") || User.IsInRole("admin"))
+        gridColumns.Add(grid.Column("datum_zmeny", "Datum poslední změny",format: (item) => String.Format("{0:dd.MM.yyyy}",item.datum_zmeny)));
+        if (User.IsInRole("user"))
         {
             gridColumns.Add(grid.Column(format: (item) => Html.ActionLink("Upravit množství", "Index", "EditSum", new RouteValueDictionary(new { id = item.akcie_id }), null)));
         }
     }
+
+@using (Html.BeginForm())
+{
+    <p>
+        Hledat podle příjmení: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <button class="btn btn-default" type="submit">Hledat</button>
+    </p>
+}
+
 
 @grid.GetHtml(
     tableStyle: "table table-striped table-hover",

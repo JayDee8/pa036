@@ -387,7 +387,6 @@
     <Content Include="Views\Portfolio\Index.cshtml" />
     <Content Include="Views\Portfolio\Details.cshtml" />
     <Content Include="Views\Portfolio\Create.cshtml" />
-    <Content Include="Views\Portfolio\Edit.cshtml" />
     <Content Include="Views\Portfolio\Delete.cshtml" />
     <Content Include="Views\Shared\_Alerts.cshtml" />
   </ItemGroup>

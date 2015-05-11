@@ -16,11 +16,11 @@ namespace bcpp.Controllers
     public class PortfolioController : Controller
     {
         private dbEntities db = new dbEntities();
-
+        private UsersContext uc = new UsersContext();
         //
         // GET: /Portfolio/
 
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             IEnumerable<portfolio> portfolio;
             if(User.IsInRole("admin"))
@@ -31,6 +31,17 @@ namespace bcpp.Controllers
             {
                 int userId = WebSecurity.CurrentUserId;
                 portfolio = db.portfolio.Include("akcie").Include("uzivatel").Where(p => p.pocet != 0 && p.uzivatel_id == userId);
+            }
+
+
+            if(User.IsInRole("admin"))
+            {
+                ViewBag.CurrentFilter = searchString;
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    portfolio = portfolio.Where(p => p.uzivatel.prijmeni.Contains(searchString));
+                }
             }
             return View(portfolio.ToList());
         }
@@ -92,13 +103,22 @@ namespace bcpp.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            portfolio portfolio = db.portfolio.Single(p => p.portfolio_id == id);
+            portfolio portfolio;
+            
+            if(User.IsInRole("admin"))
+                portfolio = db.portfolio.Single(p => p.portfolio_id == id);
+            else
+                portfolio = db.portfolio.Single(p => p.portfolio_id == id && p.uzivatel_id == WebSecurity.CurrentUserId);
+
             if (portfolio == null)
             {
                 return HttpNotFound();
             }
             ViewBag.akcie_id = new SelectList(db.akcie, "akcie_id", "nazev", portfolio.akcie_id);
-            ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno", portfolio.uzivatel_id);
+            if (User.IsInRole("admin"))
+                ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno", portfolio.uzivatel_id);
+            else
+                ViewBag.uzivatel_id = WebSecurity.CurrentUserId;
             return View(portfolio);
         }
 
@@ -116,7 +136,10 @@ namespace bcpp.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.akcie_id = new SelectList(db.akcie, "akcie_id", "nazev", portfolio.akcie_id);
-            ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno", portfolio.uzivatel_id);
+            if (User.IsInRole("admin"))
+                ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno", portfolio.uzivatel_id);
+            else
+                ViewBag.uzivatel_id = WebSecurity.CurrentUserId;
             return View(portfolio);
         }
 
@@ -125,7 +148,12 @@ namespace bcpp.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            portfolio portfolio = db.portfolio.Single(p => p.portfolio_id == id);
+            portfolio portfolio;
+            if (User.IsInRole("admin"))
+                portfolio = db.portfolio.Single(p => p.portfolio_id == id);
+            else
+                portfolio = db.portfolio.Single(p => p.portfolio_id == id && p.uzivatel_id == WebSecurity.CurrentUserId);
+
             if (portfolio == null)
             {
                 return HttpNotFound();

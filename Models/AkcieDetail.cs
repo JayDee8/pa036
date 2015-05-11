@@ -20,4 +20,11 @@ namespace bcpp.Models
         public double x { get; set; }
         public float y { get; set; }
     }
+
+    public class SledovaneMy
+    {
+        public IEnumerable<Object> sled { get; set; }
+        public List<int> akcieIds { get; set; }
+        public List<string> akcieNames { get; set; }
+    }
 }

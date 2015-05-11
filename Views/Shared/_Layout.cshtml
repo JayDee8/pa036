@@ -55,7 +55,7 @@
         
         function getActual() {
             var actual = "@HttpContext.Current.Request.Url.AbsolutePath";
-            if (actual == '/' | actual == '/Akcie' | actual == '/Watchlist' | actual == '/Portfolio' | actual == '/Wallet') {
+            if (actual == '/' | actual == '/Akcie' | actual == '/Watchlist'  | actual == '/Wallet' | actual == '/EditSum') {
             }
             else {
                 $("#tabs").tabs("option", "active", 1);
@@ -120,9 +120,11 @@ else
                 </div>
                 <div class="float-right">
                     @{ 
+                                              
+                        if (User.IsInRole("admin"))
+                        {
                         
-                    if (User.IsInRole("admin"))
-                    {
+                        
                         <div id="tabs">
                             <ul id="menu">
                                 <li><a href="#tabs-1">Uživatelské rozhranní</a></li>
@@ -133,7 +135,7 @@ else
                                     <ul id="menu">
                                         <li class="@(controllerName == "Akcie" ? "active" : "")">@Html.ActionLink("Akcie", "Index", "Akcie")</li>
                                         <li class="@(controllerName == "Watchlist" ? "active" : "")">@Html.ActionLink("Sledované", "Index", "Watchlist")</li>
-                                        <li class="@(controllerName == "Portfolio" ? "active" : "")">@Html.ActionLink("Portfolio", "Index", "Portfolio")</li>
+                                        <li class="@(controllerName == "indexPX" ? "active" : "")">@Html.ActionLink("Index burzy", "Index", "indexPX")</li>
                                         <li class="@(controllerName == "Wallet" ? "active" : "")">@Html.ActionLink("Peněženka", "Index", "Wallet")</li>
                                     </ul>
                                 </nav>
@@ -144,29 +146,30 @@ else
                                         <ul id="menu">
                                             <li class="@(controllerName == "User" ? "active" : "")">@Html.ActionLink("Uživatelé", "Index", "User")</li>
                                             <li class="@(controllerName == "firma" ? "active" : "")">@Html.ActionLink("Firmy", "Index", "firma")</li>
+                                            <li class="@(controllerName == "Portfolio" ? "active" : "")">@Html.ActionLink("Portfolio", "Index", "Portfolio")</li>
                                             <li class="@(controllerName == "historieakcie" ? "active" : "")">@Html.ActionLink("Historie akcií", "Index", "historieakcie")</li>
-                                            <li class="@(controllerName == "indexPX" ? "active" : "")">@Html.ActionLink("Index burzy", "Index", "indexPX")</li>
                                         </ul>
                                     </nav>
                                 </div>
                             </div>
                         </div>
-                    }
-                    else
-                    {
-                        if (User.IsInRole("user"))
+                        }
+                        else
                         {
+                            if (User.IsInRole("user"))
+                            {
                             <nav>
                                 <ul id="menu">
                                     <li class="@(controllerName == "Akcie" ? "active" : "")">@Html.ActionLink("Akcie", "Index", "Akcie")</li>
                                     <li class="@(controllerName == "Watchlist" ? "active" : "")">@Html.ActionLink("Sledované", "Index", "Watchlist")</li>
                                     <li class="@(controllerName == "Portfolio" ? "active" : "")">@Html.ActionLink("Portfolio", "Index", "Portfolio")</li>
+                                    <li class="@(controllerName == "indexPX" ? "active" : "")">@Html.ActionLink("Index burzy", "Index", "indexPX")</li>
                                     <li class="@(controllerName == "Wallet" ? "active" : "")">@Html.ActionLink("Peněženka", "Index", "Wallet")</li>
                                 </ul>
                             </nav>
-                        }
-                        else
-                        {
+                            }
+                            else
+                            {
                             <!--<div class="welcome-text-main" style="top:20px">
                                 Pro využívání našeho systému se můžete
                                 <button class="btn btn-default" type="submit">@*Html.ActionLink("přihlásit", "Login", "Account")*@</button>
@@ -174,8 +177,8 @@ else
                                 <button class="btn btn-default" type="submit">@*Html.ActionLink("zaregistrovat", "Register", "Account")*@</button>
                             </div>-->
 
+                            }
                         }
-                    }
                   }
                 </div>
             </div>

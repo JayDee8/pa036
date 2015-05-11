@@ -8,7 +8,7 @@
 }
 
 @{   
-    <span >Peněženka: @ViewBag.wallet Kč</span>
+    <span >Peněženka: <b>@ViewBag.wallet</b> Kč</span>
     var gridColumns = new List<WebGridColumn>();
 
     gridColumns.Add(grid.Column("nazev", "Název " + Html.SortDirection(ref grid, "nazev")));

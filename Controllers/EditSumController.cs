@@ -108,7 +108,7 @@ namespace bcpp.Controllers
                 if (model.sumToBuy != 0)
                     Success(string.Format("Koupeno položek akcií firmy {1}: <b>{0}</b> v celkové hodnotě {2}Kč", model.sumToBuy, model.akcieName, buyPrice * model.sumToBuy), true);
                 if (model.sumToSell != 0)
-                    Success(string.Format("Prodáno položek akcií firmy {1}: <b>{0}</b> v celkové hodnotě {2}Kč", model.sumToBuy, model.akcieName, sellPrice * model.sumToSell), true);
+                    Success(string.Format("Prodáno položek akcií firmy {1}: <b>{0}</b> v celkové hodnotě {2}Kč", model.sumToSell, model.akcieName, sellPrice * model.sumToSell), true);
 
                 return RedirectToAction("Index", "Akcie", new { area = "" });
             }

@@ -6,9 +6,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using bcpp.Models;
+using WebMatrix.WebData;
+using bcpp.Filters;
 
 namespace bcpp.Controllers
 {
+    [InitializeSimpleMembership]
     public class WatchlistController : Controller
     {
         private dbEntities db = new dbEntities();
@@ -18,8 +21,18 @@ namespace bcpp.Controllers
 
         public ActionResult Index()
         {
-            var sledovane = db.sledovane.Include("akcie").Include("uzivatel");
-            return View(sledovane.ToList());
+            SledovaneMy sm = new SledovaneMy();
+            int userId = WebSecurity.CurrentUserId;
+            var sledovane = db.sledovane.Include("akcie").Include("uzivatel").Where(i => i.uzivatel_id == userId).ToList();
+            if(User.IsInRole("admin"))
+                sledovane = db.sledovane.Include("akcie").Include("uzivatel").ToList();
+
+            
+            sm.sled = sledovane;
+            sm.akcieIds = sledovane.Select(i => i.akcie_id).ToList();
+            sm.akcieNames = sledovane.Select(i => i.akcie.nazev).ToList();
+
+            return View(sm);
         }
 
         //
@@ -40,8 +53,25 @@ namespace bcpp.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.akcie_id = new SelectList(db.akcie, "akcie_id", "nazev");
-            ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno");
+            if (User.IsInRole("user"))
+            {
+                var volneAkcie = (from a in db.akcie
+                                  join s in db.sledovane on a.akcie_id equals s.akcie_id into subset
+                                  from c in subset.DefaultIfEmpty()
+                                  where c == null
+                                  select a);
+                ViewBag.akcie_id = new SelectList(volneAkcie, "akcie_id", "nazev");
+            }
+            else
+            {
+                ViewBag.akcie_id = new SelectList(db.akcie, "akcie_id", "nazev");
+            }
+
+            if(User.IsInRole("admin"))
+                ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno");
+            else
+                ViewBag.uzivatel_id = WebSecurity.CurrentUserId;
+
             return View();
         }
 
@@ -59,8 +89,25 @@ namespace bcpp.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.akcie_id = new SelectList(db.akcie, "akcie_id", "nazev", sledovane.akcie_id);
-            ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno", sledovane.uzivatel_id);
+            if (User.IsInRole("user"))
+            {
+                var volneAkcie = (from a in db.akcie
+                                  join s in db.sledovane on a.akcie_id equals s.akcie_id into subset
+                                  from c in subset.DefaultIfEmpty()
+                                  where c == null
+                                  select a);
+                ViewBag.akcie_id = new SelectList(volneAkcie, "akcie_id", "nazev");
+            }
+            else
+            {
+                ViewBag.akcie_id = new SelectList(db.akcie, "akcie_id", "nazev");
+            }
+
+            if (User.IsInRole("admin"))
+                ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno");
+            else
+                ViewBag.uzivatel_id = WebSecurity.CurrentUserId;
+
             return View(sledovane);
         }
 
@@ -69,13 +116,21 @@ namespace bcpp.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            sledovane sledovane = db.sledovane.Single(s => s.sledovane_id == id);
+            sledovane sledovane;
+            if (User.IsInRole("admin"))
+                sledovane = db.sledovane.Single(p => p.sledovane_id == id);
+            else
+                sledovane = db.sledovane.Single(p => p.sledovane_id == id && p.uzivatel_id == WebSecurity.CurrentUserId);
+            
             if (sledovane == null)
             {
                 return HttpNotFound();
             }
             ViewBag.akcie_id = new SelectList(db.akcie, "akcie_id", "nazev", sledovane.akcie_id);
-            ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno", sledovane.uzivatel_id);
+            if (User.IsInRole("admin"))
+                ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno");
+            else
+                ViewBag.uzivatel_id = WebSecurity.CurrentUserId;
             return View(sledovane);
         }
 
@@ -94,7 +149,10 @@ namespace bcpp.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.akcie_id = new SelectList(db.akcie, "akcie_id", "nazev", sledovane.akcie_id);
-            ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno", sledovane.uzivatel_id);
+            if (User.IsInRole("admin"))
+                ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno");
+            else
+                ViewBag.uzivatel_id = WebSecurity.CurrentUserId;
             return View(sledovane);
         }
 
@@ -103,7 +161,12 @@ namespace bcpp.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            sledovane sledovane = db.sledovane.Single(s => s.sledovane_id == id);
+            sledovane sledovane;
+            if (User.IsInRole("admin"))
+                sledovane = db.sledovane.Single(p => p.sledovane_id == id);
+            else
+                sledovane = db.sledovane.Single(p => p.sledovane_id == id && p.uzivatel_id == WebSecurity.CurrentUserId);
+            
             if (sledovane == null)
             {
                 return HttpNotFound();
