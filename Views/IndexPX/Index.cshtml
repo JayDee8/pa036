@@ -1,4 +1,6 @@
-﻿@model IEnumerable<bcpp.Models.index_PX>
+﻿@model PagedList.IPagedList<bcpp.Models.index_PX>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     WebGrid grid = new WebGrid(Model);
@@ -86,5 +88,8 @@
         grid.Column("datum", "Datum", format: (item) => string.Format("{0:dd.MM.yyyy}", item.datum)),
         grid.Column("hodnota", "Hodnota")
 ))
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+                    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 
 <div id="index-container" style="width:100%; height:400px;"></div>

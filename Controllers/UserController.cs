@@ -18,7 +18,8 @@ namespace bcpp.Controllers
 
         public ActionResult Index()
         {
-            return View(db.uzivatel.ToList());
+            var uzivatel = db.uzivatel.Include("adresa");
+            return View(uzivatel.ToList());
         }
 
         //
@@ -39,6 +40,7 @@ namespace bcpp.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.adresa_id = new SelectList(db.adresa, "adresa_id", "mesto");
             return View();
         }
 
@@ -46,6 +48,7 @@ namespace bcpp.Controllers
         // POST: /User/Create
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(uzivatel uzivatel)
         {
             if (ModelState.IsValid)
@@ -55,6 +58,7 @@ namespace bcpp.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.adresa_id = new SelectList(db.adresa, "adresa_id", "mesto", uzivatel.adresa_id);
             return View(uzivatel);
         }
 
@@ -68,6 +72,7 @@ namespace bcpp.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.adresa_id = new SelectList(db.adresa, "adresa_id", "mesto", uzivatel.adresa_id);
             return View(uzivatel);
         }
 
@@ -75,6 +80,7 @@ namespace bcpp.Controllers
         // POST: /User/Edit/5
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(uzivatel uzivatel)
         {
             if (ModelState.IsValid)
@@ -84,6 +90,7 @@ namespace bcpp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.adresa_id = new SelectList(db.adresa, "adresa_id", "mesto", uzivatel.adresa_id);
             return View(uzivatel);
         }
 
@@ -104,6 +111,7 @@ namespace bcpp.Controllers
         // POST: /User/Delete/5
 
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             uzivatel uzivatel = db.uzivatel.Single(u => u.uzivatel_id == id);

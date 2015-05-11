@@ -1,43 +1,49 @@
 ﻿@model bcpp.Models.firma
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detaily";
 }
 
-<h2>Details</h2>
+<div style="float:right">
+    @Html.Bootstrap().ActionLinkButton("Zpět na seznam firem", "Index", "firma")
+</div>
 
+<h2>Detaily firmy @Html.DisplayFor(model => model.nazev)</h2>
+<br/>
 <fieldset>
     <legend>firma</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.adresa.mesto)
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Město: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.adresa.mesto)</div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.adresa.mesto)
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Ulice: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.adresa.ulice)</div>
     </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.nazev)
+    <div class="form-group row">
+        <label class="col-md-2 control-label">PSČ: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.adresa.PSC)</div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.nazev)
+    @if (Model.ICO != null)
+    { 
+    <div class="form-group row">
+        <label class="col-md-2 control-label">IČO firmy:</label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.ICO)</div>
     </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ICO)
+    }
+    @if (Model.DIC != null)
+    {
+    <div class="form-group row">
+        <label class="col-md-2 control-label">DIČ firmy:</label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.DIC)</div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ICO)
+    }
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Telefon: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.adresa.telefon)</div>
     </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.DIC)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.DIC)
+    <div class="form-group row">
+        <label class="col-md-2 control-label">E-mail: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.adresa.email)</div>
     </div>
 </fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.firma_id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
