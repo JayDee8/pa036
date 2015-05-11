@@ -10,6 +10,8 @@ using WebMatrix.WebData;
 using System.Data.Objects;
 using bcpp.Filters;
 using System.Linq.Dynamic;
+using System.Threading.Tasks;
+using System.Web.UI.WebControls;
 
 namespace bcpp.Controllers
 {
@@ -86,12 +88,56 @@ namespace bcpp.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            akcie akcie = db.akcie.Single(a => a.akcie_id == id);
+            AkcieDetail M = new AkcieDetail();
+            var akcie = db.akcie.Single(a => a.akcie_id == id);
+            //var result = db.historie_akcie.ToList();
+            var historie = db.historie_akcie.Where(b => b.akcie_id == akcie.akcie_id); 
+            /*var content = (from a in akcie
+                           join h in result
+                               on a.akcie_id equals h.akcie_id
+                           select new akcie { akcie_id = a.akcie_id, nazev = a.nazev, zkratka = a.zkratka, cena_nakup = h.cena_nakup, cena_prodej = h.cena_prodej, datum = h.datum, pocet = (row == null ? 0 : row.pocet) });
+            */
+            //var akcie = db.akcie.Single(a => a.akcie_id == id);
             if (akcie == null)
             {
                 return HttpNotFound();
             }
-            return View(akcie);
+
+            M.Akcie = akcie;
+            M.Historie = historie.ToList();
+            return View(M);
+        }
+
+        public JsonResult GetData(int id = 0)
+        {
+            var akcie = db.akcie.Single(a => a.akcie_id == id);
+            var historie = db.historie_akcie.Where(b => b.akcie_id == akcie.akcie_id);
+            
+            List<MainItem> list = new List<MainItem>();
+            
+            foreach(var h in historie)
+                {
+                    MainItem mi = new MainItem();
+
+                    Item iNakup = new Item();
+                    Item iProdej = new Item();
+                    
+                    iNakup.datum = String.Format("{0:dd.MM.yyyy}", h.datum);
+                    iProdej.datum = String.Format("{0:dd.MM.yyyy}", h.datum);
+                    
+                    iProdej.hodnota = h.cena_prodej;
+                    iNakup.hodnota = h.cena_nakup; 
+
+                    mi.Nakup = iNakup;
+                    mi.Prodej = iProdej;
+                    list.Add(mi);
+                
+               
+                }
+        
+            //return Json(Json.encode(historie), JsonRequestBehavior.AllowGet);
+            return Json(list, JsonRequestBehavior.AllowGet);
+            //return Json(user, JsonRequestBehavior.AllowGet);
         }
 
 
