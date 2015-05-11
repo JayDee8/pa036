@@ -111,36 +111,28 @@ namespace bcpp.Controllers
             return View(M);
         }
 
-        public JsonResult GetData(int id = 0)
+        public JsonResult GetData(int id = 0, bool nakup = true)
         {
             var akcie = db.akcie.Single(a => a.akcie_id == id);
             var historie = db.historie_akcie.Where(b => b.akcie_id == akcie.akcie_id);
 
-            GraphModel mi = new GraphModel();
-
-            List<myAxes> nakupList = new List<myAxes>();
-            List<myAxes> prodejList = new List<myAxes>();
-
+            List<myAxes> list = new List<myAxes>();
+            
             foreach(var h in historie)
             {
-                myAxes iNakup = new myAxes();
-                myAxes iProdej = new myAxes();
-    
-                iNakup.x = (h.datum - new DateTime(1970, 1, 1,0,0,0).ToLocalTime()).TotalMilliseconds;
-                iProdej.x = iNakup.x;
+                myAxes iCeny = new myAxes();
+                
+                iCeny.x = (h.datum - new DateTime(1970, 1, 1,0,0,0).ToLocalTime()).TotalMilliseconds;
                     
-                iProdej.y = h.cena_prodej;
-                iNakup.y = h.cena_nakup; 
+                if(nakup)
+                 iCeny.y = h.cena_nakup;
+                else
+                 iCeny.y = h.cena_prodej; 
 
-                nakupList.Add(iNakup);
-                prodejList.Add(iProdej);             
-               
+                list.Add(iCeny);
             }
 
-            mi.nakup = nakupList;
-            mi.prodej = prodejList;
-
-            return Json(mi, JsonRequestBehavior.AllowGet);
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
 

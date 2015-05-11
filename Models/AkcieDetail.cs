@@ -12,12 +12,6 @@ namespace bcpp.Models
         public IEnumerable<historie_akcie> Historie { get; set; }
     }
 
-    public class GraphModel
-    {
-        public List<myAxes> prodej { get; set; }
-        public List<myAxes> nakup { get; set; }
-    }
-
     public class myAxes
     {
         public double x { get; set; }
