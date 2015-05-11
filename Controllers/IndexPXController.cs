@@ -18,13 +18,13 @@ namespace bcpp.Controllers
         //
         // GET: /IndexPX/
 
-        public ActionResult Index(string sortOrder, string currentFilter, int? page)
+        public ActionResult Index(string sortOrder, string currentFilter, int? page, int pageSize = 10)
         {
             //var index = db.index_PX.ToList();
             var indexPX = from s in db.index_PX select s;
             indexPX = indexPX.OrderByDescending(s => s.datum);
             ViewBag.CurrentSort = sortOrder;
-            int pageSize = 10;
+            //int pageSize = 10;
 
             int pageNumber = (page ?? 1);
 
