@@ -1,63 +1,28 @@
 ﻿@model IEnumerable<bcpp.Models.portfolio>
 
 @{
-    ViewBag.Title = "Index";
+    WebGrid grid = new WebGrid(Model);
 }
 
-<h2>Index</h2>
+@{
+    var gridColumns = new List<WebGridColumn>();
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.uzivatel.jmeno)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.akcie.nazev)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.pocet)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.cena)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nakup)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.datum_zmeny)
-        </th>
-        <th></th>
-    </tr>
+    if (User.IsInRole("admin"))
+    {
+        gridColumns.Add(grid.Column("uzivatel.jmeno", "Jméno vlastníka"));
+    }
+        gridColumns.Add(grid.Column("akcie.nazev", "Název"));
+        gridColumns.Add(grid.Column("pocet", "Počet"));
+        gridColumns.Add(grid.Column("cena", "Cena"));
+        gridColumns.Add(grid.Column("datum_zmeny", "Datum poslední změny"));
+        if (User.IsInRole("user") || User.IsInRole("admin"))
+        {
+            gridColumns.Add(grid.Column(format: (item) => Html.ActionLink("Upravit množství", "Index", "EditSum", new RouteValueDictionary(new { id = item.akcie_id }), null)));
+        }
+    }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.uzivatel.jmeno)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.akcie.nazev)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.pocet)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.cena)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nakup)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.datum_zmeny)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.portfolio_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.portfolio_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.portfolio_id })
-        </td>
-    </tr>
-}
+@grid.GetHtml(
+    tableStyle: "table table-striped table-hover",
+    columns:
+    grid.Columns(gridColumns.ToArray()))
 
-</table>

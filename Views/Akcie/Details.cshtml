@@ -89,23 +89,29 @@
     @Html.Bootstrap().ActionLinkButton("Zpět na seznam akcií", "Index", "Akcie")
 </div>
 
+<h2>Detaily akcie @Html.DisplayFor(model => model.Akcie.nazev) </h2>
+<br/>
 <fieldset>
     <legend>Akcie</legend>
     @if (Model.Akcie.firma.ICO != null) { 
     <div class="form-group row">
-        <label class="col-md-2 control-label">IČO firmy</label>
+        <label class="col-md-2 control-label">IČO firmy:</label>
         <div class="col-md-10">@Html.DisplayFor(model => Model.Akcie.firma.ICO)</div>
     </div>
     }
     <div class="form-group row">
-        <label class="col-md-2 control-label">Jméno akcie</label>
-        <div class="col-md-10">@Html.DisplayFor(model => Model.Akcie.nazev)</div>
+        <label class="col-md-2 control-label">Jméno firmy:</label>
+        <div class="col-md-10">@Html.DisplayFor(model => Model.Akcie.firma.nazev)</div>
     </div>
     <div class="form-group row">
-        <label class="col-md-2 control-label">Zkratka akcie</label>
+        <label class="col-md-2 control-label">Zkratka akcie:</label>
         <div class="col-md-10">@Html.DisplayFor(model => Model.Akcie.zkratka)</div>
     </div>
 
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Ohad profitu: </label>
+        <div class="col-md-10" style="font-weight:bold;font-size:20px; color:#404796">@Html.DisplayFor(model => Model.Lin_reg)%</div>
+    </div>
     </fieldset>
 
 <div id="index-container" style="width:100%; height:400px;"></div>

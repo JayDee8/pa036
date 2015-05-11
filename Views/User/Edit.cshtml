@@ -4,7 +4,11 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<div style="float:right">
+    @Html.Bootstrap().ActionLinkButton("Zpět na seznam uživatelů", "Index", "User")
+</div>
+
+<h2>Úprava uživatele @Html.DisplayFor(model => model.jmeno) @Html.DisplayFor(model => model.prijmeni)</h2>
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
@@ -15,55 +19,57 @@
 
         @Html.HiddenFor(model => model.uzivatel_id)
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.jmeno)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.jmeno)
-            @Html.ValidationMessageFor(model => model.jmeno)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.prijmeni)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.prijmeni)
-            @Html.ValidationMessageFor(model => model.prijmeni)
+        <div class="form-group row">
+            <label class="col-md-12 editor-label">Jméno: </label>
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.jmeno)
+                @Html.ValidationMessageFor(model => model.jmeno)
+            </div>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.adresa_id, "adresa")
-        </div>
-        <div class="editor-field">
-            @Html.DropDownList("adresa_id", String.Empty)
-            @Html.ValidationMessageFor(model => model.adresa_id)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.poznamka)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.poznamka)
-            @Html.ValidationMessageFor(model => model.poznamka)
+        <div class="form-group row">
+            <label class="col-md-12 editor-label">Příjmení: </label>
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.prijmeni)
+                @Html.ValidationMessageFor(model => model.prijmeni)
+            </div>
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.penezenka)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.penezenka)
-            @Html.ValidationMessageFor(model => model.penezenka)
+        <div class="form-group row">
+            <label class="col-md-12 editor-label">Adresa: </label>
+            <div class="col-md-12">
+                @Html.Bootstrap().DropDownList("adresa_id", " ")
+                @Html.ValidationMessageFor(model => model.adresa_id)
+            </div>
         </div>
 
-        <p>
-            <input type="submit" value="Save" />
-        </p>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu4">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Regular link</a></li>
+            <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">Disabled link</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another link</a></li>
+        </ul>
+
+                <div class="form-group row">
+                    <label class="col-md-12 editor-label">Poznámka: </label>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.poznamka)
+                        @Html.ValidationMessageFor(model => model.poznamka)
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-12 editor-label">Peněženka (Kč): </label>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.penezenka)
+                        @Html.ValidationMessageFor(model => model.penezenka)
+                    </div>
+                </div>
+
+                <p>
+                    <button class="btn btn-default" type="submit">Uložit změny</button>
+                </p>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
