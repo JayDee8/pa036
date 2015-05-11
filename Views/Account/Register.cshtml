@@ -6,8 +6,8 @@
 @using TwitterBootstrapMVC
 
 <hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>Create a new account.</h2>
+    <h1>Registrace: </h1>
+    <h2>vytvoření nového účtu</h2>
 </hgroup>
 
 @using (Html.BeginForm()) {
@@ -20,18 +20,18 @@
         <legend>Registration Form</legend>
         @using (var f = Html.Bootstrap().Begin(new Form().Type(FormType.Horizontal)))
         {
-            @f.ControlGroup().TextBoxFor(m => m.regModel.UserName)
-            @f.ControlGroup().PasswordFor(m => m.regModel.Password)
-            @f.ControlGroup().PasswordFor(m => m.regModel.ConfirmPassword)
-            @f.ControlGroup().TextBoxFor(m => m.uzModel.jmeno)
-            @f.ControlGroup().TextBoxFor(m => m.uzModel.prijmeni)
-            @f.ControlGroup().TextBoxFor(m => m.adModel.ulice)
-            @f.ControlGroup().TextBoxFor(m => m.adModel.mesto)
-            @f.ControlGroup().TextBoxFor(m => m.adModel.PSC)
-            @f.ControlGroup().TextBoxFor(m => m.adModel.telefon)
-            @f.ControlGroup().TextBoxFor(m => m.adModel.email)
+            @f.ControlGroup().TextBoxFor(m => m.regModel.UserName).Label().LabelText("Uživatelské jméno")
+            @f.ControlGroup().PasswordFor(m => m.regModel.Password).Label().LabelText("Heslo")
+            @f.ControlGroup().PasswordFor(m => m.regModel.ConfirmPassword).Label().LabelText("Potvrďte heslo")
+            @f.ControlGroup().TextBoxFor(m => m.uzModel.jmeno).Label().LabelText("Jméno")
+            @f.ControlGroup().TextBoxFor(m => m.uzModel.prijmeni).Label().LabelText("Příjmení")
+            @f.ControlGroup().TextBoxFor(m => m.adModel.ulice).Label().LabelText("Ulice")
+            @f.ControlGroup().TextBoxFor(m => m.adModel.mesto).Label().LabelText("Město")
+            @f.ControlGroup().TextBoxFor(m => m.adModel.PSC).Label().LabelText("PSČ")
+            @f.ControlGroup().TextBoxFor(m => m.adModel.telefon).Label().LabelText("Telefon")
+            @f.ControlGroup().TextBoxFor(m => m.adModel.email).Label().LabelText("E-mail")
             
-            @f.ControlGroup().CustomControls(Html.Bootstrap().SubmitButton())
+            @f.ControlGroup().CustomControls(Html.Bootstrap().SubmitButton().Text("Zaregistrovat"))
         }
 
     </fieldset>
