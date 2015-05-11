@@ -2,74 +2,24 @@
 
 @{
     ViewBag.Title = "Index";
+    WebGrid grid = new WebGrid(Model);
 }
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.jmeno)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.prijmeni)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nick)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.adresa_id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.heslo_hash)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.poznamka)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.penezenka)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.uzivatel_typ)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.jmeno)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.prijmeni)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nick)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.adresa_id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.heslo_hash)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.poznamka)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.penezenka)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.uzivatel_typ)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.uzivatel_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.uzivatel_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.uzivatel_id })
-        </td>
-    </tr>
-}
-
-</table>
+@grid.GetHtml(
+    tableStyle: "table table-striped table-hover",
+    columns:
+    grid.Columns
+    (
+        grid.Column("jmeno", "Jméno"),
+        grid.Column("prijmeni", "Příjmení"),
+        grid.Column("adresa.mesto", "Město"),
+        grid.Column("poznamka", "Poznámka"),
+        grid.Column("penezenka", "Peněženka"),
+        grid.Column(format: (item) => Html.ActionLink("Detaily", "Details", new { id = item.uzivatel_id })),
+        grid.Column(format: (item) => new HtmlString(Html.ActionLink("  ", "Edit", new { id = item.uzivatel_id }, new { @class = "glyphicon glyphicon-edit", @title = "Upravit" }) + " " + Html.ActionLink("  ", "Delete", new { id = item.uzivatel_id }, new { @class = "glyphicon glyphicon-trash", @title = "Vymazat" })))
+    
+        
+    )
+)

@@ -24,8 +24,9 @@
     columns:
         grid.Columns(
         grid.Column("akcie.nazev", "Název akcie"),
-        grid.Column("cena_prodej", "Prodejní cena"),
-        grid.Column("cena_nakup", "Nákupní cena")
+        grid.Column("datum", "Cena k datu", format: (item) => string.Format("{0:dd.MM.yyyy}", item.datum)),
+        grid.Column("cena_prodej", "Prodejní cena [Kč]"),
+        grid.Column("cena_nakup", "Nákupní cena [Kč]")
         ).ToArray()
 )
 

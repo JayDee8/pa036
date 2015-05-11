@@ -291,9 +291,10 @@ ul#menu {
         .active a,
         #tabs .ui-tabs-active a,
         #tabs .ui-state-active a{
-            /*background-color: white;*/
-            color: #666CBD !important;
-            font-weight: bold;
+            /*background-color: #404796;*/
+            /*margin: 4px 5px;*/
+            /*border-radius: 3px;*/
+            color: white !important;
         }
 
 /* page elements

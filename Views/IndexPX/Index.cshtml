@@ -1,8 +1,12 @@
-﻿@model IEnumerable<bcpp.Models.index_PX>
+﻿@model PagedList.IPagedList<bcpp.Models.index_PX>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    WebGrid grid = new WebGrid(Model);
+    var pageSize = Model.Count();
+    WebGrid grid = new WebGrid(Model, ajaxUpdateContainerId: "grid", rowsPerPage: pageSize);
 }
+
 <script>
 
     $(function () {
@@ -37,7 +41,7 @@
                         type: 'year',
                         count: 1,
                         text: '1r'
-                    },{
+                    }, {
                         type: 'year',
                         count: 3,
                         text: '3r'
@@ -78,6 +82,34 @@
 
 </script>
 
+@if(Request["action"] == "Go")
+    {
+        pageSize = Request["pageSize"].AsInt();
+        Url.Action("Index", new { sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, page = ViewBag.CurrentPage, pageSize = pageSize });
+        //WebGrid grid2 = new WebGrid(Model, ajaxUpdateContainerId: "grid", rowsPerPage: pageSize);
+}
+
+<form action="" method="get">
+    <div class="right">
+        <button class="btn btn-default" style="float:right" type="submit" name="action">Změnit</button>
+        <select id="pageSize" name="pageSize" style="float:right;padding: 7px;margin-right: 5px;">
+            <option selected="@(Request["pageSize"] == "10")" value="10">10</option>
+            <option selected="@(Request["pageSize"] == "50")" value="50">50</option>
+            <option selected="@(Request["pageSize"] == "100")" value="100">100</option>
+            <option selected="@(Request["pageSize"] == "1000")" value="1000">1000</option>
+        </select>
+        <label style="float:right;padding: 7px;margin-right: 5px;font-weight: 100" for="pageSize">Počet záznamů na stránce: </label>
+    </div>
+</form>
+
+<div id="index-container" style="width:100%; height:400px;"></div>
+<br/><br />
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+                            new { sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, page, pageSize = pageSize }))
+
+
+
 @grid.GetHtml(
     tableStyle: "table table-striped table-hover",
     columns:
@@ -86,5 +118,3 @@
         grid.Column("datum", "Datum", format: (item) => string.Format("{0:dd.MM.yyyy}", item.datum)),
         grid.Column("hodnota", "Hodnota")
 ))
-
-<div id="index-container" style="width:100%; height:400px;"></div>

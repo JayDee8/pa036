@@ -7,6 +7,7 @@
 <h2>Create</h2>
 
 @using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
@@ -29,27 +30,11 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.nick)
+            @Html.LabelFor(model => model.adresa_id, "adresa")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.nick)
-            @Html.ValidationMessageFor(model => model.nick)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.adresa_id)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.adresa_id)
+            @Html.DropDownList("adresa_id", String.Empty)
             @Html.ValidationMessageFor(model => model.adresa_id)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.heslo_hash)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.heslo_hash)
-            @Html.ValidationMessageFor(model => model.heslo_hash)
         </div>
 
         <div class="editor-label">
@@ -66,14 +51,6 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.penezenka)
             @Html.ValidationMessageFor(model => model.penezenka)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.uzivatel_typ)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.uzivatel_typ)
-            @Html.ValidationMessageFor(model => model.uzivatel_typ)
         </div>
 
         <p>

@@ -99,6 +99,7 @@
 
 </script>
 
+<h3>Aktuální seznam akcií</h3>
 @aGrid.GetHtml(
     tableStyle: "table table-striped table-hover akcie-table",
     columns:
@@ -106,12 +107,12 @@
     (
         aGrid.Column("nazev", "Název"),
         aGrid.Column("zkratka", "Zkratka"),
-        aGrid.Column("cena_prodej", "Prodejní cena [Kč]"),
-        aGrid.Column("cena_nakup", "Nákupní cena [Kč]"),
+        aGrid.Column("cena_prodej", "Prodejní cena [Kč]", format: (item) => string.Format("{0:0.00}", item.cena_prodej)),
+        aGrid.Column("cena_nakup", "Nákupní cena [Kč]", format:(item) => string.Format("{0:0.00}", item.cena_nakup)),
         aGrid.Column("datum", "Cena k datu",format:(item)=> string.Format("{0:dd.MM.yyyy}",item.datum))
 ))
-
-
+<br/>
+<h3>Index PX a jeho vývoj </h3>
 <div class="index-chart" id="index-container" style="width:70%; height:450px;"></div>
 <div class="index-table" style="width:25%;float:left">
     @iGrid.GetHtml(
@@ -120,16 +121,15 @@
     iGrid.Columns
     (
     iGrid.Column("datum", "Datum", format: (item) => string.Format("{0:dd.MM.yyyy}", item.datum)),
-        iGrid.Column("hodnota", "Hodnota")
+                iGrid.Column("hodnota", "Hodnota")
     ))
 
     Page @(Model.IModel.PageCount < Model.IModel.PageNumber ? 0 : Model.IModel.PageNumber) of @Model.IModel.PageCount
 
     @{var options = new PagedListRenderOptions();
-    options.PageCountAndCurrentLocationFormat = ("Strana {0} z {1}.");
+    //options.PageCountAndCurrentLocationFormat = ("Strana {0} z {1}.");
     options.MaximumPageNumbersToDisplay = 3;
-    //options.DisplayPageCountAndCurrentLocation = false;
-    options.ItemSliceAndTotalFormat = "Showing items {0} through {1} of {2}.";
+    options.DisplayPageCountAndCurrentLocation = false;
     }
 
     @Html.PagedListPager(Model.IModel, page => Url.Action("Index",

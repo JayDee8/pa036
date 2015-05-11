@@ -1,71 +1,52 @@
 ﻿@model bcpp.Models.uzivatel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detaily ";
 }
 
-<h2>Details</h2>
+<div style="float:right">
+    <button class="btn btn-default">@Html.ActionLink("Upravit uživatele", "Edit", new { id = Model.uzivatel_id })</button>
+    @Html.Bootstrap().ActionLinkButton("Zpět na seznam uživatelů", "Index", "User")
+</div>
 
+<h2>Detaily uživatele @Html.DisplayFor(model => model.jmeno) @Html.DisplayFor(model => model.prijmeni)</h2>
+<br/>
 <fieldset>
     <legend>uzivatel</legend>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.jmeno)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.jmeno)
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Jméno: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.jmeno)</div>
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.prijmeni)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.prijmeni)
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Příjmení: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.prijmeni)</div>
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.nick)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.nick)
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Město: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.adresa.mesto)</div>
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.adresa_id)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.adresa_id)
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Ulice: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.adresa.ulice)</div>
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.heslo_hash)
+    <div class="form-group row">
+        <label class="col-md-2 control-label">PSC: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.adresa.PSC)</div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.heslo_hash)
+    @if (Model.poznamka != null)
+    {
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Poznámka: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.poznamka)</div>
     </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.poznamka)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.poznamka)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.penezenka)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.penezenka)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.uzivatel_typ)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.uzivatel_typ)
+    }
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Peněženka: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.penezenka) Kč</div>
     </div>
 </fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.uzivatel_id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -25,24 +25,10 @@
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.nick)
+         @Html.DisplayNameFor(model => model.adresa.mesto)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.nick)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.adresa_id)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.adresa_id)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.heslo_hash)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.heslo_hash)
+        @Html.DisplayFor(model => model.adresa.mesto)
     </div>
 
     <div class="display-label">
@@ -58,15 +44,9 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.penezenka)
     </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.uzivatel_typ)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.uzivatel_typ)
-    </div>
 </fieldset>
 @using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
     <p>
         <input type="submit" value="Delete" /> |
         @Html.ActionLink("Back to List", "Index")

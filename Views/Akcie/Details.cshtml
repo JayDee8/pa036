@@ -9,98 +9,94 @@
 <script>
     $(function () {
 
-        var prodej = [{'x':10110000,'y':358},{'x':10120000,'y':569},{'x':10130000,'y':120}], StockChart;
-        var nakup = [{ 'x': 10110000, 'y': 358 }, { 'x': 10120000, 'y': 569 }, { 'x': 10130000, 'y': 120 }], StockChart;
-        //prodej = prodej.sort();
-        //nakup = nakup.sort();
+        $.getJSON('@Url.Action("GetData", "Akcie", new { id = Model.Akcie.akcie_id })', function (data1) {
+            $.getJSON('@Url.Action("GetData", "Akcie", new { id = Model.Akcie.akcie_id, nakup = false })', function (data2) {
 
-        //console.log(data);
-        
-        $(document).ready(function () {
+                $('#index-container').highcharts('StockChart', {
 
-            $('#index-container').highcharts('StockChart', {
+                    chart: {
+                        zoomType: 'x'
+                    },
+                    navigator: {
+                        adaptToUpdatedData: true
+                    },
+                    tooltip: {
+                        pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y:.2f} Kč</b><br/>'
+                    },
+                    rangeSelector: {
+                        inputBoxWidth: 130,
+                        buttons: [{
+                            type: 'week',
+                            count: 1,
+                            text: '1t'
+                        }, {
+                            type: 'month',
+                            count: 1,
+                            text: '1m'
+                        }, {
+                            type: 'month',
+                            count: 6,
+                            text: '6m'
+                        }, {
+                            type: 'year',
+                            count: 1,
+                            text: '1r'
+                        }, {
+                            type: 'year',
+                            count: 3,
+                            text: '3r'
+                        }, {
+                            type: 'all',
+                            text: 'Vše'
+                        }],
+                        selected: 3
+                    },
+                    xAxis: {
+                        type: 'date',
+                        labels: { format: "{value:%m %Y}" }
+                    },
 
-                chart: {
-                    zoomType: 'x'
-                },
-                navigator: {
-                    //adaptToUpdatedData: true
-                },
-                rangeSelector: {
-                    inputBoxWidth: 130,
-                    buttons: [{
-                        type: 'week',
-                        count: 1,
-                        text: '1t'
-                    }, {
-                        type: 'month',
-                        count: 1,
-                        text: '1m'
-                    }, {
-                        type: 'month',
-                        count: 6,
-                        text: '6m'
-                    }, {
-                        type: 'year',
-                        count: 1,
-                        text: '1r'
-                    }, {
-                        type: 'year',
-                        count: 3,
-                        text: '3r'
-                    }, {
-                        type: 'all',
-                        text: 'Vše'
-                    }],
-                    selected: 3
-                },
-                xAxis: {
-                    type: 'date',
-                    /*events: {
-                        afterSetExtremes: afterSetExtremes
-                    },*/
-                    labels: { format: "{value:%m %Y}" }
-                },
+                    yAxis: {
+                        title: {
+                            text: 'Cena'
+                        },
+                        floor: 0,
+                    },
 
-                yAxis: {
                     title: {
-                        text: 'Cena'
-                    }
-                },
-
-                title: {
-                    text: 'Změny v prodejní a nákupní ceně akcie'
-                },
-                scrollbar: {
-                    //liveRedraw: true
-                },
-
-                series: [{
-                    turboThreshold: 3330,
-                    name: 'Nákupní cena: ',
-                    data: nakup
-                    /*tooltip: {
-                        valueSuffix: '',
-                        labels: { format: "{value:%j. %F %Y}" }
-                    },*/
-                }, {
-                    turboThreshold: 3330,
-                    name: 'Prodejní cena: ',
-                    data: prodej
-                }]
+                        text: 'Změny v prodejní a nákupní ceně akcie'
+                    },
+                    scrollbar: {
+                        liveRedraw: true
+                    },
+                    series: [{
+                        turboThreshold: 5330,
+                        name: 'Nákupní cena: ',
+                        data: data1
+                    },{
+                        turboThreshold: 5330,
+                        name: 'Prodejní cena: ',
+                        data: data2
+                    }]
+                })
             });
         });
     });
-    
 
 </script>
 
+<div style="float:right">
+    @Html.Bootstrap().ActionLinkButton("Zpět na seznam akcií", "Index", "Akcie")
+</div>
+
 <fieldset>
     <legend>Akcie</legend>
+    @if (Model.Akcie.firma.ICO != null) { 
     <div class="form-group row">
         <label class="col-md-2 control-label">IČO firmy</label>
         <div class="col-md-10">@Html.DisplayFor(model => Model.Akcie.firma.ICO)</div>
     </div>
+    }
     <div class="form-group row">
         <label class="col-md-2 control-label">Jméno akcie</label>
         <div class="col-md-10">@Html.DisplayFor(model => Model.Akcie.nazev)</div>
@@ -110,10 +106,6 @@
         <div class="col-md-10">@Html.DisplayFor(model => Model.Akcie.zkratka)</div>
     </div>
 
-<p>
-    @*Html.ActionLink("Upravit", "Edit", new { id=Model.akcie_id }) |*@
-    @Html.ActionLink("Zpět na seznam akcií", "Index")
-</p>
     </fieldset>
 
 <div id="index-container" style="width:100%; height:400px;"></div>
