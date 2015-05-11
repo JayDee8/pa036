@@ -114,7 +114,7 @@ namespace bcpp.Controllers
         public JsonResult GetData(int id = 0, bool nakup = true)
         {
             var akcie = db.akcie.Single(a => a.akcie_id == id);
-            var historie = db.historie_akcie.Where(b => b.akcie_id == akcie.akcie_id);
+            var historie = db.historie_akcie.Where(b => b.akcie_id == akcie.akcie_id).OrderByDescending(s=>s.datum);
 
             List<myAxes> list = new List<myAxes>();
             
