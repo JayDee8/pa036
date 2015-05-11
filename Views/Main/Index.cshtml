@@ -99,6 +99,7 @@
 
 </script>
 
+<h3>Aktuální seznam akcií</h3>
 @aGrid.GetHtml(
     tableStyle: "table table-striped table-hover akcie-table",
     columns:
@@ -110,8 +111,8 @@
         aGrid.Column("cena_nakup", "Nákupní cena [Kč]", format:(item) => string.Format("{0:0.00}", item.cena_nakup)),
         aGrid.Column("datum", "Cena k datu",format:(item)=> string.Format("{0:dd.MM.yyyy}",item.datum))
 ))
-
-
+<br/>
+<h3>Index PX a jeho vývoj </h3>
 <div class="index-chart" id="index-container" style="width:70%; height:450px;"></div>
 <div class="index-table" style="width:25%;float:left">
     @iGrid.GetHtml(
