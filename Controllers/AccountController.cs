@@ -42,7 +42,7 @@ namespace bcpp.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            ModelState.AddModelError("", "Uživatelské jméno nebo heslo je nesprávné.");
             return View(model);
         }
 
@@ -148,9 +148,9 @@ namespace bcpp.Controllers
         public ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
+                message == ManageMessageId.ChangePasswordSuccess ? "Vaše heslo bylo změněno."
+                : message == ManageMessageId.SetPasswordSuccess ? "Vaše heslo bylo nastaveno."
+                : message == ManageMessageId.RemoveLoginSuccess ? "Externí přihlášení bylo odstraněno."
                 : "";
             ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.ReturnUrl = Url.Action("Manage");
@@ -188,7 +188,7 @@ namespace bcpp.Controllers
                     }
                     else
                     {
-                        ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                        ModelState.AddModelError("", "Aktuální heslo je nesprávné nebo nové heslo je neplatné.");
                     }
                 }
             }
@@ -265,34 +265,34 @@ namespace bcpp.Controllers
             switch (createStatus)
             {
                 case MembershipCreateStatus.DuplicateUserName:
-                    return "User name already exists. Please enter a different user name.";
+                    return "Uživatelské jméno již existuje. Zadejte prosím jiné uživatelské jméno.";
 
                 case MembershipCreateStatus.DuplicateEmail:
-                    return "A user name for that e-mail address already exists. Please enter a different e-mail address.";
+                    return "Uživatelské jméno pro tuto e-mailovou adresu již existuje. Zadejte prosím jinou e-mailovou adresu.";
 
                 case MembershipCreateStatus.InvalidPassword:
-                    return "The password provided is invalid. Please enter a valid password value.";
+                    return "Heslo je neplatné. Prosím, zadejte platnou hodnotu hesla.";
 
                 case MembershipCreateStatus.InvalidEmail:
-                    return "The e-mail address provided is invalid. Please check the value and try again.";
+                    return "E-mailová adresa je neplatná. Prosím, zkontrolujte hodnotu a zkuste to znovu.";
 
                 case MembershipCreateStatus.InvalidAnswer:
-                    return "The password retrieval answer provided is invalid. Please check the value and try again.";
+                    return "Heslo je neplatné. Prosím, zkontrolujte hodnotu a zkuste to znovu.";
 
                 case MembershipCreateStatus.InvalidQuestion:
-                    return "The password retrieval question provided is invalid. Please check the value and try again.";
+                    return "Heslo je neplatné. Prosím, zkontrolujte hodnotu a zkuste to znovu.";
 
                 case MembershipCreateStatus.InvalidUserName:
-                    return "The user name provided is invalid. Please check the value and try again.";
+                    return "Uživatelské jméno je neplatné. Prosím, zkontrolujte hodnotu a zkuste to znovu.";
 
                 case MembershipCreateStatus.ProviderError:
-                    return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return "Zprostředkovatel ověření vrátil chybu. Prosím zkontrolujte zadání a zkuste to znovu. Pokud problém přetrvává, obraťte se na správce systému.";
 
                 case MembershipCreateStatus.UserRejected:
-                    return "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return "Požadavek vytvoření uživatele byl zrušen. Prosím zkontrolujte zadání a zkuste to znovu. Pokud problém přetrvává, obraťte se na správce systému.";
 
                 default:
-                    return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return "Došlo k neznámé chybě. Prosím zkontrolujte zadání a zkuste to znovu. Pokud problém přetrvává, obraťte se na správce systému.";
             }
         }
         #endregion
