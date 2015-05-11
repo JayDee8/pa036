@@ -8,8 +8,6 @@
     počet vlastněných akcií: @(Model.pModel.pocet == null ? 0 : Model.pModel.pocet)
     <text>Peněženka: @Model.wallet Kč</text> 
 
-
-   
     @using (var f = Html.Bootstrap().Begin(new Form().Type(FormType.Horizontal)))
     {
         @Html.HiddenFor(model => model.pModel.akcie_id)
@@ -17,12 +15,9 @@
         @Html.HiddenFor(model => model.akcieName)
         @Html.HiddenFor(model => model.wallet)
         
-
         @f.ControlGroup().TextBoxFor(m => m.sumToBuy).HtmlAttributes(new { @required = "as" }).Label().LabelText("Koupit")
         @f.ControlGroup().TextBoxFor(m => m.sumToSell).Label().LabelText("Prodat")
         @f.ControlGroup().CustomControls(Html.Bootstrap().SubmitButton().Text("Provést"))
-        
-        <span style="height:30px;color:Red;">&nbsp;@if (ViewBag.err != null){<text>@ViewBag.err</text>}</span>
     }
 
         

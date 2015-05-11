@@ -6,10 +6,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using bcpp.Models;
+using bcpp.Filters;
+using WebMatrix.WebData;
 
 namespace bcpp.Controllers
 {
-    
+    [InitializeSimpleMembership]
     [Authorize]
     public class PortfolioController : Controller
     {
@@ -20,7 +22,16 @@ namespace bcpp.Controllers
 
         public ActionResult Index()
         {
-            var portfolio = db.portfolio.Include("akcie").Include("uzivatel").Where(p => p.pocet != 0);
+            IEnumerable<portfolio> portfolio;
+            if(User.IsInRole("admin"))
+            {
+                portfolio = db.portfolio.Include("akcie").Include("uzivatel").Where(p => p.pocet != 0);
+            }
+            else
+            {
+                int userId = WebSecurity.CurrentUserId;
+                portfolio = db.portfolio.Include("akcie").Include("uzivatel").Where(p => p.pocet != 0 && p.uzivatel_id == userId);
+            }
             return View(portfolio.ToList());
         }
 
@@ -29,7 +40,11 @@ namespace bcpp.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            portfolio portfolio = db.portfolio.Single(p => p.portfolio_id == id);
+            int userId = id;
+            if (id == 0 || !User.IsInRole("admin"))
+                userId = WebSecurity.CurrentUserId;
+
+            portfolio portfolio = db.portfolio.SingleOrDefault(p => p.portfolio_id == userId);
             if (portfolio == null)
             {
                 return HttpNotFound();
@@ -37,13 +52,17 @@ namespace bcpp.Controllers
             return View(portfolio);
         }
 
+
         //
         // GET: /Portfolio/Create
 
         public ActionResult Create()
         {
             ViewBag.akcie_id = new SelectList(db.akcie, "akcie_id", "nazev");
-            ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno");
+            if(User.IsInRole("admin"))
+                ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno");
+            else
+                ViewBag.uzivatel_id = WebSecurity.CurrentUserId;
             return View();
         }
 
@@ -61,7 +80,10 @@ namespace bcpp.Controllers
             }
 
             ViewBag.akcie_id = new SelectList(db.akcie, "akcie_id", "nazev", portfolio.akcie_id);
-            ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno", portfolio.uzivatel_id);
+            if (User.IsInRole("admin"))
+                ViewBag.uzivatel_id = new SelectList(db.uzivatel, "uzivatel_id", "jmeno");
+            else
+                ViewBag.uzivatel_id = WebSecurity.CurrentUserId;
             return View(portfolio);
         }
 

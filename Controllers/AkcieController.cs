@@ -12,6 +12,9 @@ using bcpp.Filters;
 using System.Linq.Dynamic;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
+using System.Web.Script.Serialization;
+using System.IO;
+using System.Runtime.Serialization.Json;
 
 namespace bcpp.Controllers
 {
@@ -112,32 +115,32 @@ namespace bcpp.Controllers
         {
             var akcie = db.akcie.Single(a => a.akcie_id == id);
             var historie = db.historie_akcie.Where(b => b.akcie_id == akcie.akcie_id);
-            
-            List<MainItem> list = new List<MainItem>();
-            
+
+            GraphModel mi = new GraphModel();
+
+            List<myAxes> nakupList = new List<myAxes>();
+            List<myAxes> prodejList = new List<myAxes>();
+
             foreach(var h in historie)
-                {
-                    MainItem mi = new MainItem();
-
-                    Item iNakup = new Item();
-                    Item iProdej = new Item();
+            {
+                myAxes iNakup = new myAxes();
+                myAxes iProdej = new myAxes();
+    
+                iNakup.x = (h.datum - new DateTime(1970, 1, 1,0,0,0).ToLocalTime()).TotalMilliseconds;
+                iProdej.x = iNakup.x;
                     
-                    iNakup.datum = String.Format("{0:dd.MM.yyyy}", h.datum);
-                    iProdej.datum = String.Format("{0:dd.MM.yyyy}", h.datum);
-                    
-                    iProdej.hodnota = h.cena_prodej;
-                    iNakup.hodnota = h.cena_nakup; 
+                iProdej.y = h.cena_prodej;
+                iNakup.y = h.cena_nakup; 
 
-                    mi.Nakup = iNakup;
-                    mi.Prodej = iProdej;
-                    list.Add(mi);
-                
+                nakupList.Add(iNakup);
+                prodejList.Add(iProdej);             
                
-                }
-        
-            //return Json(Json.encode(historie), JsonRequestBehavior.AllowGet);
-            return Json(list, JsonRequestBehavior.AllowGet);
-            //return Json(user, JsonRequestBehavior.AllowGet);
+            }
+
+            mi.nakup = nakupList;
+            mi.prodej = prodejList;
+
+            return Json(mi, JsonRequestBehavior.AllowGet);
         }
 
 

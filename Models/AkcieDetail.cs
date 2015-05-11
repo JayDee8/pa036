@@ -12,15 +12,15 @@ namespace bcpp.Models
         public IEnumerable<historie_akcie> Historie { get; set; }
     }
 
-    public class MainItem
+    public class GraphModel
     {
-        public Item Prodej { get; set; }
-        public Item Nakup { get; set; }
+        public List<myAxes> prodej { get; set; }
+        public List<myAxes> nakup { get; set; }
     }
 
-    public class Item
+    public class myAxes
     {
-        public string datum { get; set; }
-        public float hodnota { get; set; }
+        public double x { get; set; }
+        public float y { get; set; }
     }
 }

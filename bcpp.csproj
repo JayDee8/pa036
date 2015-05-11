@@ -43,6 +43,12 @@
       <HintPath>..\packages\FluentValidationNA.1.2.16\lib\net40\FluentValidationNA.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -181,6 +187,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AkcieController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EditSumController.cs" />
     <Compile Include="Controllers\FirmaController.cs" />
     <Compile Include="Controllers\HistorieAkcieController.cs" />
@@ -188,6 +195,7 @@
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\PortfolioController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WalletController.cs" />
     <Compile Include="Controllers\WatchlistController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -195,6 +203,7 @@
     </Compile>
     <Compile Include="Helpers\Html.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\AkcieDetail.cs" />
     <Compile Include="Models\AkcieUserModel.cs" />
     <Compile Include="Models\db.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -209,6 +218,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -357,18 +367,7 @@
     <None Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Views\Akcie\Index.cshtml" />
     <Content Include="Views\Akcie\Details.cshtml" />
-    <Content Include="Views\Akcie\Create.cshtml" />
-    <Content Include="Views\Akcie\Edit.cshtml" />
-    <Content Include="Views\Akcie\Delete.cshtml" />
-    <Content Include="Views\Portfolio\Index.cshtml" />
-    <Content Include="Views\Portfolio\Details.cshtml" />
-    <Content Include="Views\Portfolio\Create.cshtml" />
-    <Content Include="Views\Portfolio\Edit.cshtml" />
-    <Content Include="Views\Portfolio\Delete.cshtml" />
-    <Content Include="Views\Firma\Create.cshtml" />
-    <Content Include="Views\Firma\Delete.cshtml" />
     <Content Include="Views\Firma\Details.cshtml" />
-    <Content Include="Views\Firma\Edit.cshtml" />
     <Content Include="Views\Firma\Index.cshtml" />
     <Content Include="Views\IndexPX\Create.cshtml" />
     <Content Include="Views\IndexPX\Delete.cshtml" />
@@ -381,12 +380,16 @@
     <Content Include="Views\Watchlist\Details.cshtml" />
     <Content Include="Views\Watchlist\Edit.cshtml" />
     <Content Include="Views\Watchlist\Index.cshtml" />
-    <Content Include="Views\HistorieAkcie\Create.cshtml" />
-    <Content Include="Views\HistorieAkcie\Delete.cshtml" />
     <Content Include="Views\HistorieAkcie\Details.cshtml" />
-    <Content Include="Views\HistorieAkcie\Edit.cshtml" />
     <Content Include="Views\HistorieAkcie\Index.cshtml" />
     <Content Include="Views\EditSum\Index.cshtml" />
+    <Content Include="Views\Wallet\Index.cshtml" />
+    <Content Include="Views\Portfolio\Index.cshtml" />
+    <Content Include="Views\Portfolio\Details.cshtml" />
+    <Content Include="Views\Portfolio\Create.cshtml" />
+    <Content Include="Views\Portfolio\Edit.cshtml" />
+    <Content Include="Views\Portfolio\Delete.cshtml" />
+    <Content Include="Views\Shared\_Alerts.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

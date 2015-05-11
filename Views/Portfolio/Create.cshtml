@@ -6,19 +6,36 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>portfolio</legend>
-
-        <div class="editor-label">
+       @using (var f = Html.Bootstrap().Begin(new Form().Type(FormType.Horizontal)))
+       {
+            @Html.ValidationSummary(true)
+       
+       <div class="editor-label">
             @Html.LabelFor(model => model.uzivatel_id, "uzivatel")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("uzivatel_id", String.Empty)
+            @if (User.IsInRole("admin"))
+            {
+                @Html.DropDownList("uzivatel_id", String.Empty)
+            }
+            else
+            {
+                @ViewBag.uzivatel_id
+            }
             @Html.ValidationMessageFor(model => model.uzivatel_id)
         </div>
+           
+          
+        @f.ControlGroup().DropDownList("akcie_id", String.Empty).Label().LabelText("Prodat") 
+        @f.ControlGroup().TextBoxFor(m => m.pocet).Label().LabelText("Počet")
+        @f.ControlGroup().CustomControls(Html.Bootstrap().SubmitButton().Text("Provést"))
+        
+      
+      
+       }
+
+
+        
 
         <div class="editor-label">
             @Html.LabelFor(model => model.akcie_id, "akcie")
@@ -56,8 +73,7 @@
             @Html.LabelFor(model => model.datum_zmeny)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.datum_zmeny)
-            @Html.ValidationMessageFor(model => model.datum_zmeny)
+            @String.Format("{0:dd.MM.yyyy}", DateTime.Today)
         </div>
 
         <p>
