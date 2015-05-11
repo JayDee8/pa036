@@ -2,11 +2,29 @@
 
 @{
     ViewBag.Title = "Index";
-
+    if (Model.pModel.pocet == null)
+    {
+        Model.pModel.pocet = 0;
+    }
 }
     <h2>Akcie "@Model.akcieName"</h2>
-    počet vlastněných akcií: @(Model.pModel.pocet == null ? 0 : Model.pModel.pocet)
-    <text>Peněženka: @Model.wallet Kč</text> 
+
+    <div class="form-group row">
+        <label class="col-md-3 control-label">Počet vlastněných akcií:</label>
+        <div class="col-md-9">@Html.DisplayFor(model => Model.pModel.pocet) ks</div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-3 control-label">Peněženka:</label>
+        <div class="col-md-9">@Html.DisplayFor(model => Model.wallet) Kč</div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-3 control-label">Cena prodej:</label>
+        <div class="col-md-9">@Html.DisplayFor(model => Model.cena_prodej) Kč</div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-3 control-label">Cena nákup:</label>
+        <div class="col-md-9">@Html.DisplayFor(model => Model.cena_nakup) Kč</div>
+    </div>
 
     @using (var f = Html.Bootstrap().Begin(new Form().Type(FormType.Horizontal)))
     {
@@ -14,6 +32,8 @@
         @Html.HiddenFor(model => model.pModel.uzivatel_id)
         @Html.HiddenFor(model => model.akcieName)
         @Html.HiddenFor(model => model.wallet)
+        @Html.HiddenFor(model => model.cena_prodej)
+        @Html.HiddenFor(model => model.cena_nakup)
         
         @f.ControlGroup().TextBoxFor(m => m.sumToBuy).HtmlAttributes(new { @required = "as" }).Label().LabelText("Koupit")
         @f.ControlGroup().TextBoxFor(m => m.sumToSell).Label().LabelText("Prodat")

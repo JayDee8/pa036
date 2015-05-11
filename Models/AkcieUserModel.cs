@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace bcpp.Models
 {
@@ -10,9 +11,12 @@ namespace bcpp.Models
         public int akcie_id {get; set;}
         public string nazev { get; set; }
         public string zkratka {get; set;}
+        [DisplayFormat(DataFormatString = "{0:0.00}", ApplyFormatInEditMode = true)]
         public double cena_nakup {get; set;}
+        [DisplayFormat(DataFormatString = "{0:0.00}", ApplyFormatInEditMode = true)]
         public double cena_prodej {get; set;}
         public DateTime datum { get; set; }
+        [DisplayFormat(DataFormatString = "{0:0.00}", ApplyFormatInEditMode = true)]
         public double lin_reg { get; set; }
         public int? pocet { get; set; }
     }
@@ -31,6 +35,10 @@ namespace bcpp.Models
         public int sumToSell { get; set; }
         public int sumToBuy { get; set; }
         public float? wallet { get; set; }
+        [DisplayFormat(DataFormatString = "{0:0.00}", ApplyFormatInEditMode = true)]
+        public double cena_nakup { get; set; }
+        [DisplayFormat(DataFormatString = "{0:0.00}", ApplyFormatInEditMode = true)]
+        public double cena_prodej { get; set; }
         public string akcieName { get; set; }
     }
 

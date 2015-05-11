@@ -24,6 +24,11 @@ namespace bcpp.Controllers
         {
             int userId = WebSecurity.GetUserId(User.Identity.Name);
 
+            IEnumerable<historie_akcie> ha = from h in db.historie_akcie group h by h.akcie_id into g let maxDate = g.Max(r => r.datum) from rowGroup in g where rowGroup.datum == maxDate select rowGroup;
+
+            historie_akcie h1 = ha.Single(i => i.akcie_id == id);
+
+
             PortfolioChangeSumModel model = new PortfolioChangeSumModel();
 
             model.wallet = db.uzivatel.Single(u => u.uzivatel_id == userId).penezenka;
@@ -37,6 +42,8 @@ namespace bcpp.Controllers
             }
             model.pModel = port;
             model.akcieName = db.akcie.Single(a => a.akcie_id == id).nazev;
+            model.cena_prodej = h1.cena_prodej;
+            model.cena_nakup = h1.cena_nakup;
 
             return View(model);
         }
