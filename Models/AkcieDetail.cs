@@ -10,6 +10,7 @@ namespace bcpp.Models
     {
         public akcie Akcie { get; set; }
         public IEnumerable<historie_akcie> Historie { get; set; }
+        public double Lin_reg { get; set; }
     }
 
     public class myAxes

@@ -13,6 +13,7 @@ namespace bcpp.Models
         public double cena_nakup {get; set;}
         public double cena_prodej {get; set;}
         public DateTime datum { get; set; }
+        public double lin_reg { get; set; }
         public int? pocet { get; set; }
     }
     public class akcie2

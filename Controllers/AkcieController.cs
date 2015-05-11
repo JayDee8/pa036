@@ -10,24 +10,24 @@ using WebMatrix.WebData;
 using System.Data.Objects;
 using bcpp.Filters;
 using System.Linq.Dynamic;
-using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Web.Script.Serialization;
 using System.IO;
 using System.Runtime.Serialization.Json;
+using System.Threading;
 
 namespace bcpp.Controllers
 {
 
-    class DistinctItemComparer : IEqualityComparer<historie_akcie>
+    class DistinctItemComparer : IEqualityComparer<AkcieUserModel>
     {
 
-        public bool Equals(historie_akcie x, historie_akcie y)
+        public bool Equals(AkcieUserModel x, AkcieUserModel y)
         {
             return x.akcie_id == y.akcie_id;
         }
 
-        public int GetHashCode(historie_akcie obj)
+        public int GetHashCode(AkcieUserModel obj)
         {
             return obj.akcie_id.GetHashCode();
         }
@@ -37,6 +37,7 @@ namespace bcpp.Controllers
     [Authorize]
     public class AkcieController : Controller
     {
+
         private dbEntities db = new dbEntities();
 
         //
@@ -44,12 +45,11 @@ namespace bcpp.Controllers
 
         public ActionResult Index(int page = 1, int pageSize = 12, string sort = "nazev", string sortdir = "DESC")
         {
-            
+
             var akcie = db.akcie.Include("historie_akcie");
             
-            
             int userId = WebSecurity.GetUserId(User.Identity.Name);
-            
+
             var records = new PagedList<AkcieUserModel>();
 
             IEnumerable<portfolio> mojePortfolio = db.portfolio.Where(p => p.uzivatel_id == userId);
@@ -66,9 +66,21 @@ namespace bcpp.Controllers
                     from row in ap.DefaultIfEmpty()
                     select new AkcieUserModel { akcie_id = a.akcie_id, nazev = a.nazev, zkratka = a.zkratka, cena_nakup = h.cena_nakup, cena_prodej = h.cena_prodej, datum = h.datum, pocet = (row == null ? 0 : row.pocet) }
                 );
+            
+       //     if(sort != "lin_reg")
+                records.Content = content.OrderBy(sort + " " + sortdir, new DistinctItemComparer()).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+       ///     else
+        //        records.Content = content.ToList();
 
-            records.Content = content.OrderBy(sort + " " + sortdir).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+          /*  
+            foreach (var row in records.Content)
+            {
+                row.lin_reg = db.Lin_reg(row.akcie_id).FirstOrDefault().Value;
+            }
 
+            if (sort == "lin_reg")
+             records.Content = records.Content.OrderBy(i => i.lin_reg).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            */
             if (WebSecurity.IsAuthenticated)
             {
                 float? wallet = db.uzivatel.Single(a => a.uzivatel_id == userId).penezenka;
@@ -94,7 +106,7 @@ namespace bcpp.Controllers
             AkcieDetail M = new AkcieDetail();
             var akcie = db.akcie.Single(a => a.akcie_id == id);
             //var result = db.historie_akcie.ToList();
-            var historie = db.historie_akcie.Where(b => b.akcie_id == akcie.akcie_id); 
+            var historie = db.historie_akcie.Where(b => b.akcie_id == akcie.akcie_id);
             /*var content = (from a in akcie
                            join h in result
                                on a.akcie_id equals h.akcie_id
@@ -108,26 +120,28 @@ namespace bcpp.Controllers
 
             M.Akcie = akcie;
             M.Historie = historie.ToList();
+            M.Lin_reg = db.Lin_reg(akcie.akcie_id).FirstOrDefault().Value;
+            
             return View(M);
         }
 
         public JsonResult GetData(int id = 0, bool nakup = true)
         {
             var akcie = db.akcie.Single(a => a.akcie_id == id);
-            var historie = db.historie_akcie.Where(b => b.akcie_id == akcie.akcie_id).OrderByDescending(s=>s.datum);
+            var historie = db.historie_akcie.Where(b => b.akcie_id == akcie.akcie_id).OrderBy(s => s.datum);
 
             List<myAxes> list = new List<myAxes>();
-            
-            foreach(var h in historie)
+
+            foreach (var h in historie)
             {
                 myAxes iCeny = new myAxes();
-                
-                iCeny.x = (h.datum - new DateTime(1970, 1, 1,0,0,0).ToLocalTime()).TotalMilliseconds;
-                    
-                if(nakup)
-                 iCeny.y = h.cena_nakup;
+
+                iCeny.x = (h.datum - new DateTime(1970, 1, 1, 0, 0, 0).ToLocalTime()).TotalMilliseconds;
+
+                if (nakup)
+                    iCeny.y = h.cena_nakup;
                 else
-                 iCeny.y = h.cena_prodej; 
+                    iCeny.y = h.cena_prodej;
 
                 list.Add(iCeny);
             }
@@ -142,4 +156,6 @@ namespace bcpp.Controllers
             base.Dispose(disposing);
         }
     }
+
+    
 }

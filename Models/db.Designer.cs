@@ -325,6 +325,29 @@ namespace bcpp.Models
 
         #endregion
 
+        #region Function Imports
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="iD_Akcie">No Metadata Documentation available.</param>
+        public ObjectResult<Nullable<global::System.Double>> Lin_reg(Nullable<global::System.Int32> iD_Akcie)
+        {
+            ObjectParameter iD_AkcieParameter;
+            if (iD_Akcie.HasValue)
+            {
+                iD_AkcieParameter = new ObjectParameter("ID_Akcie", iD_Akcie);
+            }
+            else
+            {
+                iD_AkcieParameter = new ObjectParameter("ID_Akcie", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction<Nullable<global::System.Double>>("Lin_reg", iD_AkcieParameter);
+        }
+
+        #endregion
+
     }
 
     #endregion

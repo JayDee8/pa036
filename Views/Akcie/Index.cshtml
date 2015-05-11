@@ -13,8 +13,8 @@
 
     gridColumns.Add(grid.Column("nazev", "Název " + Html.SortDirection(ref grid, "nazev")));
     gridColumns.Add(grid.Column("zkratka", "Zkratka " + Html.SortDirection(ref grid, "zkratka")));
-    gridColumns.Add(grid.Column("cena_prodej", "Prodejní cena [Kč] " + Html.SortDirection(ref grid, "cena_prodej"), format: (item) => string.Format("{0:0.0000}", item.cena_prodej)));
-    gridColumns.Add(grid.Column("cena_nakup", "Nákupní cena [Kč] " + Html.SortDirection(ref grid, "cena_nakup"), format: (item) => string.Format("{0:0.0000}", item.cena_nakup)));
+    gridColumns.Add(grid.Column("cena_prodej", "Prodejní cena [Kč] " + Html.SortDirection(ref grid, "cena_prodej"), format: (item) => string.Format("{0:0.00}", item.cena_prodej)));
+    gridColumns.Add(grid.Column("cena_nakup", "Nákupní cena [Kč] " + Html.SortDirection(ref grid, "cena_nakup"), format: (item) => string.Format("{0:0.00}", item.cena_nakup)));
     gridColumns.Add(grid.Column("datum", "Cena k datu " + Html.SortDirection(ref grid, "datum"), format: (item) => string.Format("{0:dd.MM.yyyy}", item.datum)));
 
     if (User.IsInRole("user") || User.IsInRole("admin"))
@@ -29,10 +29,6 @@
         gridColumns.Add(grid.Column(format: (item) => Html.ActionLink("Upravit množství", "Index", "EditSum", new RouteValueDictionary(new { id = item.akcie_id }), null)));
     }
 
-    if (User.IsInRole("admin"))
-    {
-        gridColumns.Add(grid.Column(format: (item) => new HtmlString(Html.ActionLink("  ", "Edit", new { id = item.akcie_id }, new { @class = "glyphicon glyphicon-edit", @title = "Upravit" }) + " " + Html.ActionLink("  ", "Delete", new { id = item.akcie_id }, new { @class = "glyphicon glyphicon-trash", @title = "Vymazat" }))));
-    }
         
 }
     

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="dbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="dbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="dbModelStoreContainer">
           <EntitySet Name="adresa" EntityType="dbModel.Store.adresa" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="akcie" EntityType="dbModel.Store.akcie" store:Type="Tables" Schema="dbo" />
@@ -274,8 +274,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+        <Function Name="Lin_regrese" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_Akcie" Type="int" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -326,6 +328,9 @@
             <End Role="uzivatel" EntitySet="uzivatel" />
             <End Role="sledovane" EntitySet="sledovane" />
           </AssociationSet>
+          <FunctionImport Name="Lin_reg" ReturnType="Collection(Double)">
+            <Parameter Name="ID_Akcie" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="adresa">
           <Key>
@@ -677,6 +682,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Lin_reg" FunctionName="dbModel.Store.Lin_regrese" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
