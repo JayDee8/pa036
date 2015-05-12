@@ -112,6 +112,12 @@
         <label class="col-md-2 control-label">Ohad profitu: </label>
         <div class="col-md-10" style="font-weight:bold;font-size:20px; color:#404796">@Html.DisplayFor(model => Model.Lin_reg)%</div>
     </div>
+
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Počet vlastněných: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => Model.pocetVlastnenych) ks</div>
+    </div>
+    @Html.ActionLink("Upravit počet", "Index", "EditSum", new RouteValueDictionary(new { id = Model.Akcie.akcie_id }), new Dictionary<string,object> {{ "class","btn btn-default"} })
     </fieldset>
 
 <div id="index-container" style="width:100%; height:400px;"></div>

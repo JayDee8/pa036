@@ -13,6 +13,7 @@ namespace bcpp.Models
         public IEnumerable<historie_akcie> Historie { get; set; }
         [DisplayFormat(DataFormatString = "{0:0.00}", ApplyFormatInEditMode = true)]
         public double Lin_reg { get; set; }
+        public int pocetVlastnenych { get; set; }
     }
 
     public class myAxes

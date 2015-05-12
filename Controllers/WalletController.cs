@@ -30,7 +30,7 @@ namespace bcpp.Controllers
         [HttpPost]
         public ActionResult Index(uzivatel model)
         {
-            if (ModelState.IsValid && model.penezenka >= 0)
+            if (model.penezenka >= 0)
             {
                 float? wallet = model.penezenka;
                 model = db.uzivatel.Single(u => u.uzivatel_id == model.uzivatel_id);

@@ -15,6 +15,7 @@ using System.Data.Objects.DataClasses;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
@@ -417,6 +418,7 @@ namespace bcpp.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required]
         public global::System.String mesto
         {
             get
@@ -441,6 +443,7 @@ namespace bcpp.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required]
         public global::System.String ulice
         {
             get
@@ -513,6 +516,7 @@ namespace bcpp.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required]
         public global::System.String email
         {
             get
@@ -672,6 +676,7 @@ namespace bcpp.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required]
         public global::System.String nazev
         {
             get
@@ -696,6 +701,7 @@ namespace bcpp.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required]
         public global::System.String zkratka
         {
             get
@@ -1983,6 +1989,7 @@ namespace bcpp.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required]
         public global::System.String nazev
         {
             get
@@ -2007,6 +2014,7 @@ namespace bcpp.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required]
         public global::System.Int32 uzivatel_id
         {
             get
@@ -2031,6 +2039,7 @@ namespace bcpp.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required]
         public global::System.Int32 akcie_id
         {
             get
@@ -2198,6 +2207,7 @@ namespace bcpp.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required]
         public global::System.String jmeno
         {
             get
@@ -2222,6 +2232,7 @@ namespace bcpp.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        [Required]
         public global::System.String prijmeni
         {
             get

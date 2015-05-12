@@ -55,10 +55,10 @@
         
         function getActual() {
             var actual = "@HttpContext.Current.Request.Url.AbsolutePath";
-            if (actual == '/' | actual == '/Akcie' | actual == '/Watchlist'  | actual == '/Wallet' | actual == '/EditSum') {
+            if (actual == '/User' | actual == '/Portfolio' | actual == '/histrorieakcie') {
             }
             else {
-                $("#tabs").tabs("option", "active", 1);
+                $("#tabs").tabs("option", "active", 0);
             }
         }
     });
@@ -136,6 +136,7 @@ else
                                         <li class="@(controllerName == "Akcie" ? "active" : "")">@Html.ActionLink("Akcie", "Index", "Akcie")</li>
                                         <li class="@(controllerName == "Watchlist" ? "active" : "")">@Html.ActionLink("Sledované", "Index", "Watchlist")</li>
                                         <li class="@(controllerName == "indexPX" ? "active" : "")">@Html.ActionLink("Index burzy", "Index", "indexPX")</li>
+                                        <li class="@(controllerName == "firma" ? "active" : "")">@Html.ActionLink("Firmy", "Index", "firma")</li>
                                         <li class="@(controllerName == "Wallet" ? "active" : "")">@Html.ActionLink("Peněženka", "Index", "Wallet")</li>
                                     </ul>
                                 </nav>
@@ -145,7 +146,6 @@ else
                                     <nav>
                                         <ul id="menu">
                                             <li class="@(controllerName == "User" ? "active" : "")">@Html.ActionLink("Uživatelé", "Index", "User")</li>
-                                            <li class="@(controllerName == "firma" ? "active" : "")">@Html.ActionLink("Firmy", "Index", "firma")</li>
                                             <li class="@(controllerName == "Portfolio" ? "active" : "")">@Html.ActionLink("Portfolio", "Index", "Portfolio")</li>
                                             <li class="@(controllerName == "historieakcie" ? "active" : "")">@Html.ActionLink("Historie akcií", "Index", "historieakcie")</li>
                                         </ul>
@@ -164,6 +164,7 @@ else
                                     <li class="@(controllerName == "Watchlist" ? "active" : "")">@Html.ActionLink("Sledované", "Index", "Watchlist")</li>
                                     <li class="@(controllerName == "Portfolio" ? "active" : "")">@Html.ActionLink("Portfolio", "Index", "Portfolio")</li>
                                     <li class="@(controllerName == "indexPX" ? "active" : "")">@Html.ActionLink("Index burzy", "Index", "indexPX")</li>
+                                    <li class="@(controllerName == "firma" ? "active" : "")">@Html.ActionLink("Firmy", "Index", "firma")</li>
                                     <li class="@(controllerName == "Wallet" ? "active" : "")">@Html.ActionLink("Peněženka", "Index", "Wallet")</li>
                                 </ul>
                             </nav>

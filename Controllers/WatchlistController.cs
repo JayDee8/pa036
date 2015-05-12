@@ -92,6 +92,7 @@ namespace bcpp.Controllers
         {
             if (ModelState.IsValid)
             {
+                sledovane.uzivatel_id = WebSecurity.CurrentUserId;
                 db.sledovane.AddObject(sledovane);
                 db.SaveChanges();
                 return RedirectToAction("Index");
