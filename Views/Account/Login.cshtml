@@ -19,11 +19,13 @@
         <ol>
             <li>
                 @Html.LabelFor(m => m.UserName)
+                <br />
                 @Html.TextBoxFor(m => m.UserName)
                 @Html.ValidationMessageFor(m => m.UserName)
             </li>
             <li>
                 @Html.LabelFor(m => m.Password)
+                <br />
                 @Html.PasswordFor(m => m.Password)
                 @Html.ValidationMessageFor(m => m.Password)
             </li>
@@ -32,10 +34,11 @@
                 @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
             </li>
         </ol>
-        <input type="submit" value="Přihlásit" />
+        <button type="submit" class="btn btn-default">Přihlásit</button>
     </fieldset>
+    <br/>
     <p>
-        @Html.ActionLink("Zaregistrovat", "Register"), pokud nevlastníte konto.
+        Nebo <b>@Html.ActionLink("Zaregistrovat", "Register")</b>, pokud nevlastníte konto.
     </p>
 }
 </section>

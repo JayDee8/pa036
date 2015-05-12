@@ -30,7 +30,7 @@
             @f.ControlGroup().TextBoxFor(m => m.adModel.PSC).Label().LabelText("PSČ")
             @f.ControlGroup().TextBoxFor(m => m.adModel.telefon).Label().LabelText("Telefon")
             @f.ControlGroup().TextBoxFor(m => m.adModel.email).Label().LabelText("E-mail")
-            
+            <br/>
             @f.ControlGroup().CustomControls(Html.Bootstrap().SubmitButton().Text("Zaregistrovat"))
         }
 
