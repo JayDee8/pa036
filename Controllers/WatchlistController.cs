@@ -63,8 +63,9 @@ namespace bcpp.Controllers
         {
             if (User.IsInRole("user"))
             {
+                int userId = WebSecurity.CurrentUserId;
                 var volneAkcie = (from a in db.akcie
-                                  join s in db.sledovane on a.akcie_id equals s.akcie_id into subset
+                                  join s in db.sledovane on new { a.akcie_id,uid = userId } equals new { s.akcie_id,uid = s.uzivatel_id} into subset
                                   from c in subset.DefaultIfEmpty()
                                   where c == null
                                   select a);

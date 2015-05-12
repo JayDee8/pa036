@@ -25,12 +25,15 @@
         }
     }
 
-@using (Html.BeginForm())
+@if (User.IsInRole("admin"))
 {
-    <p>
-        Hledat podle příjmení: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <button class="btn btn-default" type="submit">Hledat</button>
-    </p>
+    using (Html.BeginForm())
+    {
+        <p>
+            Hledat podle příjmení: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <button class="btn btn-default" type="submit">Hledat</button>
+        </p>
+    }
 }
 
 

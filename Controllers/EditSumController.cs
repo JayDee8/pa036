@@ -115,10 +115,11 @@ namespace bcpp.Controllers
             
             if (wallet < model.sumToBuy * buyPrice)
                 Danger("Nemáte dostatek peněz!", true);
-            if (model.sumToSell > model.pModel.pocet)
-                Danger("Nemůžete prodat více akcií, než máte!", true); 
             else
-                Danger("Portfólio nebylo upraveno", true);
+                if (model.sumToSell > model.pModel.pocet)
+                    Danger("Nemůžete prodat více akcií, než máte!", true); 
+                else
+                    Danger("Portfólio nebylo upraveno", true);
             return View(model);
         }
 
