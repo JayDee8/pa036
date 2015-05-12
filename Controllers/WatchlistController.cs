@@ -23,12 +23,20 @@ namespace bcpp.Controllers
         {
             SledovaneMy sm = new SledovaneMy();
             int userId = WebSecurity.CurrentUserId;
-            var sledovane = db.sledovane.Include("akcie").Include("uzivatel").Where(i => i.uzivatel_id == userId).ToList();
+            var sledovane = db.sledovane.Include("akcie").Include("uzivatel").Where(i => i.uzivatel_id == userId);
             if(User.IsInRole("admin"))
-                sledovane = db.sledovane.Include("akcie").Include("uzivatel").ToList();
+                sledovane = db.sledovane.Include("akcie").Include("uzivatel");
 
-            
-            sm.sled = sledovane;
+            IEnumerable<historie_akcie> ha = from h in db.historie_akcie group h by h.akcie_id into g let maxDate = g.Max(r => r.datum) from rowGroup in g where rowGroup.datum == maxDate select rowGroup;
+
+            var sledovane2 = from s in sledovane 
+                        join f in db.firma 
+                        on s.akcie.firma_id equals f.firma_id 
+                        join h in ha 
+                        on s.akcie_id equals h.akcie_id 
+                        select new MyModelSledovane { idSledovane = s.sledovane_id, nazevSledovane = s.nazev, nazevAkcie = s.akcie.nazev, nazevFirmy = f.nazev, cenaNakup = h.cena_nakup, cenaProdej = h.cena_prodej, datum = h.datum };
+           
+            sm.sled = sledovane2;
             sm.akcieIds = sledovane.Select(i => i.akcie_id).ToList();
             sm.akcieNames = sledovane.Select(i => i.akcie.nazev).ToList();
 
