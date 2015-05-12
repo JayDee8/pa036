@@ -4,9 +4,10 @@
 @{
     ViewBag.Title = "Sledované akcie";
     var buys = true;
-    WebGrid grid = new WebGrid(Model.sled);
+    WebGrid grid = new WebGrid(Model.sled, canSort: false);
     
     List<string> jmena = new List<string>();
+    
 
 }
 
@@ -119,7 +120,7 @@
 <h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Vytvořit novou", "Create")
+    @Html.ActionLink("Vytvořit novou", "Create", new { @class="btn btn-default" })
 </p>
 
 @grid.GetHtml(
@@ -127,8 +128,14 @@
     columns:
     grid.Columns
     (
-        grid.Column("nazev", "Název sledované"),
-        grid.Column("akcie.nazev", "Název akcie")
+        grid.Column("nazevSledovane", "Název sledované"),
+            grid.Column("nazevAkcie", "Akcie"),
+            grid.Column("nazevFirmy", "Firma"),
+        grid.Column("cenaNakup", "Cena nákup"),
+        grid.Column("cenaProdej", "Cena prodej"),
+        grid.Column("datum", "Ke dni", format: (item) => string.Format("{0:dd.MM.yyyy}",item.datum)),
+        grid.Column(format: (item) => Html.ActionLink("  ", "Delete", new { id = item.idSledovane }, new { @class = "glyphicon glyphicon-trash", @title = "Vymazat" }))
+    
     )
 )
 

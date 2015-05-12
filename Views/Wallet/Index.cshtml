@@ -10,7 +10,9 @@
     @Html.HiddenFor(model => model.uzivatel_id)
             
     @f.ControlGroup().TextBoxFor(m => m.penezenka).Label().LabelText("Peněženka")
+    <p>
     @f.ControlGroup().CustomControls(Html.Bootstrap().SubmitButton().Text("Upravit"))
+    </p>
 }
 
 

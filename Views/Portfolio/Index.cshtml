@@ -19,6 +19,10 @@
         {
             gridColumns.Add(grid.Column(format: (item) => Html.ActionLink("Upravit množství", "Index", "EditSum", new RouteValueDictionary(new { id = item.akcie_id }), null)));
         }
+        if (User.IsInRole("admin"))
+        {
+            gridColumns.Add(grid.Column(format: (item) => Html.ActionLink("  ", "Delete", new { id = item.portfolio_id }, new { @class = "glyphicon glyphicon-trash", @title = "Vymazat" })));
+        }
     }
 
 @using (Html.BeginForm())

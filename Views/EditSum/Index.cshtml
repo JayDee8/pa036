@@ -38,7 +38,9 @@
         
         @f.ControlGroup().TextBoxFor(m => m.sumToBuy).HtmlAttributes(new { @required = "as" }).Label().LabelText("Koupit")
         @f.ControlGroup().TextBoxFor(m => m.sumToSell).Label().LabelText("Prodat")
+        <p>
         @f.ControlGroup().CustomControls(Html.Bootstrap().SubmitButton().Text("Provést"))
+        </p>
     }
 
         

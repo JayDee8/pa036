@@ -1,54 +1,52 @@
 ﻿@model bcpp.Models.uzivatel
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Vymazat";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>Opravdu chcete vymazat tohoto uživatele?</h3>
 <fieldset>
     <legend>uzivatel</legend>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.jmeno)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.jmeno)
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Jméno: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.jmeno)</div>
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.prijmeni)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.prijmeni)
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Příjmení: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.prijmeni)</div>
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.adresa.mesto)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.adresa.mesto)
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Město: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.adresa.mesto)</div>
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.poznamka)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.poznamka)
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Ulice: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.adresa.ulice)</div>
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.penezenka)
+    <div class="form-group row">
+        <label class="col-md-2 control-label">PSČ: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.adresa.PSC)</div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.penezenka)
+    @if (Model.poznamka != null)
+    {
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Poznámka: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.poznamka)</div>
     </div>
+    }
+    <div class="form-group row">
+        <label class="col-md-2 control-label">Peněženka: </label>
+        <div class="col-md-10">@Html.DisplayFor(model => model.penezenka) Kč</div>
 </fieldset>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     <p>
-        <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        <button type="submit" class="btn btn-default">Vymazat</button> |
+        @Html.ActionLink("Zpět na seznam", "Index")
     </p>
 }

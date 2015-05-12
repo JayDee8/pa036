@@ -1,40 +1,27 @@
 ﻿@model bcpp.Models.sledovane
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Vymazat";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>Opravdu chcete vymazat tuto sledovanou?</h3>
 <fieldset>
     <legend>sledovane</legend>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.nazev)
+    <div class="form-group row">
+        <label class="col-md-1 control-label">Název: </label>
+        <div class="col-md-9">@Html.DisplayFor(model => model.nazev)</div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.nazev)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.uzivatel.jmeno)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.uzivatel.jmeno)
+    <div class="form-group row">
+        <label class="col-md-1 control-label">Akcie: </label>
+        <div class="col-md-9">@Html.DisplayFor(model => model.akcie.nazev)</div>
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.akcie.nazev)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.akcie.nazev)
-    </div>
 </fieldset>
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     <p>
-        <input type="submit" value="Delete" /> |
+        <button class="btn btn-default" type="submit">Vymazat</button> |
         @Html.ActionLink("Back to List", "Index")
     </p>
 }
